@@ -1,0 +1,165 @@
+import 'package:flutter/material.dart';
+import 'package:dynamic_widget_builder/dynamic_widget_builder.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Dynamic Widget Builder Test'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'XML Input',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 10),
+              DynamicWidgetBuilder.buildFromXml('''
+
+  
+    
+ <GridView crossAxisCount="3" mainAxisSpacing="10" crossAxisSpacing="10" childAspectRatio="1" height="300">
+  <Container color="#FFEB3B" padding="10,10,10,10">
+    <Center>
+      <Text text="Grid Item 1" color="#000000"/>
+    </Center>
+  </Container>
+  <Container color="#FF5722" padding="10,10,10,10">
+    <Center>
+      <Text text="Grid Item 2" color="#FFFFFF"/>
+    </Center>
+  </Container>
+  <Container color="#4CAF50" padding="10,10,10,10">
+    <Center>
+      <Text text="Grid Item 3" color="#FFFFFF"/>
+    </Center>
+  </Container>
+  <Container color="#2196F3" padding="10,10,10,10">
+      <Center>
+        <Text text="Grid Item 4" color="#FFFFFF"/>
+      </Center>
+    </Container>
+    <Container color="#9C27B0" padding="10,10,10,10">
+      <Center>
+        <Text text="Grid Item 5" color="#FFFFFF"/>
+      </Center>
+    </Container>
+    <Container color="#FF9800" padding="10,10,10,10">
+      <Center>
+        <Text text="Grid Item 6" color="#000000"/>
+      </Center>
+    </Container>
+
+</GridView>
+
+   
+
+
+
+
+              '''),
+              const Divider(),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'JSON Input',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 10),
+              DynamicWidgetBuilder.buildFromJson('''
+
+{
+  "type": "GridView",
+  "properties": {
+    "crossAxisCount": 3,
+    "mainAxisSpacing": 10,
+    "crossAxisSpacing": 10,
+    "childAspectRatio": 1,
+    "height": 300,
+    "children": [
+      {
+        "type": "Container",
+        "properties": {
+          "color": "#FFEB3B",
+          "padding": "10,10,10,10",
+          "child": {
+            "type": "Center",
+            "properties": {
+              "child": {
+                "type": "Text",
+                "properties": {
+                  "text": "Grid Item 1",
+                  "color": "#000000"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "Container",
+        "properties": {
+          "color": "#FF5722",
+          "padding": "10,10,10,10",
+          "child": {
+            "type": "Center",
+            "properties": {
+              "child": {
+                "type": "Text",
+                "properties": {
+                  "text": "Grid Item 2",
+                  "color": "#FFFFFF"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "Container",
+        "properties": {
+          "color": "#4CAF50",
+          "padding": "10,10,10,10",
+          "child": {
+            "type": "Center",
+            "properties": {
+              "child": {
+                "type": "Text",
+                "properties": {
+                  "text": "Grid Item 3",
+                  "color": "#FFFFFF"
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+
+
+
+
+              '''),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
