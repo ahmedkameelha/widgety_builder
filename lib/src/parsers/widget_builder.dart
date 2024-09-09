@@ -148,6 +148,8 @@ class WidgetBuilder {
         return _buildOutlinedButton(description.properties);  
       case 'IconButton': 
         return _buildIconButton(description.properties);
+        
+
       case 'FloatingActionButton': 
         return _buildFloatingActionButton(description.properties);     
 
@@ -160,26 +162,6 @@ class WidgetBuilder {
       return ErrorWidget('Failed to build widget: ${description.type}');
     }
   }
-
-// static Widget _buildText(Map<String, dynamic> properties) {
-//   TextStyle? style;
-//   if (properties.containsKey('style') || properties.containsKey('color') || properties.containsKey('fontSize')) {
-//     style = TextStyle(
-//       color: _parseColor(properties['color'] ?? '#000000'),  // default color
-//       fontSize: double.tryParse(properties['fontSize']?.toString() ?? '14'), // default font size
-//       fontWeight: _parseFontWeight(properties['fontWeight']),
-//       fontFamily: properties['fontFamily'] ?? 'Arial', // default font family
-//     );
-//   }
-
-//   // Safeguard text property to ensure it is never null
-//   String text = properties['text']?.toString() ?? 'Default Text';
-
-//   return Text(
-//     text,
-//     style: style,
-//   );
-// }
 
 static Widget _buildText(Map<String, dynamic> properties) {
     // Wrap widget building in try-catch
@@ -224,36 +206,77 @@ static Widget _buildText(Map<String, dynamic> properties) {
     // Wrap widget building in try-catch
     try {
       return Container(
-        color: _parseColor(properties['color']),
+        key: properties['key'] != null ? Key(properties['key']) : null,
+        alignment: _parseAlignment(properties['alignment']),
         padding: _parsePadding(properties['padding']),
+        color: _parseColor(properties['color']),
+        decoration: properties['decoration'] != null ? const BoxDecoration() : null, 
+        foregroundDecoration: properties['foregroundDecoration'] != null ? const BoxDecoration() : null, 
+        width: properties['width'] != null ? double.tryParse(properties['width'].toString()) : null,
+        height: properties['height'] != null ? double.tryParse(properties['height'].toString()) : null,
+        constraints: properties['constraints'] != null ? const BoxConstraints() : null, 
+        margin: _parsePadding(properties['margin']),
+        transform: properties['transform'] != null ? Matrix4.identity() : null, 
+        transformAlignment: _parseAlignment(properties['transformAlignment']),
         child: properties['child'] != null
             ? build(WidgetDescription.fromJson(properties['child']))
             : null,
+        clipBehavior: properties['clipBehavior'] != null ? Clip.values.firstWhere((e) => e.toString() == 'Clip.${properties['clipBehavior']}') : Clip.none,
       );
     } catch (e) {
-      // Return a placeholder in case of an error
+      
       print('Error building Container widget: $e');
-      return const SizedBox.shrink(); // Fallback if the Container fails to build
+      return const SizedBox.shrink(); 
     }
   }
+  
+
+  
 
 
 
 
-  // static Widget _buildContainer(Map<String, dynamic> properties) {
-  //   // Ensure Container only has one child
-  //   if (properties.containsKey('children')) {
-  //     throw Exception("Container can only have one child.");
-  //   }
+    static Widget _buildBody(Map<String, dynamic> properties) {
+      
+      try {
+        return Container(
+          key: properties['key'] != null ? Key(properties['key']) : null,
+          color: _parseColor(properties['backgroundColor']) ?? Colors.white,
+          padding: _parsePadding(properties['padding']) ?? const EdgeInsets.all(16.0),
+          margin: _parsePadding(properties['margin']),
+          width: properties['width'] != null ? double.tryParse(properties['width'].toString()) : null,
+          height: properties['height'] != null ? double.tryParse(properties['height'].toString()) : null,
+          constraints: properties['constraints'] != null ? _parseBoxConstraints(properties['constraints']) : null,
+          alignment: _parseAlignment(properties['alignment']),
+          child: properties['child'] != null
+              ? build(WidgetDescription.fromJson(properties['child']))
+              : const SizedBox.shrink(), // Fallback if no child is provided
+        );
+      } catch (e) {
+        // Return a placeholder in case of an error
+        print('Error building Body widget: $e');
+        return const SizedBox.shrink(); // Fallback if the Body fails to build
+      }
+    }
 
-  //   return Container(
-  //     color: _parseColor(properties['color']),
-  //     padding: _parsePadding(properties['padding']),
-  //     child: properties['child'] != null
-  //         ? build(_getWidgetDescription(properties['child']))
-  //         : null,
-  //   );
-  // }
+
+    static BoxConstraints _parseBoxConstraints(dynamic constraints) {
+      if (constraints is Map<String, dynamic>) {
+        double? minWidth = constraints['minWidth'] != null ? double.tryParse(constraints['minWidth'].toString()) : null;
+        double? maxWidth = constraints['maxWidth'] != null ? double.tryParse(constraints['maxWidth'].toString()) : null;
+        double? minHeight = constraints['minHeight'] != null ? double.tryParse(constraints['minHeight'].toString()) : null;
+        double? maxHeight = constraints['maxHeight'] != null ? double.tryParse(constraints['maxHeight'].toString()) : null;
+
+        return BoxConstraints(
+          minWidth: minWidth ?? 0,
+          maxWidth: maxWidth ?? double.infinity,
+          minHeight: minHeight ?? 0,
+          maxHeight: maxHeight ?? double.infinity,
+        );
+      }
+      // Return default constraints if the input is not a valid map
+      return const BoxConstraints();
+    }
 
 
     static Widget _buildColumn(Map<String, dynamic> properties) {
@@ -270,16 +293,32 @@ static Widget _buildText(Map<String, dynamic> properties) {
   }
 
 
+static Widget _buildImage(Map<String, dynamic> properties) {
+  // Wrap widget building in try-catch
+  try {
+    final String? imageUrl = properties['url'];
+    
+    // Ensure the URL is provided and starts with 'http'
+    if (imageUrl == null || !imageUrl.startsWith('http')) {
+      throw Exception("Invalid image URL. It must start with 'http'.");
+    }
+
+    return Image.network(
+      imageUrl,
+      errorBuilder: (context, error, stackTrace) {
+        print('Error loading image: $error');
+        return const SizedBox.shrink(); // Fallback if the image fails to load
+      },
+    );
+  } catch (e) {
+    // Return a placeholder in case of an error
+    print('Error building Image widget: $e');
+    return const SizedBox.shrink(); // Fallback if the Image fails to build
+  }
+}
 
 
-// static Widget _buildColumn(Map<String, dynamic> properties) {
-//   return Column(
-//     crossAxisAlignment: _parseCrossAxisAlignment(properties['crossAxisAlignment']),
-//     mainAxisAlignment: _parseMainAxisAlignment(properties['mainAxisAlignment']),
-//     mainAxisSize: _parseMainAxisSize(properties['mainAxisSize']),
-//     children: _buildChildren(properties['children']),
-//   );
-// }
+
 
 static Widget _buildRow(Map<String, dynamic> properties) {
   try {
@@ -287,7 +326,9 @@ static Widget _buildRow(Map<String, dynamic> properties) {
       crossAxisAlignment: _parseCrossAxisAlignment(properties['crossAxisAlignment']),
       mainAxisAlignment: _parseMainAxisAlignment(properties['mainAxisAlignment']),
       mainAxisSize: _parseMainAxisSize(properties['mainAxisSize']),
-      children: _buildChildren(properties['children']),
+      children: properties['children'] != null
+          ? _buildChildren(properties['children'])
+          : [], // Ensure children is not null
     );
   } catch (e) {
     // Return a placeholder in case of an error
@@ -352,33 +393,34 @@ static Widget _buildElevatedButton(Map<String, dynamic> properties) {
 }
 
 static Widget _buildTextButton(Map<String, dynamic> properties) {
-  try {
-    return TextButton(
-      onPressed: properties['onPressed'] != null
-          ? () {
-              // Define your onPressed logic here
+  return TextButton(
+    onPressed: properties['onPressed'] != null
+        ? () {
+            try {
+              properties['onPressed']();
+            } catch (e) {
+              print('Error handling button press: $e');
             }
-          : null,
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all<Color>(
-          _parseColor(properties['backgroundColor']) ?? Colors.transparent,
-        ),
-        foregroundColor: WidgetStateProperty.all<Color>(
-          _parseColor(properties['textColor']) ?? Colors.black,
-        ),
-        padding: WidgetStateProperty.all<EdgeInsets>(
-          _parsePadding(properties['padding']) ?? const EdgeInsets.all(8.0),
-        ),
+          }
+        : null,
+    style: ButtonStyle(
+      backgroundColor: WidgetStateProperty.all<Color>(
+        _parseColor(properties['backgroundColor']) ?? Colors.transparent,
       ),
-      child: Text(
-        properties['text'] ?? '',
-        style: TextStyle(fontSize: double.tryParse(properties['fontSize']!.toString()) ?? 14),
+      foregroundColor: WidgetStateProperty.all<Color>(
+        _parseColor(properties['textColor']) ?? Colors.black,
       ),
-    );
-  } catch (e) {
-    print('Error building TextButton widget: $e');
-    return const SizedBox.shrink(); // Fallback if the TextButton fails to build
-  }
+      padding: WidgetStateProperty.all<EdgeInsets>(
+        _parsePadding(properties['padding']) ?? const EdgeInsets.all(8.0),
+      ),
+    ),
+    child: Text(
+      properties['text'] ?? '',
+      style: TextStyle(
+        fontSize: double.tryParse(properties['fontSize']?.toString() ?? '14') ?? 14,
+      ),
+    ),
+  );
 }
 
 static Widget _buildIconButton(Map<String, dynamic> properties) {
@@ -386,15 +428,17 @@ static Widget _buildIconButton(Map<String, dynamic> properties) {
       return IconButton(
         icon: properties['icon'] != null
             ? build(WidgetDescription.fromJson(properties['icon']))
-            : Icon(Icons.error), // Fallback icon
+            : const Icon(Icons.error), // Fallback icon
         color: _parseColor(properties['color']),
         onPressed: properties['onPressed'] != null ? () {} : null, // Dummy onPressed function
       );
     } catch (e) {
       print('Error building IconButton widget: $e');
-      return SizedBox.shrink(); // Fallback if IconButton fails
+      return const SizedBox.shrink(); // Fallback if IconButton fails
     }
   }
+
+
 
 
   static Widget _buildFloatingActionButton(Map<String, dynamic> properties) {
@@ -415,7 +459,7 @@ static Widget _buildIconButton(Map<String, dynamic> properties) {
     mini: properties['mini'] ?? false, // If mini FAB is required
     child: properties['child'] != null
         ? build(WidgetDescription.fromJson(properties['child']))
-        : Icon(_parseIconData(properties['icon']) ?? Icons.add),
+        : Icon(_parseIconData(properties['icon']) ),
   );
 }
 
@@ -430,19 +474,6 @@ static ShapeBorder _parseShape(String? shapeType) {
       );
     default:
       return const CircleBorder();
-  }
-}
-
-static IconData _parseIconData(String? iconName) {
-  switch (iconName) {
-    case 'add':
-      return Icons.add;
-    case 'edit':
-      return Icons.edit;
-    case 'home':
-      return Icons.home;
-    default:
-      return Icons.add;
   }
 }
 
@@ -485,6 +516,7 @@ static Widget _buildOutlinedButton(Map<String, dynamic> properties) {
 
 
 
+
 static Widget _buildCard(Map<String, dynamic> properties) {
   try {
     return Card(
@@ -508,8 +540,6 @@ static Widget _buildCard(Map<String, dynamic> properties) {
     return const SizedBox.shrink(); // Fallback if the Card fails to build
   }
 }
-
-
 
 
 // Helper function to parse StackFit from string
@@ -614,80 +644,44 @@ static Widget _buildPositioned(Map<String, dynamic> properties) {
   }
 
 
-  static Widget _buildGridView(Map<String, dynamic> properties) {
-    try {
-      int crossAxisCount = int.tryParse(properties['crossAxisCount']?.toString() ?? '2') ?? 2;
-      double mainAxisSpacing = double.tryParse(properties['mainAxisSpacing']?.toString() ?? '0') ?? 0;
-      double crossAxisSpacing = double.tryParse(properties['crossAxisSpacing']?.toString() ?? '0') ?? 0;
-      double childAspectRatio = double.tryParse(properties['childAspectRatio']?.toString() ?? '1') ?? 1;
-      
-      // Parse optional height and width properties
-      double? height = double.tryParse(properties['height']?.toString() ?? '');
-      double? width = double.tryParse(properties['width']?.toString() ?? '');
+static Widget _buildGridView(Map<String, dynamic> properties) {
+  try {
+    int crossAxisCount = int.tryParse(properties['crossAxisCount']?.toString() ?? '2') ?? 2;
+    double mainAxisSpacing = double.tryParse(properties['mainAxisSpacing']?.toString() ?? '0') ?? 0;
+    double crossAxisSpacing = double.tryParse(properties['crossAxisSpacing']?.toString() ?? '0') ?? 0;
+    double childAspectRatio = double.tryParse(properties['childAspectRatio']?.toString() ?? '1') ?? 1;
 
-      // Construct the GridView widget
-      Widget gridView = GridView.count(
-        crossAxisCount: crossAxisCount,
-        mainAxisSpacing: mainAxisSpacing,
-        crossAxisSpacing: crossAxisSpacing,
-        childAspectRatio: childAspectRatio,
-        children: _buildChildren(properties['children']),
+    // Parse optional height and width properties
+    double? height = double.tryParse(properties['height']?.toString() ?? '');
+    double? width = double.tryParse(properties['width']?.toString() ?? '');
+
+    // Construct the GridView widget
+    Widget gridView = GridView.count(
+      crossAxisCount: crossAxisCount,
+      mainAxisSpacing: mainAxisSpacing,
+      crossAxisSpacing: crossAxisSpacing,
+      childAspectRatio: childAspectRatio,
+      children: _buildChildren(properties['children']),
+    );
+
+    // Apply height and/or width constraints if provided
+    if (height != null || width != null) {
+      gridView = SizedBox(
+        height: height,
+        width: width,
+        child: gridView,
       );
-
-      // Apply height and/or width constraints if provided
-      if (height != null || width != null) {
-        gridView = SizedBox(
-          height: height,
-          width: width,
-          child: gridView,
-        );
-      }
-
-      return gridView;
-    } catch (e) {
-      // Return a placeholder in case of an error
-      print('Error building GridView widget: $e');
-      return const SizedBox.shrink(); // Fallback if the GridView fails to build
     }
+
+    return gridView;
+  } catch (e) {
+    // Return a placeholder in case of an error
+    print('Error building GridView widget: $e');
+    return const SizedBox.shrink(); // Fallback if the GridView fails to build
   }
+}
 
 
-
-
-
-
-
-// static Widget _buildGridView(Map<String, dynamic> properties) {
-//   int crossAxisCount = int.tryParse(properties['crossAxisCount']?.toString() ?? '2') ?? 2;
-//   double mainAxisSpacing = double.tryParse(properties['mainAxisSpacing']?.toString() ?? '0') ?? 0;
-//   double crossAxisSpacing = double.tryParse(properties['crossAxisSpacing']?.toString() ?? '0') ?? 0;
-//   double childAspectRatio = double.tryParse(properties['childAspectRatio']?.toString() ?? '1') ?? 1;
-//   double? height = double.tryParse(properties['height']?.toString() ?? '');
-//   double? width = double.tryParse(properties['width']?.toString() ?? '');
-
-//   // Handling the height or width constraints
-//   Widget gridView = GridView.count(
-//     crossAxisCount: crossAxisCount,
-//     mainAxisSpacing: mainAxisSpacing,
-//     crossAxisSpacing: crossAxisSpacing,
-//     childAspectRatio: childAspectRatio,
-//     children: _buildChildren(properties['children']),
-//   );
-
-//   // Apply height/width constraints if provided
-//   if (height != null || width != null) {
-//     gridView = SizedBox(
-//       height: height,
-//       width: width,
-//       child: gridView,
-//     );
-//   }
-
-//   return gridView;
-// }
-
-
- 
 
   static Widget _buildSizedBox(Map<String, dynamic> properties) {
     try {
@@ -1102,6 +1096,11 @@ static Widget _buildPositioned(Map<String, dynamic> properties) {
     }
   }
 
+  
+
+
+
+
   static Widget _buildUnconstrainedBox(Map<String, dynamic> properties) {
     try {
       return UnconstrainedBox(
@@ -1133,25 +1132,8 @@ static Widget _buildPositioned(Map<String, dynamic> properties) {
     }
   }
 
-// static Widget _buildScaffold(Map<String, dynamic> properties) {
-//   return Scaffold(
-//     appBar: properties['appBar'] != null
-//         ? _buildAppBar(properties['appBar']) as PreferredSizeWidget?
-//         : null,
-//     body: properties['body'] != null
-//         ? build(WidgetDescription.fromJson(properties['body']))
-//         : null,
-//     floatingActionButton: properties['floatingActionButton'] != null
-//         ? build(WidgetDescription.fromJson(properties['floatingActionButton']))
-//         : null,
-//     drawer: properties['drawer'] != null
-//         ? _buildDrawer(properties['drawer'])
-//         : null,
-//     bottomNavigationBar: properties['bottomNavigationBar'] != null
-//         ? _buildBottomNavigationBar(properties['bottomNavigationBar'])
-//         : null,
-//   );
-// }
+
+
 
 
 static Widget _buildScaffold(Map<String, dynamic> properties) {
@@ -1595,6 +1577,62 @@ static Widget _buildAppBar(Map<String, dynamic> properties) {
       );
     }
   }
+
+
+  static Widget _buildIcon(Map<String, dynamic> properties) {
+    try {
+      final iconData = _parseIconData(properties['icon']);
+      final color = _parseColor(properties['color']);
+      return Icon(
+        iconData,
+        color: color,
+      );
+    } catch (e) {
+      print('Error building Icon widget: $e');
+      return const Icon(Icons.error); // Fallback for Icon
+    }
+  }
+
+static IconData _parseIconData(String? iconName) {
+  if (iconName == null) {
+    return Icons.error; // Return error icon if iconName is null
+  }
+
+  switch (iconName) {
+    case 'Icons.favorite':
+      return Icons.favorite;
+    case 'Icons.share':
+      return Icons.share;
+    case 'Icons.add':
+      return Icons.add;
+    case 'Icons.edit':
+      return Icons.edit;
+    case 'Icons.home':
+      return Icons.home;
+    case 'Icons.settings':
+      return Icons.settings; // Added settings icon
+    case 'Icons.person':
+      return Icons.person; // Added person icon
+    case 'Icons.notifications':
+      return Icons.notifications; // Added notifications icon
+    case 'Icons.search':
+      return Icons.search; // Added search icon
+    case 'Icons.camera':
+      return Icons.camera; // Added camera icon
+    case 'Icons.location_on':
+      return Icons.location_on; // Added location icon
+    case 'Icons.message':
+      return Icons.message; // Added message icon
+    case 'Icons.video_call':
+      return Icons.video_call; // Added video call icon
+    default:
+      return Icons.error; // Return error icon for unrecognized icon names
+  }
+}
+
+
+
+
 
   static Widget _buildSlideTransition(Map<String, dynamic> properties) {
     try {
