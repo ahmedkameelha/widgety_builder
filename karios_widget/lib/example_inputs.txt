@@ -110,3 +110,58 @@
 </GridView>
 </Column>
 
+
+
+
+<Column>
+                  <Text text="Welcome to Dynamic Widget Builder!" color="#123456" fontSize="24" fontWeight="bold"/>
+                  <Container color="#EFEFEF" padding="20,20,20,20">
+                    <Align alignment="center">
+                      <Column>
+                        <Text text="Centered Text in Container" color="#0000FF" fontSize="18"/>
+                        <SizedBox width="150" height="50">
+                          <Container color="#FF5722" padding="5,5,5,5">
+                            <Center>
+                              <Text text="Sized Box Text" color="#FFFFFF" fontSize="16"/>
+                            </Center>
+                          </Container>
+                        </SizedBox>
+                      </Column>
+                    </Align>
+                  </Container>
+                  <Row>
+                    <Expanded flex="1">
+                      <Container color="#FF0000">
+                        <Text text="First Row Item" color="#FFFFFF" fontSize="16"/>
+                      </Container>
+                    </Expanded>
+                    <SizedBox width="10"/>
+                    <Expanded flex="2">
+                      <Container color="#00FF00">
+                        <Text text="Second Row Item with More Space" color="#000000" fontSize="16"/>
+                      </Container>
+                    </Expanded>
+                  </Row>
+                  <GridView crossAxisCount="2" mainAxisSpacing="10" crossAxisSpacing="10" height="200">
+                    <Container color="#FFC107" padding="10,10,10,10">
+                      <Center>
+                        <Text text="Grid Item 1" color="#000000"/>
+                      </Center>
+                    </Container>
+                    <Container color="#8BC34A" padding="10,10,10,10">
+                      <Center>
+                        <Text text="Grid Item 2" color="#000000"/>
+                      </Center>
+                    </Container>
+                    <Container color="#FF9800" padding="10,10,10,10">
+                      <Center>
+                        <Text text="Grid Item 3" color="#000000"/>
+                      </Center>
+                    </Container>
+                    <Container color="#F44336" padding="10,10,10,10">
+                      <Center>
+                        <Text text="Grid Item 4" color="#000000"/>
+                      </Center>
+                    </Container>
+                  </GridView>
+                </Column>
