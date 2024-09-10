@@ -28,39 +28,95 @@ class MyApp extends StatelessWidget {
                     
                         <Column>
 
+<!-- Header Section -->
+  <Container padding="16,16,16,16" color="#2196F3" borderRadius="8">
+    <Center>
+      <Text text="Dynamic Flutter App" fontSize="17" color="#FFFFFF" fontWeight="bold" />
+    </Center>
+  </Container>
 
-                           <Container padding="16,16,16,16" color="#FFCC80" borderRadius="12">
-    <Column>
-        <Text text="Good afternoon, Emmanuel" fontSize="18" color="#FFFFFF" />
-        <Text text="Account Balance" fontSize="14" color="#A1887F" />
-        
-        
-        <SizedBox height="50" width="80">
-                 
-                <Text text="55,690" fontSize="16" color="#FFFFFF" />
-                
-            
-        </SizedBox>
+    
 
-        <Row>
-            <Text text="Account No. " fontSize="14" color="#A1887F" />
-            <Text text=" 46012000015041" fontSize="16" color="#FFFFFF" />
-            <IconButton icon="Icons.copy" color="#FFFFFF" />
-        </Row>
-    </Column>
+<Container padding="16,16,16,16" color="#FFCC80" borderRadius="12" height="20">
+                  
+        <Center>
+            <Text text="Hello, Flutter Enthusiast" fontSize="16" color="#FFFFFF" />
+        </Center>
+      
+    
 </Container>
 
-<Container padding="16,16,16,16" color="#FFCC80" borderRadius="12" height="40">
-    <Column>                
-        <SizedBox height="50" width="80">
-            <Text text=" " fontSize="16" color="#FFFFFF" />
-        </SizedBox>
+  <!-- Welcome Message Section -->
+  <Container padding="12,12,12,12" color="#FFC107" borderRadius="20" margin="10,0,10,0" height="50">
+  <Center>
+      <Text text="Let's build stunning UIs dynamically." fontSize="14" color="#FFFFFF" />
+  </Center>
+   
+  </Container>
 
-    </Column>
+ <!-- Grid View Section -->
+
+
+
+
+<Container margin="10,0,10,0">
+  <GridView crossAxisCount="2" mainAxisSpacing="10" crossAxisSpacing="10" childAspectRatio="1" height="300">
+    
+    <!-- Check Balance -->
+    <Container color="#E91E63" padding="10,10,10,10" borderRadius="10">
+      <Column>
+        <!-- Wrap Icon with Expanded to prevent overflow -->
+        <Expanded>
+          <Icon icon="Icons.person" size="30" color="#FFFFFF"/>
+        </Expanded>
+        <Center>
+          <Text text="Check Balance" fontSize="16" color="#FFFFFF" />
+        </Center>
+      </Column>
+    </Container>
+    
+    <!-- Transfer Funds -->
+    <Container color="#4CAF50" padding="10,10,10,10" borderRadius="10">
+      <Column>
+        <Expanded>
+          <Icon icon="Icons.shopping_cart" size="30" color="#FFFFFF"/>
+        </Expanded>
+        <Center>
+          <Text text="Transfer Funds" fontSize="16" color="#FFFFFF" />
+        </Center>
+      </Column>
+    </Container>
+    
+    <!-- Pay Bills -->
+    <Container color="#FF9800" padding="10,10,10,10" borderRadius="10">
+      <Column>
+        <Expanded>
+          <Icon icon="Icons.home" size="30" color="#FFFFFF"/>
+        </Expanded>
+        <Center>
+          <Text text="Pay Bills" fontSize="16" color="#FFFFFF" />
+        </Center>
+      </Column>
+    </Container>
+    
+    <!-- Transaction History -->
+    <Container color="#3F51B5" padding="10,10,10,10" borderRadius="10">
+      <Column>
+        <Expanded>
+          <Icon icon="Icons.thumb_up" size="30" color="#FFFFFF"/>
+        </Expanded>
+        <Center>
+          <Text text="Transaction History" fontSize="16" color="#FFFFFF" />
+        </Center>
+      </Column>
+    </Container>
+
+  </GridView>
 </Container>
 
 
-        
+
+ 
 
 
 
@@ -197,6 +253,14 @@ class MyApp extends StatelessWidget {
                                 </Column>
                             </Container>
 
+
+                            <FloatingActionButton 
+                                onPressed="showModalBottomSheet(context: context, builder: (BuildContext context) => Container(padding: EdgeInsets.all(16), child: Column(mainAxisSize: MainAxisSize.min, children: [ListTile(leading: Icon(Icons.add), title: Text('Add New'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.edit), title: Text('Edit'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.delete), title: Text('Delete'), onTap: () { Navigator.pop(context); }),])));" 
+                                backgroundColor="#FFFF4081" 
+                            />
+
+
+                            
                             <!-- Action Buttons for Transfers and Payments -->
 
 

@@ -951,26 +951,34 @@ static Widget _buildIconButton(Map<String, dynamic> properties) {
 
 
   static Widget _buildFloatingActionButton(Map<String, dynamic> properties) {
-  return FloatingActionButton(
-    onPressed: properties['onPressed'] != null
-        ? () {
-            // Define your onPressed logic here
-          }
-        : null,
-    backgroundColor: _parseColor(properties['backgroundColor']) ?? Colors.blue,
-    foregroundColor: _parseColor(properties['foregroundColor']) ?? Colors.white,
-    tooltip: properties['tooltip']?.toString() ?? '',
-    elevation: double.tryParse(properties['elevation']!.toString()) ?? 6.0,
-    hoverElevation: double.tryParse(properties['hoverElevation']!.toString()) ?? 8.0,
-    shape: properties['shape'] != null
-        ? _parseShape(properties['shape'])
-        : const CircleBorder(),
-    mini: properties['mini'] ?? false, // If mini FAB is required
-    child: properties['child'] != null
-        ? build(WidgetDescription.fromJson(properties['child']))
-        : Icon(_parseIconData(properties['icon']) ),
-  );
-}
+    return FloatingActionButton(
+      onPressed: properties['onPressed'] is Function
+          ? () {
+              try {
+                (properties['onPressed'] as Function)();
+              } catch (e) {
+                print('Error handling FloatingActionButton press: $e');
+              }
+            }
+          : null,
+      backgroundColor: _parseColor(properties['backgroundColor']) ?? const Color(0xFFFF4081),
+      foregroundColor: _parseColor(properties['foregroundColor']) ?? Colors.white,
+      tooltip: properties['tooltip']?.toString() ?? '',
+      elevation: (properties['elevation'] is num)
+          ? (properties['elevation'] as num).toDouble()
+          : 6.0,
+      hoverElevation: (properties['hoverElevation'] is num)
+          ? (properties['hoverElevation'] as num).toDouble()
+          : 8.0,
+      shape: properties['shape'] != null
+          ? _parseShape(properties['shape'])
+          : const CircleBorder(),
+      mini: properties['mini'] ?? false,
+      child: properties['child'] != null
+          ? build(WidgetDescription.fromJson(properties['child']))
+          : Icon(_parseIconData(properties['icon'])),
+    );
+  }
 
 
 static ShapeBorder _parseShape(String? shapeType) {
@@ -1000,7 +1008,16 @@ static Widget _buildOutlinedButton(Map<String, dynamic> properties) {
     return OutlinedButton(
       onPressed: properties['onPressed'] != null
           ? () {
-              // Define the button action here
+              try {
+                // Ensure the onPressed is a function before calling it
+                if (properties['onPressed'] is Function) {
+                  (properties['onPressed'] as Function)();
+                } else {
+                  print('onPressed is not a function');
+                }
+              } catch (e) {
+                print('Error handling OutlinedButton press: $e');
+              }
             }
           : null,
       style: ButtonStyle(
@@ -1017,7 +1034,7 @@ static Widget _buildOutlinedButton(Map<String, dynamic> properties) {
         properties['text'] ?? '',
         style: TextStyle(
           color: _parseColor(properties['textColor']) ?? Colors.blue,
-          fontSize: double.tryParse(properties['fontSize']!.toString()) ?? 14,
+          fontSize: double.tryParse(properties['fontSize']?.toString() ?? '14') ?? 14,
         ),
       ),
     );
@@ -1983,20 +2000,53 @@ static Widget _buildAppBar(Map<String, dynamic> properties) {
     }
   }
 
-
   static Widget _buildIcon(Map<String, dynamic> properties) {
+    // Default values
+    double size = properties['size'] != null
+        ? double.tryParse(properties['size'].toString()) ?? 24.0
+        : 24.0;
+    Color color = properties['color'] != null
+        ? _parseColor(properties['color'].toString()) ?? Colors.black
+        : Colors.black;
+
+    String? iconName = properties['icon'];
+    IconData? iconData;
+
     try {
-      final iconData = _parseIconData(properties['icon']);
-      final color = _parseColor(properties['color']);
+      if (iconName != null) {
+        iconData = _parseIconData(iconName); // This will handle parsing the icon.
+      }
+
+      if (iconData == null) {
+        throw Exception('Icon data is null or unsupported for icon: $iconName');
+      }
+
       return Icon(
         iconData,
+        size: size,
         color: color,
       );
     } catch (e) {
       print('Error building Icon widget: $e');
-      return const Icon(Icons.error); // Fallback for Icon
+      return const Icon(Icons.error); // Fallback for unsupported icons
     }
   }
+
+
+
+  // static Widget _buildIcon(Map<String, dynamic> properties) {
+  //   try {
+  //     final iconData = _parseIconData(properties['icon']);
+  //     final color = _parseColor(properties['color']);
+  //     return Icon(
+  //       iconData,
+  //       color: color,
+  //     );
+  //   } catch (e) {
+  //     print('Error building Icon widget: $e');
+  //     return const Icon(Icons.error); // Fallback for Icon
+  //   }
+  // }
 
 static IconData _parseIconData(String? iconName) {
   if (iconName == null) {
@@ -2006,12 +2056,14 @@ static IconData _parseIconData(String? iconName) {
   switch (iconName) {
     case 'Icons.favorite':
       return Icons.favorite;
-    case 'Icons.share':
-      return Icons.share;
     case 'Icons.add':
       return Icons.add;
+    case 'Icons.delete':
+      return Icons.delete;
     case 'Icons.edit':
-      return Icons.edit;
+      return Icons.edit;  
+    case 'Icons.share':
+      return Icons.share;
     case 'Icons.home':
       return Icons.home;
     case 'Icons.settings':
@@ -2030,6 +2082,86 @@ static IconData _parseIconData(String? iconName) {
       return Icons.message; // Added message icon
     case 'Icons.video_call':
       return Icons.video_call; // Added video call icon
+    case 'Icons.shopping_cart':
+      return Icons.shopping_cart; // Added shopping cart icon
+    case 'Icons.favorite_border':
+      return Icons.favorite_border; // Added favorite border icon
+    case 'Icons.access_alarm':
+      return Icons.access_alarm; // Added access alarm icon
+    case 'Icons.accessibility':
+      return Icons.accessibility; // Added accessibility icon
+    case 'Icons.account_circle':
+      return Icons.account_circle; // Added account circle icon
+    case 'Icons.arrow_back':
+      return Icons.arrow_back; // Added arrow back icon
+    case 'Icons.arrow_forward':
+      return Icons.arrow_forward; // Added arrow forward icon
+    case 'Icons.brightness_6':
+      return Icons.brightness_6; // Added brightness icon
+    case 'Icons.camera_alt':
+      return Icons.camera_alt; // Added camera alt icon
+    case 'Icons.chat':
+      return Icons.chat; // Added chat icon
+    case 'Icons.check_circle':
+      return Icons.check_circle; // Added check circle icon
+    case 'Icons.clear':
+      return Icons.clear; // Added clear icon
+    case 'Icons.cloud':
+      return Icons.cloud; // Added cloud icon
+    case 'Icons.date_range':
+      return Icons.date_range; // Added date range icon
+    case 'Icons.directions':
+      return Icons.directions; // Added directions icon
+    case 'Icons.edit_location':
+      return Icons.edit_location; // Added edit location icon
+    case 'Icons.favorite_outline':
+      return Icons.favorite_outline; // Added favorite outline icon
+    case 'Icons.file_copy':
+      return Icons.file_copy; // Added file copy icon
+    case 'Icons.folder':
+      return Icons.folder; // Added folder icon
+    case 'Icons.group':
+      return Icons.group; // Added group icon
+    case 'Icons.help':
+      return Icons.help; // Added help icon
+    case 'Icons.info':
+      return Icons.info; // Added info icon
+    case 'Icons.lock':
+      return Icons.lock; // Added lock icon
+    case 'Icons.lock_open':
+      return Icons.lock_open; // Added lock open icon
+    case 'Icons.map':
+      return Icons.map; // Added map icon
+    case 'Icons.more_horiz':
+      return Icons.more_horiz; // Added more horizontal icon
+    case 'Icons.more_vert':
+      return Icons.more_vert; // Added more vertical icon
+    case 'Icons.notifications_active':
+      return Icons.notifications_active; // Added active notifications icon
+    case 'Icons.palette':
+      return Icons.palette; // Added palette icon
+    case 'Icons.phone':
+      return Icons.phone; // Added phone icon
+    case 'Icons.print':
+      return Icons.print; // Added print icon
+    case 'Icons.public':
+      return Icons.public; // Added public icon
+    case 'Icons.refresh':
+      return Icons.refresh; // Added refresh icon
+    case 'Icons.save':
+      return Icons.save; // Added save icon
+    case 'Icons.share_location':
+      return Icons.share_location; // Added share location icon
+    case 'Icons.star':
+      return Icons.star; // Added star icon
+    case 'Icons.star_border':
+      return Icons.star_border; // Added star border icon
+    case 'Icons.thumb_up':
+      return Icons.thumb_up; // Added thumb up icon
+    case 'Icons.visibility':
+      return Icons.visibility; // Added visibility icon
+    case 'Icons.visibility_off':
+      return Icons.visibility_off; // Added visibility off icon
     default:
       return Icons.error; // Return error icon for unrecognized icon names
   }
