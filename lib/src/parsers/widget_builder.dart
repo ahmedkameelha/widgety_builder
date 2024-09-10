@@ -33,7 +33,6 @@ class WidgetBuilder {
           return _buildColumn(description.properties);
         case 'Row':
           return _buildRow(description.properties);
-        
         case 'ListView':
           return _buildListView(description.properties);
         case 'Expanded':
@@ -130,29 +129,26 @@ class WidgetBuilder {
           return _buildScaleTransition(description.properties);
         case 'SlideTransition':
           return _buildSlideTransition(description.properties);
-        case 'Opacity':
-          return _buildOpacity(description.properties);
         case 'Stack':
-        return _buildStack(description.properties); 
-      case 'Positioned':
-        return _buildPositioned(description.properties); 
-      case 'GridView':
-        return _buildGridView(description.properties);
-      case 'Card': 
-        return _buildCard(description.properties);
-      case 'RaisedButton': 
-        return _buildElevatedButton(description.properties);
-      case 'FlatButton': 
-        return _buildTextButton(description.properties);
-      case 'OutlineButton': 
-        return _buildOutlinedButton(description.properties);  
-      case 'IconButton': 
-        return _buildIconButton(description.properties);
-        
-
-      case 'FloatingActionButton': 
-        return _buildFloatingActionButton(description.properties);     
-
+          return _buildStack(description.properties); 
+        case 'Positioned':
+          return _buildPositioned(description.properties); 
+        case 'GridView':
+          return _buildGridView(description.properties);
+        case 'Card': 
+          return _buildCard(description.properties);
+        case 'RaisedButton': 
+          return _buildElevatedButton(description.properties);
+        case 'FlatButton': 
+          return _buildTextButton(description.properties);
+        case 'OutlineButton': 
+          return _buildOutlinedButton(description.properties);  
+        case 'IconButton': 
+          return _buildIconButton(description.properties);
+        case 'FloatingActionButton': 
+          return _buildFloatingActionButton(description.properties);
+        case 'TextButton': // Added missing widget
+          return _buildTextButton(description.properties); // Added missing widget
         default:
           throw Exception('Unsupported widget type: ${description.type}');
       }
@@ -185,7 +181,6 @@ static Widget _buildText(Map<String, dynamic> properties) {
     }
   }
 
-  
 
   static FontWeight? _parseFontWeight(String? fontWeight) {
     switch (fontWeight?.toLowerCase()) {
@@ -199,7 +194,6 @@ static Widget _buildText(Map<String, dynamic> properties) {
         return null;
     }
   }
-
 
 
   static Widget _buildContainer(Map<String, dynamic> properties) {
@@ -218,10 +212,10 @@ static Widget _buildText(Map<String, dynamic> properties) {
         margin: _parsePadding(properties['margin']),
         transform: properties['transform'] != null ? Matrix4.identity() : null, 
         transformAlignment: _parseAlignment(properties['transformAlignment']),
+        clipBehavior: properties['clipBehavior'] != null ? Clip.values.firstWhere((e) => e.toString() == 'Clip.${properties['clipBehavior']}') : Clip.none,
         child: properties['child'] != null
             ? build(WidgetDescription.fromJson(properties['child']))
             : null,
-        clipBehavior: properties['clipBehavior'] != null ? Clip.values.firstWhere((e) => e.toString() == 'Clip.${properties['clipBehavior']}') : Clip.none,
       );
     } catch (e) {
       
@@ -229,10 +223,241 @@ static Widget _buildText(Map<String, dynamic> properties) {
       return const SizedBox.shrink(); 
     }
   }
-  
 
-  
 
+    static Widget _buildSingleChildScrollView(Map<String, dynamic> properties) {
+        return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+                try {
+                    return SingleChildScrollView(
+                        scrollDirection: _parseScrollDirection(properties['scrollDirection']),
+                        reverse: properties['reverse'] ?? false,
+                        padding: _parsePadding(properties['padding']),
+                        clipBehavior: properties['clipBehavior'] != null 
+                            ? Clip.values.firstWhere((e) => e.toString() == 'Clip.${properties['clipBehavior']}', orElse: () => Clip.none) 
+                            : Clip.none,
+                        child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                                minHeight: constraints.minHeight,
+                                maxHeight: constraints.maxHeight,
+                                minWidth: constraints.minWidth,
+                                maxWidth: constraints.maxWidth,
+                            ),
+                            child: IntrinsicHeight(
+                                child: properties['child'] != null 
+                                    ? build(WidgetDescription.fromJson(properties['child'])) 
+                                    : Container(), // Provide an empty Container as a fallback
+                            ),
+                        ),
+                    );
+                } catch (e) {
+                    print('Error building SingleChildScrollView: $e');
+                    return Container(
+                        color: Colors.grey, // Placeholder color
+                        height: constraints.maxHeight,
+                        width: constraints.maxWidth,
+                        child: const Center(child: Text('Error loading content')),
+                    );
+                }
+            },
+        );
+    }
+
+
+
+
+
+    static Widget _buildListView(Map<String, dynamic> properties) {
+        try {
+            // Parse optional properties for ListView
+            Axis scrollDirection = _parseScrollDirection(properties['scrollDirection']);
+            bool reverse = properties['reverse'] ?? false;
+            bool primary = properties['primary'] ?? true;
+            bool shrinkWrap = properties['shrinkWrap'] ?? false;
+            double? itemExtent = properties['itemExtent'] != null ? double.tryParse(properties['itemExtent'].toString()) : null;
+
+            // Check if children are provided for ListView.builder or ListView
+            if (properties['children'] != null) {
+                return ListView.builder(
+                    scrollDirection: scrollDirection,
+                    reverse: reverse,
+                    shrinkWrap: shrinkWrap,
+                    itemCount: properties['itemCount'],
+                    padding: _parsePadding(properties['padding']),
+                    physics: _parseScrollPhysics(properties['physics']),
+                    itemBuilder: (context, index) {
+                        return index < properties['children'].length
+                            ? build(WidgetDescription.fromJson(properties['children'][index]))
+                            : const SizedBox.shrink();
+                    },
+                );
+            } else {
+                return ListView(
+                    scrollDirection: scrollDirection,
+                    reverse: reverse,
+                    primary: primary,
+                    shrinkWrap: shrinkWrap,
+                    itemExtent: itemExtent,
+                    children: _buildChildren(properties['children']),
+                );
+            }
+        } catch (e) {
+            print('Error building ListView: $e');
+            return const SizedBox.shrink(); // Fallback if the ListView fails to build
+        }
+    }
+
+    static Widget _buildGridView(Map<String, dynamic> properties) {
+        try {
+            // Parse common properties
+            int crossAxisCount = int.tryParse(properties['crossAxisCount']?.toString() ?? '2') ?? 2;
+            double mainAxisSpacing = double.tryParse(properties['mainAxisSpacing']?.toString() ?? '0') ?? 0;
+            double crossAxisSpacing = double.tryParse(properties['crossAxisSpacing']?.toString() ?? '0') ?? 0;
+            double childAspectRatio = double.tryParse(properties['childAspectRatio']?.toString() ?? '1') ?? 1;
+
+            // Parse optional height and width properties
+            double? height = double.tryParse(properties['height']?.toString() ?? '');
+            double? width = double.tryParse(properties['width']?.toString() ?? '');
+
+            // Determine if using GridView.builder or GridView.count
+            Widget gridView;
+            if (properties['itemCount'] != null) {
+                gridView = GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        mainAxisSpacing: mainAxisSpacing,
+                        crossAxisSpacing: crossAxisSpacing,
+                        childAspectRatio: childAspectRatio,
+                    ),
+                    scrollDirection: _parseScrollDirection(properties['scrollDirection']),
+                    shrinkWrap: properties['shrinkWrap'] ?? false,
+                    padding: _parsePadding(properties['padding']),
+                    physics: _parseScrollPhysics(properties['physics']),
+                    itemCount: properties['itemCount'],
+                    itemBuilder: (context, index) {
+                        return properties['children'] != null && index < properties['children'].length
+                            ? build(WidgetDescription.fromJson(properties['children'][index]))
+                            : const SizedBox.shrink();
+                    },
+                );
+            } else {
+                gridView = GridView.count(
+                    crossAxisCount: crossAxisCount,
+                    mainAxisSpacing: mainAxisSpacing,
+                    crossAxisSpacing: crossAxisSpacing,
+                    childAspectRatio: childAspectRatio,
+                    children: _buildChildren(properties['children']),
+                );
+            }
+
+            // Apply height and/or width constraints if provided
+            if (height != null || width != null) {
+                gridView = SizedBox(
+                    height: height,
+                    width: width,
+                    child: gridView,
+                );
+            }
+
+            return gridView;
+        } catch (e) {
+            // Return a placeholder in case of an error
+            print('Error building GridView widget: $e');
+            return const SizedBox.shrink(); // Fallback if the GridView fails to build
+        }
+    }
+
+
+
+
+
+
+    static Widget _buildCustomScrollView(Map<String, dynamic> properties) {
+        try {
+            return CustomScrollView(
+                scrollDirection: _parseScrollDirection(properties['scrollDirection']),
+                reverse: properties['reverse'] ?? false,
+                shrinkWrap: properties['shrinkWrap'] ?? false,
+                slivers: properties['slivers'] != null 
+                    ? (properties['slivers'] as List).map<Widget>((sliver) {
+                        return build(WidgetDescription.fromJson(sliver));
+                    }).toList() 
+                    : [],
+            );
+        } catch (e) {
+            print('Error building CustomScrollView: $e');
+            return const SizedBox.shrink();
+        }
+    }
+
+    static Widget _buildScrollable(Map<String, dynamic> properties) {
+        try {
+            return Scrollable(
+                axisDirection: _parseAxisDirection(properties['axisDirection']),
+                physics: _parseScrollPhysics(properties['physics']),
+                viewportBuilder: (context, offset) {
+                    return properties['child'] != null 
+                        ? build(WidgetDescription.fromJson(properties['child'])) 
+                        : const SizedBox.shrink();
+                },
+            );
+        } catch (e) {
+            print('Error building Scrollable: $e');
+            return const SizedBox.shrink();
+        }
+    }
+
+    static Axis _parseScrollDirection(String? direction) {
+        switch (direction?.toLowerCase()) {
+            case 'horizontal':
+                return Axis.horizontal;
+            case 'vertical':
+            default:
+                return Axis.vertical;
+        }
+    }
+
+    static ScrollPhysics _parseScrollPhysics(dynamic physics) {
+        if (physics is String) {
+            switch (physics.toLowerCase()) {
+                case 'bouncing':
+                    return const BouncingScrollPhysics();
+                case 'clamping':
+                    return const ClampingScrollPhysics();
+                case 'alwaysscrollable':
+                    return const AlwaysScrollableScrollPhysics();
+                case 'neverscrollable':
+                    return const NeverScrollableScrollPhysics();
+                default:
+                    return const ScrollPhysics();
+            }
+        } else if (physics is ScrollPhysics) {
+            return physics; // Return the provided ScrollPhysics instance directly
+        }
+        // Return default ScrollPhysics if the input is not recognized
+        return const ScrollPhysics();
+    }
+
+    static SliverGridDelegate _parseGridDelegate(dynamic gridDelegate) {
+        // Implement parsing logic for GridDelegate
+        return const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2); // Placeholder
+    }
+
+    static AxisDirection _parseAxisDirection(String? direction) {
+        switch (direction?.toLowerCase()) {
+            case 'up':
+                return AxisDirection.up;
+            case 'down':
+                return AxisDirection.down;
+            case 'left':
+                return AxisDirection.left;
+            case 'right':
+                return AxisDirection.right;
+            default:
+                return AxisDirection.down;
+        }
+    }
+  
 
 
 
@@ -392,6 +617,290 @@ static Widget _buildElevatedButton(Map<String, dynamic> properties) {
   );
 }
 
+
+
+
+
+  static Widget _buildListTile(Map<String, dynamic> properties) {
+    try {
+      return ListTile(
+        leading: properties['leading'] != null
+            ? Icon(_parseIconData(properties['leading']))
+            : null,
+        title: properties['title'] != null
+            ? Text(properties['title'])
+            : const Text('No Title'),
+        subtitle: properties['subtitle'] != null
+            ? Text(properties['subtitle'])
+            : null,
+        trailing: properties['trailing'] != null
+            ? Icon(_parseIconData(properties['trailing']))
+            : null,
+        onTap: properties['onTap'] != null
+            ? () {
+                try {
+                  properties['onTap']();
+                } catch (e) {
+                  print('Error handling ListTile tap: $e');
+                }
+              }
+            : null,
+        enabled: properties['enabled'] ?? true,
+        selected: properties['selected'] ?? false,
+      );
+    } catch (e) {
+      print('Error building ListTile: $e');
+      return const SizedBox.shrink(); // Fallback if the ListTile fails to build
+    }
+  }
+
+  static Widget _buildCheckboxListTile(Map<String, dynamic> properties) {
+    try {
+      return CheckboxListTile(
+        value: properties['value'] ?? false,
+        onChanged: properties['onChanged'] != null
+            ? (bool? newValue) {
+                try {
+                  properties['onChanged'](newValue);
+                } catch (e) {
+                  print('Error handling CheckboxListTile change: $e');
+                }
+              }
+            : null,
+        activeColor: _parseColor(properties['activeColor']) ?? Colors.blue,
+        checkColor: _parseColor(properties['checkColor']) ?? Colors.white,
+        title: properties['title'] != null
+            ? Text(properties['title'])
+            : const Text('No Title'),
+        subtitle: properties['subtitle'] != null
+            ? Text(properties['subtitle'])
+            : null,
+        secondary: properties['secondary'] != null
+            ? Icon(_parseIconData(properties['secondary']))
+            : null,
+      );
+    } catch (e) {
+      print('Error building CheckboxListTile: $e');
+      return const SizedBox.shrink(); // Fallback if the CheckboxListTile fails to build
+    }
+  }
+
+  static Widget _buildRadioListTile(Map<String, dynamic> properties) {
+    try {
+      return RadioListTile(
+        value: properties['value'],
+        groupValue: properties['groupValue'],
+        onChanged: properties['onChanged'] != null
+            ? (dynamic newValue) {
+                try {
+                  properties['onChanged'](newValue);
+                } catch (e) {
+                  print('Error handling RadioListTile change: $e');
+                }
+              }
+            : null,
+        activeColor: _parseColor(properties['activeColor']) ?? Colors.blue,
+        title: properties['title'] != null
+            ? Text(properties['title'])
+            : const Text('No Title'),
+        subtitle: properties['subtitle'] != null
+            ? Text(properties['subtitle'])
+            : null,
+      );
+    } catch (e) {
+      print('Error building RadioListTile: $e');
+      return const SizedBox.shrink(); // Fallback if the RadioListTile fails to build
+    }
+  }
+
+
+
+  static Widget _buildSwitchListTile(Map<String, dynamic> properties) {
+    try {
+      return SwitchListTile(
+        value: properties['value'] ?? false,
+        onChanged: properties['onChanged'] != null
+            ? (bool newValue) {
+                try {
+                  properties['onChanged'](newValue);
+                } catch (e) {
+                  print('Error handling SwitchListTile change: $e');
+                }
+              }
+            : (value) {
+                print('onChanged callback is not provided for SwitchListTile');
+              },
+        activeColor: _parseColor(properties['activeColor']) ?? Colors.blue,
+        title: properties['title'] != null
+            ? Text(properties['title'])
+            : const Text('No Title'),
+        subtitle: properties['subtitle'] != null
+            ? Text(properties['subtitle'])
+            : null,
+        secondary: properties['secondary'] != null
+            ? Icon(_parseIconData(properties['secondary']))
+            : null,
+      );
+    } catch (e) {
+      print('Error building SwitchListTile: $e');
+      return const SizedBox.shrink(); // Fallback if the SwitchListTile fails to build
+    }
+  }
+
+  static Widget _buildForm(Map<String, dynamic> properties) {
+    try {
+      return Form(
+        key: properties['key'],
+        autovalidateMode: properties['autovalidateMode'] ?? AutovalidateMode.disabled,
+        onWillPop: properties['onWillPop'],
+        child: properties['child'] ?? const SizedBox.shrink(),
+      );
+    } catch (e) {
+      print('Error building Form: $e');
+      return const SizedBox.shrink(); // Fallback if the Form fails to build
+    }
+  }
+
+  static Widget _buildTextFormField(Map<String, dynamic> properties) {
+    try {
+      return TextFormField(
+        controller: properties['controller'],
+        initialValue: properties['initialValue'],
+        decoration: properties['decoration'] ?? const InputDecoration(),
+        keyboardType: properties['keyboardType'],
+        textInputAction: properties['textInputAction'],
+        onFieldSubmitted: properties['onFieldSubmitted'] != null
+            ? (String value) {
+                try {
+                  properties['onFieldSubmitted'](value);
+                } catch (e) {
+                  print('Error handling field submission: $e');
+                }
+              }
+            : null,
+      );
+    } catch (e) {
+      print('Error building TextFormField: $e');
+      return const SizedBox.shrink(); // Fallback if the TextFormField fails to build
+    }
+  }
+
+
+
+
+  static Widget _buildSnackBar(Map<String, dynamic> properties) {
+    try {
+      final content = properties['content'] ?? const Text('No Content');
+      final duration = properties['duration'] != null
+          ? Duration(milliseconds: properties['duration'])
+          : const Duration(seconds: 4);
+      final action = properties['action'] != null
+          ? SnackBarAction(
+              label: properties['action']['label'] ?? 'Action',
+              onPressed: () {
+                try {
+                  properties['action']['onPressed']();
+                } catch (e) {
+                  print('Error handling SnackBar action: $e');
+                }
+              },
+            )
+          : null;
+      final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.black;
+      final behavior = properties['behavior'] ?? SnackBarBehavior.fixed;
+      final shape = properties['shape'] ?? const RoundedRectangleBorder();
+
+      return SnackBar(
+        content: content,
+        duration: duration,
+        action: action,
+        backgroundColor: backgroundColor,
+        behavior: behavior,
+        shape: shape,
+      );
+    } catch (e) {
+      print('Error building SnackBar: $e');
+      return const SizedBox.shrink(); // Fallback if the SnackBar fails to build
+    }
+  }
+
+  static Widget _buildBottomSheet(Map<String, dynamic> properties) {
+    try {
+      final builder = properties['builder'] ?? (context) => const SizedBox.shrink();
+      final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.white;
+      final elevation = properties['elevation'] ?? 0.0;
+      final shape = properties['shape'] ?? const RoundedRectangleBorder();
+      final clipBehavior = properties['clipBehavior'] ?? Clip.antiAlias;
+
+      return BottomSheet(
+        onClosing: properties['onClosing'],
+        builder: builder,
+        backgroundColor: backgroundColor,
+        elevation: elevation,
+        shape: shape,
+        clipBehavior: clipBehavior,
+      );
+    } catch (e) {
+      print('Error building BottomSheet: $e');
+      return const SizedBox.shrink(); // Fallback if the BottomSheet fails to build
+    }
+  }
+
+  static Widget _buildTabBar(Map<String, dynamic> properties) {
+    try {
+      final tabs = properties['tabs'] ?? <Widget>[];
+      final controller = properties['controller'];
+      final isScrollable = properties['isScrollable'] ?? false;
+      final indicator = properties['indicator'] ?? const BoxDecoration();
+      final labelColor = _parseColor(properties['labelColor']) ?? Colors.blue;
+      final unselectedLabelColor = _parseColor(properties['unselectedLabelColor']) ?? Colors.grey;
+
+      return TabBar(
+        tabs: tabs,
+        controller: controller,
+        isScrollable: isScrollable,
+        indicator: indicator,
+        labelColor: labelColor,
+        unselectedLabelColor: unselectedLabelColor,
+      );
+    } catch (e) {
+      print('Error building TabBar: $e');
+      return const SizedBox.shrink(); // Fallback if the TabBar fails to build
+    }
+  }
+
+  
+
+  static Widget _buildTabBarView(Map<String, dynamic> properties) {
+    try {
+      final controller = properties['controller'];
+      final children = properties['children'] ?? <Widget>[];
+      final physics = properties['physics'] ?? const NeverScrollableScrollPhysics();
+
+      if (controller != null && children.length == controller.length) {
+        return TabBarView(
+          controller: controller,
+          children: children,
+          physics: physics,
+        );
+      } else {
+        print('Error: Controller and children count mismatch or controller is null.');
+        return const SizedBox.shrink(); // Fallback if the TabBarView fails to build
+      }
+    } catch (e) {
+      print('Error building TabBarView: $e');
+      return const SizedBox.shrink(); // Fallback if the TabBarView fails to build
+    }
+  }
+
+
+
+
+
+
+
+
+
 static Widget _buildTextButton(Map<String, dynamic> properties) {
   return TextButton(
     onPressed: properties['onPressed'] != null
@@ -472,8 +981,14 @@ static ShapeBorder _parseShape(String? shapeType) {
       return RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       );
+    case 'rectangle':
+      return const RoundedRectangleBorder(); // Default rectangle shape
+    case 'stadium':
+      return const StadiumBorder(); // Added stadium shape
+    case 'beveled':
+      return BeveledRectangleBorder(); // Added beveled shape
     default:
-      return const CircleBorder();
+      return const CircleBorder(); // Fallback to circle if no match
   }
 }
 
@@ -616,70 +1131,6 @@ static Widget _buildPositioned(Map<String, dynamic> properties) {
   }
 }
 
-
-
-
-
-  static Widget _buildListView(Map<String, dynamic> properties) {
-    try {
-      // Parse optional properties for ListView
-      Axis scrollDirection = properties['scrollDirection'] == 'horizontal' ? Axis.horizontal : Axis.vertical;
-      bool reverse = properties['reverse'] ?? false;
-      bool primary = properties['primary'] ?? true;
-      bool shrinkWrap = properties['shrinkWrap'] ?? false;
-      double? itemExtent = properties['itemExtent'] != null ? double.tryParse(properties['itemExtent'].toString()) : null;
-
-      return ListView(
-        scrollDirection: scrollDirection,
-        reverse: reverse,
-        primary: primary,
-        shrinkWrap: shrinkWrap,
-        itemExtent: itemExtent,
-        children: _buildChildren(properties['children']),
-      );
-    } catch (e) {
-      print('Error building ListView widget: $e');
-      return const SizedBox.shrink(); // Fallback if the ListView fails to build
-    }
-  }
-
-
-static Widget _buildGridView(Map<String, dynamic> properties) {
-  try {
-    int crossAxisCount = int.tryParse(properties['crossAxisCount']?.toString() ?? '2') ?? 2;
-    double mainAxisSpacing = double.tryParse(properties['mainAxisSpacing']?.toString() ?? '0') ?? 0;
-    double crossAxisSpacing = double.tryParse(properties['crossAxisSpacing']?.toString() ?? '0') ?? 0;
-    double childAspectRatio = double.tryParse(properties['childAspectRatio']?.toString() ?? '1') ?? 1;
-
-    // Parse optional height and width properties
-    double? height = double.tryParse(properties['height']?.toString() ?? '');
-    double? width = double.tryParse(properties['width']?.toString() ?? '');
-
-    // Construct the GridView widget
-    Widget gridView = GridView.count(
-      crossAxisCount: crossAxisCount,
-      mainAxisSpacing: mainAxisSpacing,
-      crossAxisSpacing: crossAxisSpacing,
-      childAspectRatio: childAspectRatio,
-      children: _buildChildren(properties['children']),
-    );
-
-    // Apply height and/or width constraints if provided
-    if (height != null || width != null) {
-      gridView = SizedBox(
-        height: height,
-        width: width,
-        child: gridView,
-      );
-    }
-
-    return gridView;
-  } catch (e) {
-    // Return a placeholder in case of an error
-    print('Error building GridView widget: $e');
-    return const SizedBox.shrink(); // Fallback if the GridView fails to build
-  }
-}
 
 
 
@@ -1303,39 +1754,7 @@ static Widget _buildAppBar(Map<String, dynamic> properties) {
     }
   }
 
-  static Widget _buildTabBar(Map<String, dynamic> properties) {
-    try {
-      return TabBar(
-        tabs: properties['tabs'] != null ? _buildChildren(properties['tabs']) : [],
-      );
-    } catch (e) {
-      // Return a placeholder in case of an error
-      print('Error building TabBar widget: $e');
-      return const TabBar(
-        tabs: [
-          Tab(icon: Icon(Icons.error)), // Fallback tab indicating an error
-        ],
-      );
-    }
-  }
 
-  static Widget _buildTabBarView(Map<String, dynamic> properties) {
-    try {
-      return TabBarView(
-        children: properties['children'] != null
-            ? _buildChildren(properties['children'])
-            : [],
-      );
-    } catch (e) {
-      // Return a placeholder in case of an error
-      print('Error building TabBarView widget: $e');
-      return const TabBarView(
-        children: [
-          Center(child: Text('Error loading TabBarView', style: TextStyle(color: Colors.red))),
-        ],
-      ); // Fallback if the TabBarView fails to build
-    }
-  }
 
   static Widget _buildAlertDialog(Map<String, dynamic> properties) {
     try {
@@ -1366,21 +1785,7 @@ static Widget _buildAppBar(Map<String, dynamic> properties) {
     }
   }
 
-  static Widget _buildSnackBar(Map<String, dynamic> properties) {
-    try {
-      return SnackBar(
-        content: properties['content'] != null
-            ? build(WidgetDescription.fromJson(properties['content']))
-            : Container(),
-      );
-    } catch (e) {
-      // Return a placeholder in case of an error
-      print('Error building SnackBar widget: $e');
-      return const SnackBar(
-        content: Text('Error loading SnackBar', style: TextStyle(color: Colors.red)),
-      ); // Fallback if the SnackBar fails to build
-    }
-  }
+  
 
   static Widget _buildDivider(Map<String, dynamic> properties) {
     try {
@@ -1936,63 +2341,5 @@ static MainAxisSize _parseMainAxisSize(String? size) {
 }
 
 
-static Widget _buildSingleChildScrollView(Map<String, dynamic> properties) {
-  return LayoutBuilder(
-    builder: (BuildContext context, BoxConstraints constraints) {
-      try {
-        return SingleChildScrollView(
-          scrollDirection: properties['scrollDirection'] != null 
-              ? Axis.values.firstWhere(
-                  (e) => e.toString() == 'Axis.${properties['scrollDirection']}',
-                  orElse: () => Axis.vertical)
-              : Axis.vertical,
-          padding: properties['padding'] != null 
-              ? EdgeInsets.all(double.tryParse(properties['padding'].toString()) ?? 0.0)
-              : null,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.minHeight,
-              maxHeight: constraints.maxHeight,
-              minWidth: constraints.minWidth,
-              maxWidth: constraints.maxWidth,
-            ),
-            child: IntrinsicHeight(
-              child: properties['child'] != null
-                  ? build(WidgetDescription.fromJson(properties['child']))
-                  : Container(), // Provide an empty Container as a fallback
-            ),
-          ),
-        );
-      } catch (e) {
-        // Return a placeholder widget in case of an error
-        return Container(
-          color: Colors.grey, // Placeholder color
-          height: constraints.maxHeight,
-          width: constraints.maxWidth,
-          child: const Center(child: Text('Error loading content')),
-        );
-      }
-    },
-  );
-}
-
-
-
-
-
-static ScrollPhysics _parseScrollPhysics(String? physicsString) {
-  switch (physicsString?.toLowerCase()) {
-    case 'bouncing':
-      return const BouncingScrollPhysics();
-    case 'clamping':
-      return const ClampingScrollPhysics();
-    case 'alwaysScrollable':
-      return const AlwaysScrollableScrollPhysics();
-    case 'neverScrollable':
-      return const NeverScrollableScrollPhysics();
-    default:
-      return const ScrollPhysics();
-  }
-}
 
 }
