@@ -22,6 +22,30 @@ class MyApp extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
+
+ Container(
+  child: ElevatedButton(
+    onPressed: () {
+      print('Elevated Button Pressed');
+    },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Color(0xFFFF5733),
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+    ),
+    child: Text(
+      'Click Me',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+      ),
+    ),
+  ),
+),
+
               DynamicWidgetBuilder.buildFromXml('''
                                 
                
@@ -57,6 +81,144 @@ class MyApp extends StatelessWidget {
  <!-- Grid View Section -->
 
 
+ <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="20">
+                  
+        <Center>
+            <Text text="Hello, Flutter Enthusiast" fontSize="16" color="#FFFFFF" />
+        </Center>
+      
+    
+</Container>
+
+
+
+
+
+
+ <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="20">
+                  
+        <Center>
+            <Text text="Hello, Flutter Enthusiast" fontSize="16" color="#FFFFFF" />
+        </Center>
+      
+    
+</Container>
+
+
+
+<Container padding="16,16,16,16" height="220">
+
+ 
+
+  </Container>
+  
+
+  
+ 
+
+
+
+
+<Container padding="16,16,16,16" height="220">
+
+ <FloatingActionButton 
+        onPressed="showModalBottomSheet(context: context, builder: (BuildContext context) => Container(padding: EdgeInsets.all(16), child: Column(mainAxisSize: MainAxisSize.min, children: [ListTile(leading: Icon(Icons.add), title: Text('Add New'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.edit), title: Text('Edit'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.delete), title: Text('Delete'), onTap: () { Navigator.pop(context); }),])));" 
+        backgroundColor="#FFFF4081" 
+  />
+
+  </Container>
+
+
+
+
+
+  <!-- Transaction History Section -->
+    
+       
+        <SingleChildScrollView>
+            <Column>
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="FRANKLINE ..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 2000.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 12:31 PM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+                
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 100.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="FRANKLINE ..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 2000.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 12:31 PM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="COLLINS OK..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 11500.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 12:30 PM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 100.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 100.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="FRANKLINE ..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 2000.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 12:31 PM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="COLLINS OK..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 11500.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 12:30 PM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+                <Row mainAxisAlignment="spaceBetween">
+                    <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
+                    <Column crossAxisAlignment="end">
+                        <Text text="- KES 100.0" fontSize="16" color="#F44336" />
+                        <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
+                    </Column>
+                </Row>
+            </Column>
+        </SingleChildScrollView>
+
+
+        <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="40">
+    <Column>                
+        <SizedBox height="50" width="80">
+            <Text text=" " fontSize="16" color="#FFFFFF" />
+        </SizedBox>
+
+    </Column>
+</Container>
+
+
+
+
+
+
 
 
 <Container margin="10,0,10,0">
@@ -65,7 +227,6 @@ class MyApp extends StatelessWidget {
     <!-- Check Balance -->
     <Container color="#E91E63" padding="10,10,10,10" borderRadius="10">
       <Column>
-        <!-- Wrap Icon with Expanded to prevent overflow -->
         <Expanded>
           <Icon icon="Icons.person" size="30" color="#FFFFFF"/>
         </Expanded>
@@ -112,75 +273,6 @@ class MyApp extends StatelessWidget {
     </Container>
 
   </GridView>
-</Container>
-
-
-
- 
-
-
-
-
-
-
-  <!-- Transaction History Section -->
-    
-       
-        <Column>
-            <Row mainAxisAlignment="spaceBetween">
-                <Text text="FRANKLINE ..." fontSize="16" color="#000000" />
-                <Column crossAxisAlignment="end">
-                    <Text text="- KES 2000.0" fontSize="16" color="#F44336" />
-                    <Text text="September 9, 2024 12:31 PM" fontSize="12" color="#A1887F" />
-                </Column>
-            </Row>
-            <Row mainAxisAlignment="spaceBetween">
-                <Text text="COLLINS OK..." fontSize="16" color="#000000" />
-                <Column crossAxisAlignment="end">
-                    <Text text="- KES 11500.0" fontSize="16" color="#F44336" />
-                    <Text text="September 9, 2024 12:30 PM" fontSize="12" color="#A1887F" />
-                </Column>
-            </Row>
-            <Row mainAxisAlignment="spaceBetween">
-                <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
-                <Column crossAxisAlignment="end">
-                    <Text text="- KES 100.0" fontSize="16" color="#F44336" />
-                    <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
-                </Column>
-            </Row>
-
-
-            <Row mainAxisAlignment="spaceBetween">
-                <Text text="FRANKLINE ..." fontSize="16" color="#000000" />
-                <Column crossAxisAlignment="end">
-                    <Text text="- KES 2000.0" fontSize="16" color="#F44336" />
-                    <Text text="September 9, 2024 12:31 PM" fontSize="12" color="#A1887F" />
-                </Column>
-            </Row>
-            <Row mainAxisAlignment="spaceBetween">
-                <Text text="COLLINS OK..." fontSize="16" color="#000000" />
-                <Column crossAxisAlignment="end">
-                    <Text text="- KES 11500.0" fontSize="16" color="#F44336" />
-                    <Text text="September 9, 2024 12:30 PM" fontSize="12" color="#A1887F" />
-                </Column>
-            </Row>
-            <Row mainAxisAlignment="spaceBetween">
-                <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
-                <Column crossAxisAlignment="end">
-                    <Text text="- KES 100.0" fontSize="16" color="#F44336" />
-                    <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
-                </Column>
-            </Row>
-        </Column>
-
-
-        <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="40">
-    <Column>                
-        <SizedBox height="50" width="80">
-            <Text text=" " fontSize="16" color="#FFFFFF" />
-        </SizedBox>
-
-    </Column>
 </Container>
 
 
@@ -254,10 +346,7 @@ class MyApp extends StatelessWidget {
                             </Container>
 
 
-                            <FloatingActionButton 
-                                onPressed="showModalBottomSheet(context: context, builder: (BuildContext context) => Container(padding: EdgeInsets.all(16), child: Column(mainAxisSize: MainAxisSize.min, children: [ListTile(leading: Icon(Icons.add), title: Text('Add New'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.edit), title: Text('Edit'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.delete), title: Text('Delete'), onTap: () { Navigator.pop(context); }),])));" 
-                                backgroundColor="#FFFF4081" 
-                            />
+                            
 
 
                             
@@ -306,7 +395,121 @@ class MyApp extends StatelessWidget {
                     
                 
               '''),
-            ],
+
+              const Divider(),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'JSON Input',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 10),
+            DynamicWidgetBuilder.buildFromJson('''
+{
+  "type": "SingleChildScrollView",
+  "properties": {
+    "child": {
+      "type": "Column",
+      "properties": {
+        "children": [
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Home",
+              "backgroundColor": "#FFEB3B",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Home button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.home",
+                  "color": "#000000",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Star",
+              "backgroundColor": "#FF5722",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Star button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.star",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Favorite",
+              "backgroundColor": "#4CAF50",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Favorite button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.favorite",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Settings",
+              "backgroundColor": "#2196F3",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Settings button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.settings",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Info",
+              "backgroundColor": "#9C27B0",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Info button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.info",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          }
+        
+        ]
+      }
+    }
+  }
+}
+
+
+
+
+              ''')
+             ] // Assuming jsonData is defined elsewhere
           ),
         ),
       ),

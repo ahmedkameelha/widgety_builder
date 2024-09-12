@@ -587,35 +587,123 @@ static Widget _buildRow(Map<String, dynamic> properties) {
   }
 }
 
+
+/*
+Container(
+  child: ElevatedButton(
+    onPressed: () {
+      print('Elevated Button Pressed');
+    },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Color(0xFFFF5733),
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+    ),
+    child: Text(
+      'Click Me',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+      ),
+    ),
+  ),
+)
+*/
+
+
+
+
+
+
+
+
 static Widget _buildElevatedButton(Map<String, dynamic> properties) {
+  // Validate properties before building the button
+  if (properties == null) {
+    print('Error: properties map is null');
+    return const SizedBox.shrink(); // Fallback if properties are null
+  }
+
+  // Extract properties with default values
+  final onPressed = properties['onPressed'];
+  final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.blue;
+  final padding = _parsePadding(properties['padding']) ?? const EdgeInsets.all(12);
+  final borderRadius = double.tryParse(properties['borderRadius']?.toString() ?? '0') ?? 0;
+  final elevation = double.tryParse(properties['elevation']?.toString() ?? '0') ?? 0;
+  final text = properties['text'] ?? '';
+  final textColor = _parseColor(properties['textColor']) ?? Colors.white;
+  final fontSize = double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16;
+
   return ElevatedButton(
-    onPressed: properties['onPressed'] != null
+    onPressed: onPressed != null
         ? () {
             try {
-              // Handle button press
-              properties['onPressed']();
+              // Ensure onPressed is a function before calling
+              if (onPressed is Function) {
+                onPressed();
+              } else {
+                print('Error: onPressed is not a function');
+              }
             } catch (e) {
               print('Error handling button press: $e');
             }
           }
         : null,
-    style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all<Color>(
-        _parseColor(properties['backgroundColor']) ?? Colors.blue,
+    style: ElevatedButton.styleFrom(
+      backgroundColor: backgroundColor,
+      padding: padding,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
-      padding: WidgetStateProperty.all<EdgeInsets>(
-        _parsePadding(properties['padding']) ?? const EdgeInsets.all(12.0),
-      ),
+      elevation: elevation,
     ),
     child: Text(
-      properties['text'] ?? '',
+      text,
       style: TextStyle(
-        color: _parseColor(properties['textColor']) ?? Colors.white,
-        fontSize: double.tryParse(properties['fontSize']!.toString()) ?? 16,
+        color: textColor,
+        fontSize: fontSize,
       ),
     ),
   );
 }
+
+
+
+
+
+
+// static Widget _buildElevatedButton(Map<String, dynamic> properties) {
+//   return ElevatedButton(
+//     onPressed: properties['onPressed'] != null
+//         ? () {
+//             try {
+//               // Call the function directly instead of using Function.apply
+//               properties['onPressed']();
+//             } catch (e) {
+//               print('Error handling button press: $e');
+//             }
+//           }
+//         : null,
+//     style: ButtonStyle(
+//       backgroundColor: WidgetStateProperty.all<Color>(
+//         _parseColor(properties['backgroundColor']) ?? Colors.blue,
+//       ),
+//       padding: WidgetStateProperty.all<EdgeInsets>(
+//         _parsePadding(properties['padding']) ?? const EdgeInsets.all(12.0),
+//       ),
+//     ),
+//     child: Text(
+//       properties['text'] ?? '',
+//       style: TextStyle(
+//         color: _parseColor(properties['textColor']) ?? Colors.white,
+//         fontSize: double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16,
+//       ),
+//     ),
+//   );
+// }
 
 
 
@@ -2000,55 +2088,47 @@ static Widget _buildAppBar(Map<String, dynamic> properties) {
     }
   }
 
+
+
+
   static Widget _buildIcon(Map<String, dynamic> properties) {
-    // Default values
-    double size = properties['size'] != null
-        ? double.tryParse(properties['size'].toString()) ?? 24.0
-        : 24.0;
-    Color color = properties['color'] != null
-        ? _parseColor(properties['color'].toString()) ?? Colors.black
-        : Colors.black;
+  // Default size and color handling
+  double size = properties['size'] != null
+      ? double.tryParse(properties['size'].toString()) ?? 24.0
+      : 24.0;
 
-    String? iconName = properties['icon'];
-    IconData? iconData;
+  Color color = properties['color'] != null
+      ? _parseColor(properties['color'].toString()) ?? Colors.black
+      : Colors.black;
 
-    try {
-      if (iconName != null) {
-        iconData = _parseIconData(iconName); // This will handle parsing the icon.
-      }
+  String? iconName = properties['icon'];
+  IconData? iconData;
 
-      if (iconData == null) {
-        throw Exception('Icon data is null or unsupported for icon: $iconName');
-      }
-
-      return Icon(
-        iconData,
-        size: size,
-        color: color,
-      );
-    } catch (e) {
-      print('Error building Icon widget: $e');
-      return const Icon(Icons.error); // Fallback for unsupported icons
+  try {
+    if (iconName != null) {
+      // Try to parse the icon data
+      iconData = _parseIconData(iconName);
     }
+
+    if (iconData == null) {
+      // Throw an error if the icon data couldn't be parsed
+      throw Exception('Icon data is null or unsupported for icon: $iconName');
+    }
+
+    return Icon(
+      iconData,
+      size: size,
+      color: color,
+    );
+  } catch (e) {
+    // Print the error and return a fallback error icon
+    print('Error building Icon widget: $e');
+    return const Icon(Icons.error, color: Colors.red); // Fallback for unsupported icons
   }
-
-
-
-  // static Widget _buildIcon(Map<String, dynamic> properties) {
-  //   try {
-  //     final iconData = _parseIconData(properties['icon']);
-  //     final color = _parseColor(properties['color']);
-  //     return Icon(
-  //       iconData,
-  //       color: color,
-  //     );
-  //   } catch (e) {
-  //     print('Error building Icon widget: $e');
-  //     return const Icon(Icons.error); // Fallback for Icon
-  //   }
-  // }
+}
 
 static IconData _parseIconData(String? iconName) {
+  // Return the appropriate IconData based on the provided icon name
   if (iconName == null) {
     return Icons.error; // Return error icon if iconName is null
   }
@@ -2061,111 +2141,273 @@ static IconData _parseIconData(String? iconName) {
     case 'Icons.delete':
       return Icons.delete;
     case 'Icons.edit':
-      return Icons.edit;  
+      return Icons.edit;
     case 'Icons.share':
       return Icons.share;
     case 'Icons.home':
       return Icons.home;
     case 'Icons.settings':
-      return Icons.settings; // Added settings icon
+      return Icons.settings;
     case 'Icons.person':
-      return Icons.person; // Added person icon
+      return Icons.person;
     case 'Icons.notifications':
-      return Icons.notifications; // Added notifications icon
+      return Icons.notifications;
     case 'Icons.search':
-      return Icons.search; // Added search icon
+      return Icons.search;
     case 'Icons.camera':
-      return Icons.camera; // Added camera icon
+      return Icons.camera;
     case 'Icons.location_on':
-      return Icons.location_on; // Added location icon
+      return Icons.location_on;
     case 'Icons.message':
-      return Icons.message; // Added message icon
+      return Icons.message;
     case 'Icons.video_call':
-      return Icons.video_call; // Added video call icon
+      return Icons.video_call;
     case 'Icons.shopping_cart':
-      return Icons.shopping_cart; // Added shopping cart icon
+      return Icons.shopping_cart;
     case 'Icons.favorite_border':
-      return Icons.favorite_border; // Added favorite border icon
+      return Icons.favorite_border;
     case 'Icons.access_alarm':
-      return Icons.access_alarm; // Added access alarm icon
+      return Icons.access_alarm;
     case 'Icons.accessibility':
-      return Icons.accessibility; // Added accessibility icon
+      return Icons.accessibility;
     case 'Icons.account_circle':
-      return Icons.account_circle; // Added account circle icon
+      return Icons.account_circle;
     case 'Icons.arrow_back':
-      return Icons.arrow_back; // Added arrow back icon
+      return Icons.arrow_back;
     case 'Icons.arrow_forward':
-      return Icons.arrow_forward; // Added arrow forward icon
+      return Icons.arrow_forward;
     case 'Icons.brightness_6':
-      return Icons.brightness_6; // Added brightness icon
+      return Icons.brightness_6;
     case 'Icons.camera_alt':
-      return Icons.camera_alt; // Added camera alt icon
+      return Icons.camera_alt;
     case 'Icons.chat':
-      return Icons.chat; // Added chat icon
+      return Icons.chat;
     case 'Icons.check_circle':
-      return Icons.check_circle; // Added check circle icon
+      return Icons.check_circle;
     case 'Icons.clear':
-      return Icons.clear; // Added clear icon
+      return Icons.clear;
     case 'Icons.cloud':
-      return Icons.cloud; // Added cloud icon
+      return Icons.cloud;
     case 'Icons.date_range':
-      return Icons.date_range; // Added date range icon
+      return Icons.date_range;
     case 'Icons.directions':
-      return Icons.directions; // Added directions icon
+      return Icons.directions;
     case 'Icons.edit_location':
-      return Icons.edit_location; // Added edit location icon
+      return Icons.edit_location;
     case 'Icons.favorite_outline':
-      return Icons.favorite_outline; // Added favorite outline icon
+      return Icons.favorite_outline;
     case 'Icons.file_copy':
-      return Icons.file_copy; // Added file copy icon
+      return Icons.file_copy;
     case 'Icons.folder':
-      return Icons.folder; // Added folder icon
+      return Icons.folder;
     case 'Icons.group':
-      return Icons.group; // Added group icon
+      return Icons.group;
     case 'Icons.help':
-      return Icons.help; // Added help icon
+      return Icons.help;
     case 'Icons.info':
-      return Icons.info; // Added info icon
+      return Icons.info;
     case 'Icons.lock':
-      return Icons.lock; // Added lock icon
+      return Icons.lock;
     case 'Icons.lock_open':
-      return Icons.lock_open; // Added lock open icon
+      return Icons.lock_open;
     case 'Icons.map':
-      return Icons.map; // Added map icon
+      return Icons.map;
     case 'Icons.more_horiz':
-      return Icons.more_horiz; // Added more horizontal icon
+      return Icons.more_horiz;
     case 'Icons.more_vert':
-      return Icons.more_vert; // Added more vertical icon
+      return Icons.more_vert;
     case 'Icons.notifications_active':
-      return Icons.notifications_active; // Added active notifications icon
+      return Icons.notifications_active;
     case 'Icons.palette':
-      return Icons.palette; // Added palette icon
+      return Icons.palette;
     case 'Icons.phone':
-      return Icons.phone; // Added phone icon
+      return Icons.phone;
     case 'Icons.print':
-      return Icons.print; // Added print icon
+      return Icons.print;
     case 'Icons.public':
-      return Icons.public; // Added public icon
+      return Icons.public;
     case 'Icons.refresh':
-      return Icons.refresh; // Added refresh icon
+      return Icons.refresh;
     case 'Icons.save':
-      return Icons.save; // Added save icon
+      return Icons.save;
     case 'Icons.share_location':
-      return Icons.share_location; // Added share location icon
+      return Icons.share_location;
     case 'Icons.star':
-      return Icons.star; // Added star icon
+      return Icons.star;
     case 'Icons.star_border':
-      return Icons.star_border; // Added star border icon
+      return Icons.star_border;
     case 'Icons.thumb_up':
-      return Icons.thumb_up; // Added thumb up icon
+      return Icons.thumb_up;
     case 'Icons.visibility':
-      return Icons.visibility; // Added visibility icon
+      return Icons.visibility;
     case 'Icons.visibility_off':
-      return Icons.visibility_off; // Added visibility off icon
+      return Icons.visibility_off;
     default:
-      return Icons.error; // Return error icon for unrecognized icon names
+      throw Exception('Unsupported icon: $iconName'); // Throw an error for unsupported icons
   }
 }
+
+
+
+
+
+
+
+
+//   static Widget _buildIcon(Map<String, dynamic> properties) {
+//     // Default values
+//     double size = properties['size'] != null
+//         ? double.tryParse(properties['size'].toString()) ?? 24.0
+//         : 24.0;
+//     Color color = properties['color'] != null
+//         ? _parseColor(properties['color'].toString()) ?? Colors.black
+//         : Colors.black;
+
+//     String? iconName = properties['icon'];
+//     IconData? iconData;
+
+//     try {
+//       if (iconName != null) {
+//         iconData = _parseIconData(iconName); // This will handle parsing the icon.
+//       }
+
+//       if (iconData == null) {
+//         throw Exception('Icon data is null or unsupported for icon: $iconName');
+//       }
+
+//       return Icon(
+//         iconData,
+//         size: size,
+//         color: color,
+//       );
+//     } catch (e) {
+//       print('Error building Icon widget: $e');
+//       return const Icon(Icons.error); // Fallback for unsupported icons
+//     }
+//   }
+
+
+
+
+
+// static IconData _parseIconData(String? iconName) {
+//   if (iconName == null) {
+//     return Icons.error; // Return error icon if iconName is null
+//   }
+
+//   switch (iconName) {
+//     case 'Icons.favorite':
+//       return Icons.favorite;
+//     case 'Icons.add':
+//       return Icons.add;
+//     case 'Icons.delete':
+//       return Icons.delete;
+//     case 'Icons.edit':
+//       return Icons.edit;  
+//     case 'Icons.share':
+//       return Icons.share;
+//     case 'Icons.home':
+//       return Icons.home;
+//     case 'Icons.settings':
+//       return Icons.settings; // Added settings icon
+//     case 'Icons.person':
+//       return Icons.person; // Added person icon
+//     case 'Icons.notifications':
+//       return Icons.notifications; // Added notifications icon
+//     case 'Icons.search':
+//       return Icons.search; // Added search icon
+//     case 'Icons.camera':
+//       return Icons.camera; // Added camera icon
+//     case 'Icons.location_on':
+//       return Icons.location_on; // Added location icon
+//     case 'Icons.message':
+//       return Icons.message; // Added message icon
+//     case 'Icons.video_call':
+//       return Icons.video_call; // Added video call icon
+//     case 'Icons.shopping_cart':
+//       return Icons.shopping_cart; // Added shopping cart icon
+//     case 'Icons.favorite_border':
+//       return Icons.favorite_border; // Added favorite border icon
+//     case 'Icons.access_alarm':
+//       return Icons.access_alarm; // Added access alarm icon
+//     case 'Icons.accessibility':
+//       return Icons.accessibility; // Added accessibility icon
+//     case 'Icons.account_circle':
+//       return Icons.account_circle; // Added account circle icon
+//     case 'Icons.arrow_back':
+//       return Icons.arrow_back; // Added arrow back icon
+//     case 'Icons.arrow_forward':
+//       return Icons.arrow_forward; // Added arrow forward icon
+//     case 'Icons.brightness_6':
+//       return Icons.brightness_6; // Added brightness icon
+//     case 'Icons.camera_alt':
+//       return Icons.camera_alt; // Added camera alt icon
+//     case 'Icons.chat':
+//       return Icons.chat; // Added chat icon
+//     case 'Icons.check_circle':
+//       return Icons.check_circle; // Added check circle icon
+//     case 'Icons.clear':
+//       return Icons.clear; // Added clear icon
+//     case 'Icons.cloud':
+//       return Icons.cloud; // Added cloud icon
+//     case 'Icons.date_range':
+//       return Icons.date_range; // Added date range icon
+//     case 'Icons.directions':
+//       return Icons.directions; // Added directions icon
+//     case 'Icons.edit_location':
+//       return Icons.edit_location; // Added edit location icon
+//     case 'Icons.favorite_outline':
+//       return Icons.favorite_outline; // Added favorite outline icon
+//     case 'Icons.file_copy':
+//       return Icons.file_copy; // Added file copy icon
+//     case 'Icons.folder':
+//       return Icons.folder; // Added folder icon
+//     case 'Icons.group':
+//       return Icons.group; // Added group icon
+//     case 'Icons.help':
+//       return Icons.help; // Added help icon
+//     case 'Icons.info':
+//       return Icons.info; // Added info icon
+//     case 'Icons.lock':
+//       return Icons.lock; // Added lock icon
+//     case 'Icons.lock_open':
+//       return Icons.lock_open; // Added lock open icon
+//     case 'Icons.map':
+//       return Icons.map; // Added map icon
+//     case 'Icons.more_horiz':
+//       return Icons.more_horiz; // Added more horizontal icon
+//     case 'Icons.more_vert':
+//       return Icons.more_vert; // Added more vertical icon
+//     case 'Icons.notifications_active':
+//       return Icons.notifications_active; // Added active notifications icon
+//     case 'Icons.palette':
+//       return Icons.palette; // Added palette icon
+//     case 'Icons.phone':
+//       return Icons.phone; // Added phone icon
+//     case 'Icons.print':
+//       return Icons.print; // Added print icon
+//     case 'Icons.public':
+//       return Icons.public; // Added public icon
+//     case 'Icons.refresh':
+//       return Icons.refresh; // Added refresh icon
+//     case 'Icons.save':
+//       return Icons.save; // Added save icon
+//     case 'Icons.share_location':
+//       return Icons.share_location; // Added share location icon
+//     case 'Icons.star':
+//       return Icons.star; // Added star icon
+//     case 'Icons.star_border':
+//       return Icons.star_border; // Added star border icon
+//     case 'Icons.thumb_up':
+//       return Icons.thumb_up; // Added thumb up icon
+//     case 'Icons.visibility':
+//       return Icons.visibility; // Added visibility icon
+//     case 'Icons.visibility_off':
+//       return Icons.visibility_off; // Added visibility off icon
+//     default:
+//       return Icons.error; // Return error icon for unrecognized icon names
+//   }
+// }
 
 
 
