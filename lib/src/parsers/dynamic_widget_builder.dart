@@ -8,14 +8,14 @@ class DynamicWidgetBuilder {
   static final Map<String, Widget> _widgetCache = {};
 
   // Build widget from JSON string with caching and error handling
-  static Widget buildFromJson(String jsonString) {
+  static Widget buildFromJson(String jsonString, BuildContext context) {
     if (_widgetCache.containsKey(jsonString)) {
       return _widgetCache[jsonString]!;
     }
 
     try {
       final widgetDescription = JsonParser.parse(jsonString);
-      final widget = wd.WidgetBuilder.build(widgetDescription);
+      final widget = wd.WidgetBuilder.build(widgetDescription, context);
       _widgetCache[jsonString] = widget;
       return widget;
     } catch (e, stacktrace) {
@@ -26,7 +26,7 @@ class DynamicWidgetBuilder {
   }
 
   // Build widget from XML string with caching and error handling
-  static Widget buildFromXml(String xmlString) {
+  static Widget buildFromXml(String xmlString, BuildContext context) {
     if (_widgetCache.containsKey(xmlString)) {
       return _widgetCache[xmlString]!;
     }
@@ -34,7 +34,7 @@ class DynamicWidgetBuilder {
     try {
       final widgetDescription = XmlParser.parse(xmlString);
       print("Parsed XML to WidgetDescription: $widgetDescription");
-      final widget = wd.WidgetBuilder.build(widgetDescription);
+      final widget = wd.WidgetBuilder.build(widgetDescription, context);
       _widgetCache[xmlString] = widget;
       return widget;
     } catch (e, stacktrace) {
