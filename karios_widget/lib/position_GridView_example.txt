@@ -345,3 +345,123 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "type": "SingleChildScrollView",
+  "properties": {
+    "child": {
+      "type": "Column",
+      "properties": {
+        "children": [
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Home",
+              "backgroundColor": "#FFEB3B",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Home button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.home",
+                  "color": "#000000",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Star",
+              "backgroundColor": "#FF5722",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Star button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.star",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Favorite",
+              "backgroundColor": "#4CAF50",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Favorite button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.favorite",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Settings",
+              "backgroundColor": "#2196F3",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Settings button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.settings",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Info",
+              "backgroundColor": "#9C27B0",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Info button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.info",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          }
+        
+        ]
+      }
+    }
+  }
+}

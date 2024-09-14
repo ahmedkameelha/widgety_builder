@@ -106,11 +106,6 @@ class MyApp extends StatelessWidget {
 
 
 
-<Container padding="16,16,16,16" height="220">
-
- 
-
-  </Container>
   
 
   
@@ -134,93 +129,6 @@ class MyApp extends StatelessWidget {
 
   <!-- Transaction History Section -->
     
-       
-        <SingleChildScrollView>
-            <Column>
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="FRANKLINE ..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 2000.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 12:31 PM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-                
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 100.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="FRANKLINE ..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 2000.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 12:31 PM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="COLLINS OK..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 11500.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 12:30 PM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 100.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 100.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="FRANKLINE ..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 2000.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 12:31 PM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="COLLINS OK..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 11500.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 12:30 PM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-                <Row mainAxisAlignment="spaceBetween">
-                    <Text text="SILAS SHIM..." fontSize="16" color="#000000" />
-                    <Column crossAxisAlignment="end">
-                        <Text text="- KES 100.0" fontSize="16" color="#F44336" />
-                        <Text text="September 9, 2024 10:03 AM" fontSize="12" color="#A1887F" />
-                    </Column>
-                </Row>
-            </Column>
-        </SingleChildScrollView>
-
-
-        <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="40">
-    <Column>                
-        <SizedBox height="50" width="80">
-            <Text text=" " fontSize="16" color="#FFFFFF" />
-        </SizedBox>
-
-    </Column>
-</Container>
-
-
-
-
-
-
-
-
 <Container margin="10,0,10,0">
   <GridView crossAxisCount="2" mainAxisSpacing="10" crossAxisSpacing="10" childAspectRatio="1" height="300">
     
@@ -406,104 +314,26 @@ class MyApp extends StatelessWidget {
               ),
               const SizedBox(height: 10),
             DynamicWidgetBuilder.buildFromJson('''
+
+
+
 {
-  "type": "SingleChildScrollView",
+  "type": "FloatingActionButton",
   "properties": {
+    "onPressed": "function() { showModalBottomSheet(context: context, builder: (BuildContext context) { return Container(padding: EdgeInsets.all(16), child: Column(mainAxisSize: MainAxisSize.min, children: [ListTile(leading: Icon(Icons.add), title: Text('Add New'), onTap: () { print('Floating Action Button 1 pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.edit), title: Text('Edit'), onTap: () { print('Floating Action Button 2 pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.delete), title: Text('Delete'), onTap: () { print('Floating Action Button 3 pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.payment), title: Text('Pay Bill'), onTap: () { print('Pay Bill pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.transfer_within_a_station), title: Text('Transfer'), onTap: () { print('Transfer pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.history), title: Text('Transaction History'), onTap: () { print('Transaction History pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.settings), title: Text('Settings'), onTap: () { print('Settings pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.info), title: Text('Info'), onTap: () { print('Info pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.star), title: Text('Favorites'), onTap: () { print('Favorites pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.contact_mail), title: Text('Contacts'), onTap: () { print('Contacts pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.notifications), title: Text('Notifications'), onTap: () { print('Notifications pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.help), title: Text('Help'), onTap: () { print('Help pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.share), title: Text('Share'), onTap: () { print('Share pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.feedback), title: Text('Feedback'), onTap: () { print('Feedback pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.language), title: Text('Language'), onTap: () { print('Language pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.privacy_tip), title: Text('Privacy'), onTap: () { print('Privacy pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.security), title: Text('Security'), onTap: () { print('Security pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.bug_report), title: Text('Report a Bug'), onTap: () { print('Report a Bug pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.update), title: Text('Check for Updates'), onTap: () { print('Check for Updates pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.logout), title: Text('Logout'), onTap: () { print('Logout pressed'); Navigator.pop(context); }),])); }); }",
+    "backgroundColor": "#FFFF4081",
     "child": {
-      "type": "Column",
+      "type": "Icon",
       "properties": {
-        "children": [
-          {
-            "type": "TextButton",
-            "properties": {
-              "text": "Home",
-              "backgroundColor": "#FFEB3B",
-              "padding": "8,8,8,8",
-              "onPressed": "function() { print('Home button pressed'); }",
-              "icon": {
-                "type": "Icon",
-                "properties": {
-                  "icon": "Icons.home",
-                  "color": "#000000",
-                  "size": 24
-                }
-              }
-            }
-          },
-          {
-            "type": "TextButton",
-            "properties": {
-              "text": "Star",
-              "backgroundColor": "#FF5722",
-              "padding": "8,8,8,8",
-              "onPressed": "function() { print('Star button pressed'); }",
-              "icon": {
-                "type": "Icon",
-                "properties": {
-                  "icon": "Icons.star",
-                  "color": "#FFFFFF",
-                  "size": 24
-                }
-              }
-            }
-          },
-          {
-            "type": "TextButton",
-            "properties": {
-              "text": "Favorite",
-              "backgroundColor": "#4CAF50",
-              "padding": "8,8,8,8",
-              "onPressed": "function() { print('Favorite button pressed'); }",
-              "icon": {
-                "type": "Icon",
-                "properties": {
-                  "icon": "Icons.favorite",
-                  "color": "#FFFFFF",
-                  "size": 24
-                }
-              }
-            }
-          },
-          {
-            "type": "TextButton",
-            "properties": {
-              "text": "Settings",
-              "backgroundColor": "#2196F3",
-              "padding": "8,8,8,8",
-              "onPressed": "function() { print('Settings button pressed'); }",
-              "icon": {
-                "type": "Icon",
-                "properties": {
-                  "icon": "Icons.settings",
-                  "color": "#FFFFFF",
-                  "size": 24
-                }
-              }
-            }
-          },
-          {
-            "type": "TextButton",
-            "properties": {
-              "text": "Info",
-              "backgroundColor": "#9C27B0",
-              "padding": "8,8,8,8",
-              "onPressed": "function() { print('Info button pressed'); }",
-              "icon": {
-                "type": "Icon",
-                "properties": {
-                  "icon": "Icons.info",
-                  "color": "#FFFFFF",
-                  "size": 24
-                }
-              }
-            }
-          }
-        
-        ]
+        "icon": "Icons.add",
+        "color": "#FFFFFF",
+        "size": 24
       }
     }
   }
 }
+
+
 
 
 
