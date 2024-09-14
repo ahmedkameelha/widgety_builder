@@ -730,55 +730,55 @@ Container(
 
 
 
-static Widget _buildElevatedButton(Map<String, dynamic> properties, BuildContext context) {
-  // Validate properties before building the button
-  if (properties == null) {
-    print('Error: properties map is null');
-    return const SizedBox.shrink(); // Fallback if properties are null
-  }
+// static Widget _buildElevatedButton(Map<String, dynamic> properties, BuildContext context) {
+//   // Validate properties before building the button
+//   if (properties == null) {
+//     print('Error: properties map is null');
+//     return const SizedBox.shrink(); // Fallback if properties are null
+//   }
 
-  // Extract properties with default values
-  final onPressed = properties['onPressed'];
-  final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.blue;
-  final padding = _parsePadding(properties['padding']) ?? const EdgeInsets.all(12);
-  final borderRadius = double.tryParse(properties['borderRadius']?.toString() ?? '0') ?? 0;
-  final elevation = double.tryParse(properties['elevation']?.toString() ?? '0') ?? 0;
-  final text = properties['text'] ?? '';
-  final textColor = _parseColor(properties['textColor']) ?? Colors.white;
-  final fontSize = double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16;
+//   // Extract properties with default values
+//   final onPressed = properties['onPressed'];
+//   final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.blue;
+//   final padding = _parsePadding(properties['padding']) ?? const EdgeInsets.all(12);
+//   final borderRadius = double.tryParse(properties['borderRadius']?.toString() ?? '0') ?? 0;
+//   final elevation = double.tryParse(properties['elevation']?.toString() ?? '0') ?? 0;
+//   final text = properties['text'] ?? '';
+//   final textColor = _parseColor(properties['textColor']) ?? Colors.white;
+//   final fontSize = double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16;
 
-  return ElevatedButton(
-    onPressed: onPressed != null
-        ? () {
-            try {
-              // Ensure onPressed is a function before calling
-              if (onPressed is Function) {
-                onPressed();
-              } else {
-                print('Error: onPressed is not a function');
-              }
-            } catch (e) {
-              print('Error handling button press: $e');
-            }
-          }
-        : null,
-    style: ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor,
-      padding: padding,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius),
-      ),
-      elevation: elevation,
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: textColor,
-        fontSize: fontSize,
-      ),
-    ),
-  );
-}
+//   return ElevatedButton(
+//     onPressed: onPressed != null
+//         ? () {
+//             try {
+//               // Ensure onPressed is a function before calling
+//               if (onPressed is Function) {
+//                 onPressed();
+//               } else {
+//                 print('Error: onPressed is not a function');
+//               }
+//             } catch (e) {
+//               print('Error handling button press: $e');
+//             }
+//           }
+//         : null,
+//     style: ElevatedButton.styleFrom(
+//       backgroundColor: backgroundColor,
+//       padding: padding,
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(borderRadius),
+//       ),
+//       elevation: elevation,
+//     ),
+//     child: Text(
+//       text,
+//       style: TextStyle(
+//         color: textColor,
+//         fontSize: fontSize,
+//       ),
+//     ),
+//   );
+// }
 
 
 
@@ -1093,39 +1093,39 @@ static Widget _buildElevatedButton(Map<String, dynamic> properties, BuildContext
 
 
 
-  static Widget _buildTextButton(Map<String, dynamic> properties, BuildContext context) {
-  if (properties == null) {
-    print('Error: properties map is null for TextButton');
-    return const SizedBox.shrink();
-  }
+//   static Widget _buildTextButton(Map<String, dynamic> properties, BuildContext context) {
+//   if (properties == null) {
+//     print('Error: properties map is null for TextButton');
+//     return const SizedBox.shrink();
+//   }
 
-  final onPressed = properties['onPressed'];
-  if (onPressed == null || !(onPressed is Function)) {
-    print('Error: onPressed is missing or is not a function for TextButton');
-  }
+//   final onPressed = properties['onPressed'];
+//   if (onPressed == null || !(onPressed is Function)) {
+//     print('Error: onPressed is missing or is not a function for TextButton');
+//   }
 
-  // Parse TextButton style
-  final textColor = _parseColor(properties['textColor']) ?? Colors.blue;
-  final fontSize = double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16;
+//   // Parse TextButton style
+//   final textColor = _parseColor(properties['textColor']) ?? Colors.blue;
+//   final fontSize = double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16;
 
-  return TextButton(
-    onPressed: () {
-      try {
-        onPressed();
-      } catch (e) {
-        print('Error handling TextButton press: $e');
-      }
-    },
-    style: TextButton.styleFrom(foregroundColor: textColor), // Modified
-    child: Text(
-      properties['text'] ?? '',
-      style: TextStyle(
-        color: textColor,
-        fontSize: fontSize,
-      ),
-    ),
-  );
-}
+//   return TextButton(
+//     onPressed: () {
+//       try {
+//         onPressed();
+//       } catch (e) {
+//         print('Error handling TextButton press: $e');
+//       }
+//     },
+//     style: TextButton.styleFrom(foregroundColor: textColor), // Modified
+//     child: Text(
+//       properties['text'] ?? '',
+//       style: TextStyle(
+//         color: textColor,
+//         fontSize: fontSize,
+//       ),
+//     ),
+//   );
+// }
 
 
 
@@ -1257,97 +1257,600 @@ static Widget _buildElevatedButton(Map<String, dynamic> properties, BuildContext
 
 
 
-static Widget _buildIconButton(Map<String, dynamic> properties, BuildContext context) {
-  if (properties == null) {
-    print('Error: properties map is null for IconButton');
-    return const SizedBox.shrink();
-  }
+// static Widget _buildIconButton(Map<String, dynamic> properties, BuildContext context) {
+//   if (properties == null) {
+//     print('Error: properties map is null for IconButton');
+//     return const SizedBox.shrink();
+//   }
 
-  // Ensure onPressed is a function
-  final onPressed = properties['onPressed'];
-  if (onPressed == null || !(onPressed is Function)) {
-    print('Error: onPressed is missing or is not a function for IconButton');
-  }
+//   // Ensure onPressed is a function
+//   final onPressed = properties['onPressed'];
+//   if (onPressed == null || !(onPressed is Function)) {
+//     print('Error: onPressed is missing or is not a function for IconButton');
+//   }
 
-  // Parse Icon and icon color
-  final iconName = properties['icon'];
-  final iconColor = _parseColor(properties['iconColor']) ?? Colors.black;
-  IconData? iconData;
+//   // Parse Icon and icon color
+//   final iconName = properties['icon'];
+//   final iconColor = _parseColor(properties['iconColor']) ?? Colors.black;
+//   IconData? iconData;
 
-  try {
-    iconData = _parseIconData(iconName);
-  } catch (e) {
-    print('Error parsing icon data for IconButton: $e');
-    return const Icon(Icons.error);
-  }
+//   try {
+//     iconData = _parseIconData(iconName);
+//   } catch (e) {
+//     print('Error parsing icon data for IconButton: $e');
+//     return const Icon(Icons.error);
+//   }
 
-  return IconButton(
-    icon: Icon(iconData, color: iconColor),
-    onPressed: () {
-      try {
-        onPressed();
-      } catch (e) {
-        print('Error handling IconButton press: $e');
-      }
-    },
-  );
-}
+//   return IconButton(
+//     icon: Icon(iconData, color: iconColor),
+//     onPressed: () {
+//       try {
+//         onPressed();
+//       } catch (e) {
+//         print('Error handling IconButton press: $e');
+//       }
+//     },
+//   );
+// }
 
-
-static Widget _buildFloatingActionButton(Map<String, dynamic> properties, BuildContext context) {
-  try {
-    // Parse the onPressed action from the string
-    final onPressedString = properties['onPressed'];
-    if (onPressedString == null || !(onPressedString is String)) {
-      print('Error: onPressed is missing or is not a string for FloatingActionButton');
-      return const SizedBox.shrink();
-    }
-
-    // Parse background color, default to blue if not provided
-    final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.blue;
-
-    // Parse the action parameters
-    final actionParams = properties['actionParams'] as Map<String, dynamic>?;
-
-    // Convert the onPressed string to a WidgetAction
-    final action = WidgetAction.values.firstWhere(
-      (e) => e.toString().split('.').last == onPressedString,
-      orElse: () => throw Exception('Unsupported action "$onPressedString"'),
-    );
-
-    // Initialize the ActionHandler
-    final actionHandler = ActionHandler(context);
-
-    // Parse child widget
-    Widget child;
-    if (properties['child'] != null) {
-      child = _buildChild(properties['child'], context);
-    } else {
-      // Parse icon if provided, otherwise use default
-      final iconName = properties['icon'] as String?;
-      final IconData iconData = iconName != null 
-          ? WidgetRegistry.parseIconData(iconName) 
-          : Icons.add;
-      child = Icon(iconData, color: _parseColor(properties['iconColor']) ?? Colors.white);
-    }
-
-    // Return FloatingActionButton widget
-    return FloatingActionButton(
-      onPressed: () {
-        try {
-          actionHandler.handleAction(action, actionParams);
-        } catch (e) {
-          print('Error executing onPressed function: $e');
+    // Start Generation Here
+        // Start of Selection
+  static Widget _buildElevatedButton(Map<String, dynamic> properties, BuildContext context) {
+          try {
+            // Validate properties
+            if (properties == null) {
+              print('Error: properties map is null for ElevatedButton');
+              return const SizedBox.shrink();
+            }
+    
+            // Extract properties with default values
+            final onPressedString = properties['onPressed'];
+            if (onPressedString == null || !(onPressedString is String)) {
+              print('Error: onPressed is missing or is not a string for ElevatedButton');
+              return const SizedBox.shrink();
+            }
+    
+            final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.blue;
+            final padding = _parsePadding(properties['padding']) ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+            final borderRadius = double.tryParse(properties['borderRadius']?.toString() ?? '0') ?? 0;
+            final elevation = double.tryParse(properties['elevation']?.toString() ?? '2') ?? 2;
+            final text = properties['text'] ?? 'Button';
+            final textColor = _parseColor(properties['textColor']) ?? Colors.white;
+            final fontSize = double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16;
+    
+            // Parse action parameters
+            final actionParams = properties['actionParams'] as Map<String, dynamic>?;
+    
+            // Convert the onPressed string to a WidgetAction
+            WidgetAction? action;
+            try {
+              action = WidgetAction.values.firstWhere(
+                (e) => e.toString().split('.').last == onPressedString,
+              );
+            } catch (e) {
+              print('Unsupported action "$onPressedString" for ElevatedButton');
+              action = null;
+            }
+    
+            // Initialize the ActionHandler
+            final actionHandler = ActionHandler(context);
+    
+            return ElevatedButton(
+              onPressed: action != null
+                  ? () {
+                      try {
+                        actionHandler.handleAction(action!, actionParams);
+                      } catch (e) {
+                        print('Error executing onPressed function for ElevatedButton: $e');
+                      }
+                    }
+                  : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: backgroundColor,
+                padding: padding,
+                elevation: elevation,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+              ),
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: fontSize,
+                ),
+              ),
+            );
+          } catch (e) {
+            print('Error building ElevatedButton: $e');
+            return const SizedBox.shrink();
+          }
         }
-      },
-      backgroundColor: backgroundColor,
-      child: child,
-    );
-  } catch (e) {
-    print('Error building FloatingActionButton: $e');
-    return const SizedBox.shrink();
-  }
-}
+
+
+
+
+
+
+
+  
+
+
+
+
+
+    static Widget _buildTextButton(Map<String, dynamic> properties, BuildContext context) {
+      try {
+        // Validate properties
+        if (properties == null) {
+          print('Error: properties map is null for TextButton');
+          return const SizedBox.shrink();
+        }
+
+        // Extract properties with default values
+        final onPressedString = properties['onPressed'];
+        if (onPressedString == null || !(onPressedString is String)) {
+          print('Error: onPressed is missing or is not a string for TextButton');
+          return const SizedBox.shrink();
+        }
+
+        final text = properties['text'] ?? 'TextButton';
+        final textColor = _parseColor(properties['textColor']) ?? Colors.blue;
+        final fontSize = double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16;
+
+        // Parse action parameters
+        final actionParams = properties['actionParams'] as Map<String, dynamic>?;
+
+        // Convert the onPressed string to a WidgetAction
+        WidgetAction? action;
+        try {
+          action = WidgetAction.values.firstWhere(
+            (e) => e.toString().split('.').last == onPressedString,
+          );
+        } catch (e) {
+          print('Unsupported action "$onPressedString" for TextButton');
+          action = null;
+        }
+
+        // Initialize the ActionHandler
+        final actionHandler = ActionHandler(context);
+
+        return TextButton(
+          onPressed: () {
+            try {
+              if (action != null) {
+                actionHandler.handleAction(action, actionParams);
+              }
+            } catch (e) {
+              print('Error executing onPressed function for TextButton: $e');
+            }
+          },
+          style: TextButton.styleFrom(
+            foregroundColor: textColor,
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize,
+            ),
+          ),
+        );
+      } catch (e) {
+        print('Error building TextButton: $e');
+        return const SizedBox.shrink();
+      }
+    }
+
+    static Widget _buildOutlinedButton(Map<String, dynamic> properties, BuildContext context) {
+      try {
+        // Validate properties
+        if (properties == null) {
+          print('Error: properties map is null for OutlinedButton');
+          return const SizedBox.shrink();
+        }
+
+        // Extract properties with default values
+        final onPressedString = properties['onPressed'];
+        if (onPressedString == null || !(onPressedString is String)) {
+          print('Error: onPressed is missing or is not a string for OutlinedButton');
+          return const SizedBox.shrink();
+        }
+
+        final text = properties['text'] ?? 'OutlinedButton';
+        final textColor = _parseColor(properties['textColor']) ?? Colors.blue;
+        final borderColor = _parseColor(properties['borderColor']) ?? Colors.blue;
+        final fontSize = double.tryParse(properties['fontSize']?.toString() ?? '16') ?? 16;
+        final borderWidth = double.tryParse(properties['borderWidth']?.toString() ?? '1') ?? 1;
+
+        // Parse action parameters
+        final actionParams = properties['actionParams'] as Map<String, dynamic>?;
+
+         // Convert the onPressed string to a WidgetAction
+        WidgetAction? action;
+        try {
+          action = WidgetAction.values.firstWhere(
+            (e) => e.toString().split('.').last == onPressedString,
+          );
+        } catch (e) {
+          print('Unsupported action "$onPressedString" for OutlinedButton');
+          action = null;
+        }
+
+        // Initialize the ActionHandler
+        final actionHandler = ActionHandler(context);
+
+        return OutlinedButton(
+          onPressed: () {
+            try {
+              if (action != null) { // Check if action is not null
+                actionHandler.handleAction(action, actionParams);
+              }
+            } catch (e) {
+              print('Error executing onPressed function for OutlinedButton: $e');
+            }
+          },
+          style: OutlinedButton.styleFrom(
+            foregroundColor: textColor, side: BorderSide(color: borderColor, width: borderWidth),
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize,
+            ),
+          ),
+        );
+      } catch (e) {
+        print('Error building OutlinedButton: $e');
+        return const SizedBox.shrink();
+      }
+    }
+
+    static Widget _buildIconButton(Map<String, dynamic> properties, BuildContext context) {
+      try {
+        // Validate properties
+        if (properties == null) {
+          print('Error: properties map is null for IconButton');
+          return const SizedBox.shrink();
+        }
+
+        // Extract properties
+        final onPressedString = properties['onPressed'];
+        if (onPressedString == null || !(onPressedString is String)) {
+          print('Error: onPressed is missing or is not a string for IconButton');
+          return const SizedBox.shrink();
+        }
+
+        final iconName = properties['icon'];
+        if (iconName == null || !(iconName is String)) {
+          print('Error: icon is missing or is not a string for IconButton');
+          return const SizedBox.shrink();
+        }
+
+        final iconColor = _parseColor(properties['iconColor']) ?? Colors.black;
+        final size = double.tryParse(properties['size']?.toString() ?? '24') ?? 24;
+
+        // Parse action parameters
+        final actionParams = properties['actionParams'] as Map<String, dynamic>?;
+
+        // Convert the onPressed string to a WidgetAction
+         // Convert the onPressed string to a WidgetAction
+        WidgetAction? action;
+        try {
+          action = WidgetAction.values.firstWhere(
+            (e) => e.toString().split('.').last == onPressedString,
+          );
+        } catch (e) {
+          print('Unsupported action "$onPressedString" for IconButton');
+          action = null;
+        }
+
+        // Initialize the ActionHandler
+        final actionHandler = ActionHandler(context);
+
+        // Parse IconData
+        final IconData iconData;
+        try {
+          iconData = _parseIconData(iconName);
+        } catch (e) {
+          print('Error parsing icon data for IconButton: $e');
+          return const Icon(Icons.error);
+        }
+
+        return IconButton(
+          icon: Icon(iconData, color: iconColor, size: size),
+          onPressed: () {
+            try {
+              if (action != null) {
+                actionHandler.handleAction(action, actionParams);
+              }
+            } catch (e) {
+              print('Error executing onPressed function for IconButton: $e');
+            }
+          },
+        );
+      } catch (e) {
+        print('Error building IconButton: $e');
+        return const SizedBox.shrink();
+      }
+    }
+
+    static Widget _buildFloatingActionButton(Map<String, dynamic> properties, BuildContext context) {
+      try {
+        // Validate properties
+        if (properties == null) {
+          print('Error: properties map is null for FloatingActionButton');
+          return const SizedBox.shrink();
+        }
+
+        // Extract properties
+        final onPressedString = properties['onPressed'];
+        if (onPressedString == null || !(onPressedString is String)) {
+          print('Error: onPressed is missing or is not a string for FloatingActionButton');
+          return const SizedBox.shrink();
+        }
+
+        final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.blue;
+        final foregroundColor = _parseColor(properties['foregroundColor']) ?? Colors.white;
+        final tooltip = properties['tooltip']?.toString() ?? '';
+        final elevation = double.tryParse(properties['elevation']?.toString() ?? '6') ?? 6;
+        final hoverElevation = double.tryParse(properties['hoverElevation']?.toString() ?? '8') ?? 8;
+        final shape = properties['shape'] != null ? _parseShape(properties['shape']) : const CircleBorder();
+        final mini = properties['mini'] ?? false;
+
+        // Parse action parameters
+        final actionParams = properties['actionParams'] as Map<String, dynamic>?;
+
+        // Convert the onPressed string to a WidgetAction
+
+
+         // Convert the onPressed string to a WidgetAction
+        WidgetAction? action;
+        try {
+          action = WidgetAction.values.firstWhere(
+            (e) => e.toString().split('.').last == onPressedString,
+          );
+        } catch (e) {
+          print('Unsupported action "$onPressedString" for FloatingActionButton');
+          action = null;
+        }
+        // final action = WidgetAction.values.firstWhere(
+        //   (e) => e.toString().split('.').last == onPressedString,
+        //   orElse: () {
+        //     print('Unsupported action "$onPressedString" for FloatingActionButton');
+        //     return WidgetAction.none; // Assuming 'none' is a valid fallback
+        //   },
+        // );
+
+        // Initialize the ActionHandler
+        final actionHandler = ActionHandler(context);
+
+        // Parse child widget
+        Widget child;
+        if (properties['child'] != null) {
+          child = build(WidgetDescription.fromJson(properties['child']), context);
+        } else {
+          // Parse icon if provided, otherwise use default
+          final iconName = properties['icon'] as String?;
+          final IconData iconData = iconName != null 
+              ? _parseIconData(iconName) 
+              : Icons.add;
+          child = Icon(iconData, color: foregroundColor);
+        }
+
+        return FloatingActionButton(
+          onPressed: () {
+            try {
+              if (action != null) {
+                actionHandler.handleAction(action, actionParams);
+              }
+            } catch (e) {
+              print('Error executing onPressed function for FloatingActionButton: $e');
+            }
+          },
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
+          tooltip: tooltip,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          shape: shape,
+          mini: mini,
+          child: child,
+        );
+      } catch (e) {
+        print('Error building FloatingActionButton: $e');
+        return const SizedBox.shrink();
+      }
+    }
+
+    static IconData _parseIconData(String iconName) {
+      switch (iconName) {
+        case 'Icons.favorite':
+      return Icons.favorite;
+    case 'Icons.add':
+      return Icons.add;
+    case 'Icons.delete':
+      return Icons.delete;
+    case 'Icons.edit':
+      return Icons.edit;
+    case 'Icons.share':
+      return Icons.share;
+    case 'Icons.home':
+      return Icons.home;
+    case 'Icons.settings':
+      return Icons.settings;
+    case 'Icons.person':
+      return Icons.person;
+    case 'Icons.notifications':
+      return Icons.notifications;
+    case 'Icons.search':
+      return Icons.search;
+    case 'Icons.camera':
+      return Icons.camera;
+    case 'Icons.location_on':
+      return Icons.location_on;
+    case 'Icons.message':
+      return Icons.message;
+    case 'Icons.video_call':
+      return Icons.video_call;
+    case 'Icons.shopping_cart':
+      return Icons.shopping_cart;
+    case 'Icons.favorite_border':
+      return Icons.favorite_border;
+    case 'Icons.access_alarm':
+      return Icons.access_alarm;
+    case 'Icons.accessibility':
+      return Icons.accessibility;
+    case 'Icons.account_circle':
+      return Icons.account_circle;
+    case 'Icons.arrow_back':
+      return Icons.arrow_back;
+    case 'Icons.arrow_forward':
+      return Icons.arrow_forward;
+    case 'Icons.brightness_6':
+      return Icons.brightness_6;
+    case 'Icons.camera_alt':
+      return Icons.camera_alt;
+    case 'Icons.chat':
+      return Icons.chat;
+    case 'Icons.check_circle':
+      return Icons.check_circle;
+    case 'Icons.clear':
+      return Icons.clear;
+    case 'Icons.cloud':
+      return Icons.cloud;
+    case 'Icons.date_range':
+      return Icons.date_range;
+    case 'Icons.directions':
+      return Icons.directions;
+    case 'Icons.edit_location':
+      return Icons.edit_location;
+    case 'Icons.favorite_outline':
+      return Icons.favorite_outline;
+    case 'Icons.file_copy':
+      return Icons.file_copy;
+    case 'Icons.folder':
+      return Icons.folder;
+    case 'Icons.group':
+      return Icons.group;
+    case 'Icons.help':
+      return Icons.help;
+    case 'Icons.info':
+      return Icons.info;
+    case 'Icons.lock':
+      return Icons.lock;
+    case 'Icons.lock_open':
+      return Icons.lock_open;
+    case 'Icons.map':
+      return Icons.map;
+    case 'Icons.more_horiz':
+      return Icons.more_horiz;
+    case 'Icons.more_vert':
+      return Icons.more_vert;
+    case 'Icons.notifications_active':
+      return Icons.notifications_active;
+    case 'Icons.palette':
+      return Icons.palette;
+    case 'Icons.phone':
+      return Icons.phone;
+    case 'Icons.print':
+      return Icons.print;
+    case 'Icons.public':
+      return Icons.public;
+    case 'Icons.refresh':
+      return Icons.refresh;
+    case 'Icons.save':
+      return Icons.save;
+    case 'Icons.share_location':
+      return Icons.share_location;
+    case 'Icons.star':
+      return Icons.star;
+    case 'Icons.star_border':
+      return Icons.star_border;
+    case 'Icons.thumb_up':
+      return Icons.thumb_up;
+    case 'Icons.visibility':
+      return Icons.visibility;
+    case 'Icons.visibility_off':
+      return Icons.visibility_off;
+
+
+        default:
+          print('Unrecognized icon name "$iconName", defaulting to Icons.error');
+          return Icons.error;
+      }
+    }
+
+    static ShapeBorder _parseShape(String shapeString) {
+      switch (shapeString.toLowerCase()) {
+        case 'circle':
+          return const CircleBorder();
+        case 'roundedrectangle':
+          double radius = double.tryParse(shapeString.split('_').last) ?? 8.0;
+          return RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius),
+          );
+        default:
+          print('Unrecognized shape "$shapeString", defaulting to CircleBorder');
+          return const CircleBorder();
+      }
+    }
+
+
+
+// static Widget _buildFloatingActionButton(Map<String, dynamic> properties, BuildContext context) {
+//   try {
+//     // Parse the onPressed action from the string
+//     final onPressedString = properties['onPressed'];
+//     if (onPressedString == null || !(onPressedString is String)) {
+//       print('Error: onPressed is missing or is not a string for FloatingActionButton');
+//       return const SizedBox.shrink();
+//     }
+
+//     // Parse background color, default to blue if not provided
+//     final backgroundColor = _parseColor(properties['backgroundColor']) ?? Colors.blue;
+
+//     // Parse the action parameters
+//     final actionParams = properties['actionParams'] as Map<String, dynamic>?;
+
+//     // Convert the onPressed string to a WidgetAction
+//     final action = WidgetAction.values.firstWhere(
+//       (e) => e.toString().split('.').last == onPressedString,
+//       orElse: () => throw Exception('Unsupported action "$onPressedString"'),
+//     );
+
+//     // Initialize the ActionHandler
+//     final actionHandler = ActionHandler(context);
+
+//     // Parse child widget
+//     Widget child;
+//     if (properties['child'] != null) {
+//       child = _buildChild(properties['child'], context);
+//     } else {
+//       // Parse icon if provided, otherwise use default
+//       final iconName = properties['icon'] as String?;
+//       final IconData iconData = iconName != null 
+//           ? WidgetRegistry.parseIconData(iconName) 
+//           : Icons.add;
+//       child = Icon(iconData, color: _parseColor(properties['iconColor']) ?? Colors.white);
+//     }
+
+//     // Return FloatingActionButton widget
+//     return FloatingActionButton(
+//       onPressed: () {
+//         try {
+//           actionHandler.handleAction(action, actionParams);
+//         } catch (e) {
+//           print('Error executing onPressed function: $e');
+//         }
+//       },
+//       backgroundColor: backgroundColor,
+//       child: child,
+//     );
+//   } catch (e) {
+//     print('Error building FloatingActionButton: $e');
+//     return const SizedBox.shrink();
+//   }
+// }
 
 
 
@@ -1648,69 +2151,69 @@ Function compileFunction(String code) {
   // }
 
 
-static ShapeBorder _parseShape(String? shapeType) {
-  switch (shapeType?.toLowerCase()) {
-    case 'circle':
-      return const CircleBorder();
-    case 'rounded':
-      return RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      );
-    case 'rectangle':
-      return const RoundedRectangleBorder(); // Default rectangle shape
-    case 'stadium':
-      return const StadiumBorder(); // Added stadium shape
-    case 'beveled':
-      return BeveledRectangleBorder(); // Added beveled shape
-    default:
-      return const CircleBorder(); // Fallback to circle if no match
-  }
-}
+// static ShapeBorder _parseShape(String? shapeType) {
+//   switch (shapeType?.toLowerCase()) {
+//     case 'circle':
+//       return const CircleBorder();
+//     case 'rounded':
+//       return RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(16.0),
+//       );
+//     case 'rectangle':
+//       return const RoundedRectangleBorder(); // Default rectangle shape
+//     case 'stadium':
+//       return const StadiumBorder(); // Added stadium shape
+//     case 'beveled':
+//       return BeveledRectangleBorder(); // Added beveled shape
+//     default:
+//       return const CircleBorder(); // Fallback to circle if no match
+//   }
+// }
 
 
 
 
-static Widget _buildOutlinedButton(Map<String, dynamic> properties, BuildContext context) {
-  try {
-    return OutlinedButton(
-      onPressed: properties['onPressed'] != null
-          ? () {
-              try {
-                // Ensure the onPressed is a function before calling it
-                if (properties['onPressed'] is Function) {
-                  (properties['onPressed'] as Function)();
-                } else {
-                  print('onPressed is not a function');
-                }
-              } catch (e) {
-                print('Error handling OutlinedButton press: $e');
-              }
-            }
-          : null,
-      style: ButtonStyle(
-        side: WidgetStateProperty.all<BorderSide>(
-          BorderSide(
-            color: _parseColor(properties['borderColor']) ?? Colors.blue,
-          ),
-        ),
-        padding: WidgetStateProperty.all<EdgeInsets>(
-          _parsePadding(properties['padding']) ?? const EdgeInsets.symmetric(horizontal: 12.0),
-        ),
-      ),
-      child: Text(
-        properties['text'] ?? '',
-        style: TextStyle(
-          color: _parseColor(properties['textColor']) ?? Colors.blue,
-          fontSize: double.tryParse(properties['fontSize']?.toString() ?? '14') ?? 14,
-        ),
-      ),
-    );
-  } catch (e) {
-    // Handle the error and return a placeholder
-    print('Error building OutlinedButton widget: $e');
-    return const SizedBox.shrink(); // Fallback if the OutlinedButton fails to build
-  }
-}
+// static Widget _buildOutlinedButton(Map<String, dynamic> properties, BuildContext context) {
+//   try {
+//     return OutlinedButton(
+//       onPressed: properties['onPressed'] != null
+//           ? () {
+//               try {
+//                 // Ensure the onPressed is a function before calling it
+//                 if (properties['onPressed'] is Function) {
+//                   (properties['onPressed'] as Function)();
+//                 } else {
+//                   print('onPressed is not a function');
+//                 }
+//               } catch (e) {
+//                 print('Error handling OutlinedButton press: $e');
+//               }
+//             }
+//           : null,
+//       style: ButtonStyle(
+//         side: WidgetStateProperty.all<BorderSide>(
+//           BorderSide(
+//             color: _parseColor(properties['borderColor']) ?? Colors.blue,
+//           ),
+//         ),
+//         padding: WidgetStateProperty.all<EdgeInsets>(
+//           _parsePadding(properties['padding']) ?? const EdgeInsets.symmetric(horizontal: 12.0),
+//         ),
+//       ),
+//       child: Text(
+//         properties['text'] ?? '',
+//         style: TextStyle(
+//           color: _parseColor(properties['textColor']) ?? Colors.blue,
+//           fontSize: double.tryParse(properties['fontSize']?.toString() ?? '14') ?? 14,
+//         ),
+//       ),
+//     );
+//   } catch (e) {
+//     // Handle the error and return a placeholder
+//     print('Error building OutlinedButton widget: $e');
+//     return const SizedBox.shrink(); // Fallback if the OutlinedButton fails to build
+//   }
+// }
 
 
 
@@ -2744,126 +3247,7 @@ static Widget _buildIcon(Map<String, dynamic> properties, BuildContext context) 
 //   }
 // }
 
-static IconData _parseIconData(String? iconName) {
-  // Return the appropriate IconData based on the provided icon name
-  if (iconName == null) {
-    return Icons.error; // Return error icon if iconName is null
-  }
 
-  switch (iconName) {
-    case 'Icons.favorite':
-      return Icons.favorite;
-    case 'Icons.add':
-      return Icons.add;
-    case 'Icons.delete':
-      return Icons.delete;
-    case 'Icons.edit':
-      return Icons.edit;
-    case 'Icons.share':
-      return Icons.share;
-    case 'Icons.home':
-      return Icons.home;
-    case 'Icons.settings':
-      return Icons.settings;
-    case 'Icons.person':
-      return Icons.person;
-    case 'Icons.notifications':
-      return Icons.notifications;
-    case 'Icons.search':
-      return Icons.search;
-    case 'Icons.camera':
-      return Icons.camera;
-    case 'Icons.location_on':
-      return Icons.location_on;
-    case 'Icons.message':
-      return Icons.message;
-    case 'Icons.video_call':
-      return Icons.video_call;
-    case 'Icons.shopping_cart':
-      return Icons.shopping_cart;
-    case 'Icons.favorite_border':
-      return Icons.favorite_border;
-    case 'Icons.access_alarm':
-      return Icons.access_alarm;
-    case 'Icons.accessibility':
-      return Icons.accessibility;
-    case 'Icons.account_circle':
-      return Icons.account_circle;
-    case 'Icons.arrow_back':
-      return Icons.arrow_back;
-    case 'Icons.arrow_forward':
-      return Icons.arrow_forward;
-    case 'Icons.brightness_6':
-      return Icons.brightness_6;
-    case 'Icons.camera_alt':
-      return Icons.camera_alt;
-    case 'Icons.chat':
-      return Icons.chat;
-    case 'Icons.check_circle':
-      return Icons.check_circle;
-    case 'Icons.clear':
-      return Icons.clear;
-    case 'Icons.cloud':
-      return Icons.cloud;
-    case 'Icons.date_range':
-      return Icons.date_range;
-    case 'Icons.directions':
-      return Icons.directions;
-    case 'Icons.edit_location':
-      return Icons.edit_location;
-    case 'Icons.favorite_outline':
-      return Icons.favorite_outline;
-    case 'Icons.file_copy':
-      return Icons.file_copy;
-    case 'Icons.folder':
-      return Icons.folder;
-    case 'Icons.group':
-      return Icons.group;
-    case 'Icons.help':
-      return Icons.help;
-    case 'Icons.info':
-      return Icons.info;
-    case 'Icons.lock':
-      return Icons.lock;
-    case 'Icons.lock_open':
-      return Icons.lock_open;
-    case 'Icons.map':
-      return Icons.map;
-    case 'Icons.more_horiz':
-      return Icons.more_horiz;
-    case 'Icons.more_vert':
-      return Icons.more_vert;
-    case 'Icons.notifications_active':
-      return Icons.notifications_active;
-    case 'Icons.palette':
-      return Icons.palette;
-    case 'Icons.phone':
-      return Icons.phone;
-    case 'Icons.print':
-      return Icons.print;
-    case 'Icons.public':
-      return Icons.public;
-    case 'Icons.refresh':
-      return Icons.refresh;
-    case 'Icons.save':
-      return Icons.save;
-    case 'Icons.share_location':
-      return Icons.share_location;
-    case 'Icons.star':
-      return Icons.star;
-    case 'Icons.star_border':
-      return Icons.star_border;
-    case 'Icons.thumb_up':
-      return Icons.thumb_up;
-    case 'Icons.visibility':
-      return Icons.visibility;
-    case 'Icons.visibility_off':
-      return Icons.visibility_off;
-    default:
-      print('Error: Unsupported icon name: $iconName');
-      return Icons.error; 
-  }
-}
 
 
 

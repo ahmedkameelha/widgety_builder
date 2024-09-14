@@ -465,3 +465,52 @@ class MyApp extends StatelessWidget {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<Container padding="16,16,16,16" height="220" color="#808080">
+
+                          <!-- FloatingActionButton example -->
+    <FloatingActionButton onPressed="showSnackBar(context: context, message: 'FloatingActionButton pressed!')" backgroundColor="#FFFF4081" icon="Icons.add" />
+
+    <!-- TextButton example -->
+    <TextButton onPressed="showAlert(context: context, title: 'TextButton', message: 'You pressed the TextButton')" text="Click Me" textColor="#0000FF" fontSize="16" />
+
+    <!-- IconButton example -->
+    <IconButton onPressed="shareContent(text: 'Check out this awesome app!')" icon="Icons.share" color="#00FF00" size="24" />
+
+    <!-- ElevatedButton example -->
+    <ElevatedButton onPressed="navigate(context: context, route: '/details')" text="Go to Details" backgroundColor="#FF9800" textColor="#FFFFFF" fontSize="18" borderRadius="8" elevation="4" />
+
+    <!-- OutlinedButton example -->
+    <OutlinedButton onPressed="logMessage(message: 'OutlinedButton pressed!')" text="Press Me" textColor="#000000" fontSize="16" borderRadius="8" />
+
+    <!-- IconButton example -->
+    <IconButton onPressed="showSnackBar(context: context, message: 'IconButton pressed!')" icon="Icons.add" color="#FFFFFF" size="24" />
+
+      <!-- TextButton example -->
+
+   </Container> 
+                 

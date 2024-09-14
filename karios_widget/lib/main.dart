@@ -11,40 +11,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Banking App Home UI',
+      title: ' Example App UI',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Banking App Home UI'),
+          title: const Text('Example App UI'),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
 
- Container(
-  child: ElevatedButton(
-    onPressed: () {
-      print('Elevated Button Pressed');
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Color(0xFFFF5733),
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-    ),
-    child: Text(
-      'Click Me',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-      ),
-    ),
-  ),
-),
+ 
 
               DynamicWidgetBuilder.buildFromXml('''
                                 
@@ -103,27 +82,6 @@ class MyApp extends StatelessWidget {
       
     
 </Container>
-
-
-
-  
-
-  
- 
-
-
-
-
-<Container padding="16,16,16,16" height="220" color="#808080">
-
- <FloatingActionButton 
-        onPressed="showModalBottomSheet(context: context, builder: (BuildContext context) => Container(padding: EdgeInsets.all(16), child: Column(mainAxisSize: MainAxisSize.min, children: [ListTile(leading: Icon(Icons.add), title: Text('Add New'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.edit), title: Text('Edit'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.delete), title: Text('Delete'), onTap: () { Navigator.pop(context); }),])));" 
-        backgroundColor="#FFFF4081" 
-  />
-
-  </Container>
-
-
 
 
 
@@ -186,6 +144,14 @@ class MyApp extends StatelessWidget {
 
 
 
+ <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="20">
+                  
+        <Center>
+            <Text text="Hello, Flutter Enthusiast" fontSize="16" color="#FFFFFF" />
+        </Center>
+      
+    
+</Container>
 
 
 
@@ -299,12 +265,97 @@ class MyApp extends StatelessWidget {
                                 </Column>
                             </Container>
 
+
+
+                            <Container padding="16,16,16,16" height="220" color="#808080">
+
+ <FloatingActionButton 
+        onPressed="showModalBottomSheet(context: context, builder: (BuildContext context) => Container(padding: EdgeInsets.all(16), child: Column(mainAxisSize: MainAxisSize.min, children: [ListTile(leading: Icon(Icons.add), title: Text('Add New'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.edit), title: Text('Edit'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.delete), title: Text('Delete'), onTap: () { Navigator.pop(context); }),])));" 
+        backgroundColor="#FFFF4081" 
+  />
+
+  </Container>
+
+
+  <Container padding="16,16,16,16" height="100" color="#809090">
+
+                          <!-- FloatingActionButton example -->
+    <FloatingActionButton onPressed="showSnackBar(context: context, message: 'FloatingActionButton pressed!')" backgroundColor="#FFFF4081" icon="Icons.add" />
+
+   
+
+   </Container> 
+
+
+   <Container padding="16,16,16,16" height="100" color="#809298">
+
+    <!-- TextButton example -->
+    <TextButton onPressed="showAlert(context: context, title: 'TextButton', message: 'You pressed the TextButton')" text="Click Me" textColor="#0000FF" fontSize="16" />  
+
+   </Container>
+
+   <Container padding="16,16,16,16" height="100" color="#989298">
+
+    <!-- ElevatedButton example -->
+    <ElevatedButton onPressed="navigate(context: context, route: '/details')" text="Go to Details" backgroundColor="#FF9800" textColor="#FFFFFF" fontSize="18" borderRadius="8" elevation="4" />
+
+   </Container>  
+
+   <Container padding="16,16,16,16" height="100" color="#939210">
+
+ <!-- OutlinedButton example -->
+    <OutlinedButton onPressed="logMessage(message: 'OutlinedButton pressed!')" text="Press Me" textColor="#000000" fontSize="16" borderRadius="8" />
+
+   </Container>  
+
+     <Container padding="16,16,16,16" height="100" color="#838990">
+
+  <!-- IconButton example -->
+    <IconButton onPressed="showSnackBar(context: context, message: 'IconButton pressed!')" icon="Icons.home" color="#FFFFFF" size="24" />
+
+   </Container> 
+
+
+
                         </Column>
-                    
+
+                        
+
+
+
+   
                 
               ''', context),
 
-              const Divider(),
+              
+
+
+              Container(
+  child: ElevatedButton(
+    onPressed: () {
+      print('Elevated Button Pressed');
+    },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Color(0xFFFF5733),
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+    ),
+    child: Text(
+      'Click Me',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+      ),
+    ),
+  ),
+),
+
+
+const Divider(),
+
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
