@@ -11,388 +11,491 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: ' Example App UI',
+      title: 'Chat UI',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Example App UI'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-
- 
-
-              DynamicWidgetBuilder.buildFromXml('''
-                                
-               
-                    
-                        <Column>
-
-<!-- Header Section -->
-  <Container padding="16,16,16,16" color="#2196F3" borderRadius="8">
-    <Center>
-      <Text text="Dynamic Flutter App" fontSize="17" color="#FFFFFF" fontWeight="bold" />
-    </Center>
-  </Container>
-
-    
-
-<Container padding="16,16,16,16" color="#FFCC80" borderRadius="12" height="20">
-                  
-        <Center>
-            <Text text="Hello, Flutter Enthusiast" fontSize="16" color="#FFFFFF" />
-        </Center>
-      
-    
-</Container>
-
-  <!-- Welcome Message Section -->
-  <Container padding="12,12,12,12" color="#FFC107" borderRadius="20" margin="10,0,10,0" height="50">
-  <Center>
-      <Text text="Let's build stunning UIs dynamically." fontSize="14" color="#FFFFFF" />
-  </Center>
-   
-  </Container>
-
- <!-- Grid View Section -->
-
-
- <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="20">
-                  
-        <Center>
-            <Text text="Hello, Flutter Enthusiast" fontSize="16" color="#FFFFFF" />
-        </Center>
-      
-    
-</Container>
-
-
-
-
-
-
- <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="20">
-                  
-        <Center>
-            <Text text="Hello, Flutter Enthusiast" fontSize="16" color="#FFFFFF" />
-        </Center>
-      
-    
-</Container>
-
-
-
-  <!-- Transaction History Section -->
-    
-<Container margin="10,0,10,0">
-  <GridView crossAxisCount="2" mainAxisSpacing="10" crossAxisSpacing="10" childAspectRatio="1" height="300">
-    
-    <!-- Check Balance -->
-    <Container color="#E91E63" padding="10,10,10,10" borderRadius="10">
-      <Column>
-        <Expanded>
-          <Icon icon="Icons.person" size="30" color="#FFFFFF"/>
-        </Expanded>
-        <Center>
-          <Text text="Check Balance" fontSize="16" color="#FFFFFF" />
-        </Center>
-      </Column>
-    </Container>
-    
-    <!-- Transfer Funds -->
-    <Container color="#4CAF50" padding="10,10,10,10" borderRadius="10">
-      <Column>
-        <Expanded>
-          <Icon icon="Icons.shopping_cart" size="30" color="#FFFFFF"/>
-        </Expanded>
-        <Center>
-          <Text text="Transfer Funds" fontSize="16" color="#FFFFFF" />
-        </Center>
-      </Column>
-    </Container>
-    
-    <!-- Pay Bills -->
-    <Container color="#FF9800" padding="10,10,10,10" borderRadius="10">
-      <Column>
-        <Expanded>
-          <Icon icon="Icons.home" size="30" color="#FFFFFF"/>
-        </Expanded>
-        <Center>
-          <Text text="Pay Bills" fontSize="16" color="#FFFFFF" />
-        </Center>
-      </Column>
-    </Container>
-    
-    <!-- Transaction History -->
-    <Container color="#3F51B5" padding="10,10,10,10" borderRadius="10">
-      <Column>
-        <Expanded>
-          <Icon icon="Icons.thumb_up" size="30" color="#FFFFFF"/>
-        </Expanded>
-        <Center>
-          <Text text="Transaction History" fontSize="16" color="#FFFFFF" />
-        </Center>
-      </Column>
-    </Container>
-
-  </GridView>
-</Container>
-
-
-
-
- <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="20">
-                  
-        <Center>
-            <Text text="Hello, Flutter Enthusiast" fontSize="16" color="#FFFFFF" />
-        </Center>
-      
-    
-</Container>
-
-
-
-
-            <Row mainAxisAlignment="spaceAround" padding="16,16,16,16">
-        <Container>
-            <Column>
-                <Text text="Button 1" fontSize="14" color="#000000"/>
-                <Container color="#FF5722" padding="8,8,8,8" borderRadius="30">
-                    <Text text="Round Button 1" color="#FFFFFF"/>
-                </Container>
-            </Column>
-        </Container>
-
-        <Container>
-            <Column>
-                <Text text="Button 2" fontSize="14" color="#000000"/>
-                <Container color="#03A9F4" padding="8,8,8,8">
-                    <Text text="Round Button 2" color="#FFFFFF"/>
-                </Container>
-            </Column>
-        </Container>
-
-        <Container>
-            <Column>
-                <Text text="Button 3" fontSize="14" color="#000000"/>
-                <Container color="#4CAF50" padding="8,8,8,8">
-                    <Text text="Round Button 3" color="#FFFFFF"/>
-                </Container>
-            </Column>
-        </Container>
-
-
-    </Row>
-
-
-
-
-        <Container padding="16,16,16,16" color="#FFFFFF" borderRadius="12" height="40">
-    <Column>                
-        <SizedBox height="50" width="80">
-            <Text text=" " fontSize="16" color="#FFFFFF" />
-        </SizedBox>
-
-    </Column>
-</Container>
-
-
-
-
-
-
-
-
-    
-
-                            <!-- Account Balance Card -->
-                            <Container padding="16,16,16,16" color="#F0F0F0">
-                                <Column>
-                                    <Text text="Total Balance" fontSize="18" color="#000000" />
-                                    <Text text="5,400.25" fontSize="28" color="#4CAF50" />
-                                    <Row>
-                                        <Text text="Primary Checking" fontSize="14" color="#000000" />
-                                    </Row>
-                                </Column>
-                            </Container>
-
-
-                            
-
-
-                            
-                            <!-- Action Buttons for Transfers and Payments -->
-
-
-                            
-                            <Row mainAxisAlignment="spaceAround" padding="16,16,16,16">
-                                <Container>
-                                    <Column>
-                                        <Text text="Transfer" fontSize="14" color="#000000"/>
-                                        <Container color="#FF5722" padding="8,8,8,8">
-                                            <Text text="Send Money" color="#FFFFFF"/>
-                                        </Container>
-                                    </Column>
-                                </Container>
-
-                                <Container>
-                                    <Column>
-                                        <Text text="Pay Bill" fontSize="14" color="#000000"/>
-                                        <Container color="#03A9F4" padding="8,8,8,8">
-                                            <Text text="Pay Now" color="#FFFFFF"/>
-                                        </Container>
-                                    </Column>
-                                </Container>
-                            </Row>
-
-                            <!-- Transaction History -->
-                            <Container padding="16,16,16,16" color="#F0F0F0">
-                                <Column>
-                                    <Text text="Recent Transactions" fontSize="18" color="#000000" />
-                                    <Column>
-                                        <Row>
-                                            <Text text="Grocery Store" fontSize="14" color="#000000" />
-                                            <Text text="50.00" fontSize="14" color="#F44336" />
-                                        </Row>
-                                        <Row>
-                                            <Text text="Electric Bill" fontSize="14" color="#000000" />
-                                            <Text text="120.00" fontSize="14" color="#F44336" />
-                                        </Row>
-                                    </Column>
-                                </Column>
-                            </Container>
-
-
-
-                            <Container padding="16,16,16,16" height="220" color="#808080">
-
- <FloatingActionButton 
-        onPressed="showModalBottomSheet(context: context, builder: (BuildContext context) => Container(padding: EdgeInsets.all(16), child: Column(mainAxisSize: MainAxisSize.min, children: [ListTile(leading: Icon(Icons.add), title: Text('Add New'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.edit), title: Text('Edit'), onTap: () { Navigator.pop(context); }), ListTile(leading: Icon(Icons.delete), title: Text('Delete'), onTap: () { Navigator.pop(context); }),])));" 
-        backgroundColor="#FFFF4081" 
-  />
-
-  </Container>
-
-
-  <Container padding="16,16,16,16" height="100" color="#809090">
-
-                          <!-- FloatingActionButton example -->
-    <FloatingActionButton onPressed="showSnackBar(context: context, message: 'FloatingActionButton pressed!')" backgroundColor="#FFFF4081" icon="Icons.add" />
-
-   
-
-   </Container> 
-
-
-   <Container padding="16,16,16,16" height="100" color="#809298">
-
-    <!-- TextButton example -->
-    <TextButton onPressed="showAlert(context: context, title: 'TextButton', message: 'You pressed the TextButton')" text="Click Me" textColor="#0000FF" fontSize="16" />  
-
-   </Container>
-
-   <Container padding="16,16,16,16" height="100" color="#989298">
-
-    <!-- ElevatedButton example -->
-    <ElevatedButton onPressed="navigate(context: context, route: '/details')" text="Go to Details" backgroundColor="#FF9800" textColor="#FFFFFF" fontSize="18" borderRadius="8" elevation="4" />
-
-   </Container>  
-
-   <Container padding="16,16,16,16" height="100" color="#939210">
-
- <!-- OutlinedButton example -->
-    <OutlinedButton onPressed="logMessage(message: 'OutlinedButton pressed!')" text="Press Me" textColor="#000000" fontSize="16" borderRadius="8" />
-
-   </Container>  
-
-     <Container padding="16,16,16,16" height="100" color="#838990">
-
-  <!-- IconButton example -->
-    <IconButton onPressed="showSnackBar(context: context, message: 'IconButton pressed!')" icon="Icons.home" color="#FFFFFF" size="24" />
-
-   </Container> 
-
-
-
-                        </Column>
-
-                        
-
-
-
-   
-                
-              ''', context),
-
-              
-
-
-              Container(
-  child: ElevatedButton(
-    onPressed: () {
-      print('Elevated Button Pressed');
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Color(0xFFFF5733),
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-    ),
-    child: Text(
-      'Click Me',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-      ),
-    ),
-  ),
-),
-
-
-const Divider(),
-
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'JSON Input',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 10),
-            DynamicWidgetBuilder.buildFromJson('''
-
-
-
-{
-  "type": "FloatingActionButton",
-  "properties": {
-    "onPressed": "function() { showModalBottomSheet(context: context, builder: (BuildContext context) { return Container(padding: EdgeInsets.all(16), child: Column(mainAxisSize: MainAxisSize.min, children: [ListTile(leading: Icon(Icons.add), title: Text('Add New'), onTap: () { print('Floating Action Button 1 pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.edit), title: Text('Edit'), onTap: () { print('Floating Action Button 2 pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.delete), title: Text('Delete'), onTap: () { print('Floating Action Button 3 pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.payment), title: Text('Pay Bill'), onTap: () { print('Pay Bill pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.transfer_within_a_station), title: Text('Transfer'), onTap: () { print('Transfer pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.history), title: Text('Transaction History'), onTap: () { print('Transaction History pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.settings), title: Text('Settings'), onTap: () { print('Settings pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.info), title: Text('Info'), onTap: () { print('Info pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.star), title: Text('Favorites'), onTap: () { print('Favorites pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.contact_mail), title: Text('Contacts'), onTap: () { print('Contacts pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.notifications), title: Text('Notifications'), onTap: () { print('Notifications pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.help), title: Text('Help'), onTap: () { print('Help pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.share), title: Text('Share'), onTap: () { print('Share pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.feedback), title: Text('Feedback'), onTap: () { print('Feedback pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.language), title: Text('Language'), onTap: () { print('Language pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.privacy_tip), title: Text('Privacy'), onTap: () { print('Privacy pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.security), title: Text('Security'), onTap: () { print('Security pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.bug_report), title: Text('Report a Bug'), onTap: () { print('Report a Bug pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.update), title: Text('Check for Updates'), onTap: () { print('Check for Updates pressed'); Navigator.pop(context); }), ListTile(leading: Icon(Icons.logout), title: Text('Logout'), onTap: () { print('Logout pressed'); Navigator.pop(context); }),])); }); }",
-    "backgroundColor": "#FFFF4081",
-    "child": {
-      "type": "Icon",
-      "properties": {
-        "icon": "Icons.add",
-        "color": "#FFFFFF",
-        "size": 24
-      }
-    }
+      home: const ChatHomePage(),
+    );
   }
 }
 
+class ChatHomePage extends StatefulWidget {
+  const ChatHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<ChatHomePage> createState() => _ChatHomePageState();
+}
+
+class _ChatHomePageState extends State<ChatHomePage> {
+  int _selectedIndex = 0;
+
+  static List<Widget> _screens(BuildContext context) => [
+    // Conversations List Screen - XML Input
+    DynamicWidgetBuilder.buildFromXml('''
+<Column>
+  <Container height="60" color="#008080" padding="8,8,8,8">
+    <Center>
+      <Text text="Conversations" fontSize="20" color="#FFFFFF" fontWeight="bold" />
+    </Center>
+  </Container>
+  
+   <Container height="50" padding="8,8,8,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#c7d1cb"}'>
+    <Row>
+      <Icon icon="Icons.search" color="#000000" size="24" />
+      <SizedBox width="10" />
+      <Text text="Search" fontSize="14" color="#000000" />
+    </Row>
+  </Container>
 
 
 
 
+  
+  <Container height="550" padding="16,16,16,16" color="#008080">
 
-              ''', context)
-             ] // Assuming jsonData is defined elsewhere
+
+
+
+   <Column>
+
+
+     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+  <Row>
+    <SizedBox width="10" />
+    <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+    <SizedBox width="10" />
+    <SizedBox width="250" height="60">
+      <Column>
+        <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+        <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+      </Column>
+    </SizedBox>
+  </Row>
+</Container>
+
+
+     
+
+     <Container height="10">
+       <Divider color="#FFFFFF" thickness="1" />
+     </Container>
+
+     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+      <Row>
+      <SizedBox width="10" />
+        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+        <SizedBox width="10" />
+        <SizedBox width="250" height="60">
+          
+            <Column>
+              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+            </Column>
+            
+        </SizedBox>
+      </Row>
+     </Container>
+
+
+      <Container height="10">
+       <Divider color="#FFFFFF" thickness="1" />
+     </Container>
+
+     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+      <Row>
+      <SizedBox width="10" />
+        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+        <SizedBox width="10" />
+        <SizedBox width="250" height="60">
+          
+            <Column>
+              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+            </Column>
+            
+        </SizedBox>
+      </Row>
+     </Container>
+
+      <Container height="10">
+       <Divider color="#FFFFFF" thickness="1" />
+     </Container>
+
+     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+      <Row>
+      <SizedBox width="10" />
+        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+        <SizedBox width="10" />
+        <SizedBox width="250" height="60">
+          
+            <Column>
+              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+            </Column>
+            
+        </SizedBox>
+      </Row>
+     </Container>
+
+      <Container height="10">
+       <Divider color="#FFFFFF" thickness="1" />
+     </Container>
+
+     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+      <Row>
+      <SizedBox width="10" />
+        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+        <SizedBox width="10" />
+        <SizedBox width="250" height="60">
+          
+            <Column>
+              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+            </Column>
+            
+        </SizedBox>
+      </Row>
+     </Container>
+      <Container height="10">
+       <Divider color="#FFA500" thickness="1" />
+     </Container>
+
+
+     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+      <Row>
+      <SizedBox width="10" />
+        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+        <SizedBox width="10" />
+        <SizedBox width="250" height="60">
+          
+            <Column>
+              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+            </Column>
+            
+        </SizedBox>
+      </Row>
+     </Container>
+      <Container height="10">
+       <Divider color="#FFFFFF" thickness="1" />
+     </Container>
+
+
+
+
+   </Column>
+
+     
+
+
+
+    
+
+  
+   
+
+
+
+
+  </Container>
+</Column>
+    ''', context),
+
+    // Main Conversation Screen - XML Input
+    DynamicWidgetBuilder.buildFromXml('''
+<Column>
+
+
+  <Container height="60" color="#20B2AA" padding="16,16,16,16">
+   
+    <Center>
+      <Text text="Chat with John" fontSize="20" color="#FFFFFF" fontWeight="bold" />
+    </Center>
+  </Container>
+
+
+   <Container height="10">
+       <Divider color="#FFFFFF" thickness="1" />
+     </Container>
+
+
+  <Container height="600" color="#343131" padding="16,16,16,16" >
+  <Column>
+
+
+      <Container height="50" padding="8,8,8,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+    <Row>
+      <Icon icon="Icons.search" color="#000000" size="24" />
+      <SizedBox width="10" />
+      <Text text="Search" fontSize="14" color="#000000" />
+    </Row>
+  </Container>
+  
+
+  
+    <Row>
+
+    <Container decoration='{"borderRadius": 20, "color": "#FFFFFF", "border": {"color": "#FFFFFF", "width": 2}}'>
+         <Icon icon="Icons.person" color="#000000" size="20" />
+        </Container>
+
+      
+      <Container height="55" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#E0FFFF", "border": {"color": "#FFA500", "width": 2}}'>
+        
+      </Container>
+    </Row>
+  
+<Container padding="290,10,10,10" decoration='{"borderRadius": 20}'>
+         <Icon icon="Icons.person" color="#FFFFFF" size="20" />
+        </Container>
+        
+
+   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#e2ed98", "border": {"color": "#FFA500", "width": 2}}'>
+    
+  </Container>
+
+  <Container padding="10,10,10,10" decoration='{"borderRadius": 20}'>
+         <Icon icon="Icons.person" color="#FFFFFF" size="20" />
+        </Container>
+
+   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#E0FFFF", "border": {"color": "#FFA500", "width": 2}}'>
+    
+  </Container>
+
+   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#e2ed98", "border": {"color": "#FFA500", "width": 2}}'>
+    
+  </Container>
+
+   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#E0FFFF", "border": {"color": "#FFA500", "width": 2}}'>
+    
+  </Container>
+
+   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#e2ed98", "border": {"color": "#FFA500", "width": 2}}'>
+    
+  </Container>
+
+
+ </Column>
+  
+  </Container>
+
+  <Container height="10">
+       <Divider color="#FFFFFF" thickness="1" />
+     </Container>
+
+
+
+  
+  <Container>
+    <padding>8,8,8,8</padding>
+    <color>#F0F8FF</color>
+    <child>
+      <Row>
+        <children>
+          <Expanded>
+            <child>
+              <TextField>
+                <decoration>
+                  <hintText>Type a message</hintText>
+                  <border>OutlineInputBorder</border>
+                </decoration>
+              </TextField>
+            </child>
+          </Expanded>
+          <IconButton>
+            <icon>send</icon>
+            <color>#20B2AA</color>
+            <onPressed>printMessage</onPressed>
+          </IconButton>
+        </children>
+      </Row>
+    </child>
+  </Container>
+
+
+
+</Column>
+    ''', context),
+
+Divider(),
+    // Groups Screen - XML Input
+    DynamicWidgetBuilder.buildFromXml('''
+<Column>
+  <Container>
+    <properties>
+      <padding>16,16,16,16</padding>
+      <color>#2E8B57</color>
+    </properties>
+    <child>
+      <Center>
+        <child>
+          <Text>
+            <properties>
+              <text>Groups</text>
+              <fontSize>20</fontSize>
+              <color>#FFFFFF</color>
+              <fontWeight>bold</fontWeight>
+            </properties>
+          </Text>
+        </child>
+      </Center>
+    </child>
+  </Container>
+  
+  <ListView>
+    <properties>
+      <padding>0,0,0,0</padding>
+      <scrollDirection>vertical</scrollDirection>
+      <shrinkWrap>true</shrinkWrap>
+      <height>400</height>
+    </properties>
+    <children>
+      <Row>
+        <properties>
+          <padding>16,16,16,16</padding>
+          <mainAxisAlignment>spaceBetween</mainAxisAlignment>
+        </properties>
+        <children>
+          <Row>
+            <children>
+              <Icon>
+                <properties>
+                  <icon>Icons.group</icon>
+                  <size>40</size>
+                  <color>#000000</color>
+                </properties>
+              </Icon>
+              <SizedBox>
+                <properties>
+                  <width>10</width>
+                </properties>
+              </SizedBox>
+              <Column>
+                <properties>
+                  <crossAxisAlignment>start</crossAxisAlignment>
+                </properties>
+                <children>
+                  <Text>
+                    <properties>
+                      <text>Flutter Devs</text>
+                      <fontSize>16</fontSize>
+                      <color>#000000</color>
+                      <fontWeight>bold</fontWeight>
+                    </properties>
+                  </Text>
+                  <Text>
+                    <properties>
+                      <text>Join us to discuss Flutter.</text>
+                      <fontSize>14</fontSize>
+                      <color>#555555</color>
+                    </properties>
+                  </Text>
+                </children>
+              </Column>
+            </children>
+          </Row>
+          <Icon>
+            <properties>
+              <icon>Icons.arrow_forward</icon>
+              <color>#888888</color>
+              <size>24</size>
+            </properties>
+          </Icon>
+        </children>
+      </Row>
+      
+      <Row>
+        <properties>
+          <padding>16,16,16,16</padding>
+          <mainAxisAlignment>spaceBetween</mainAxisAlignment>
+        </properties>
+        <children>
+          <Row>
+            <children>
+              <Icon>
+                <properties>
+                  <icon>Icons.group</icon>
+                  <size>40</size>
+                  <color>#000000</color>
+                </properties>
+              </Icon>
+              <SizedBox>
+                <properties>
+                  <width>10</width>
+                </properties>
+              </SizedBox>
+              <Column>
+                <properties>
+                  <crossAxisAlignment>start</crossAxisAlignment>
+                </properties>
+                <children>
+                  <Text>
+                    <properties>
+                      <text>Study Group</text>
+                      <fontSize>16</fontSize>
+                      <color>#000000</color>
+                      <fontWeight>bold</fontWeight>
+                    </properties>
+                  </Text>
+                  <Text>
+                    <properties>
+                      <text>Let's prepare for exams together.</text>
+                      <fontSize>14</fontSize>
+                      <color>#555555</color>
+                    </properties>
+                  </Text>
+                </children>
+              </Column>
+            </children>
+          </Row>
+          <Icon>
+            <properties>
+              <icon>Icons.arrow_forward</icon>
+              <color>#888888</color>
+              <size>24</size>
+            </properties>
+          </Icon>
+        </children>
+      </Row>
+    </children>
+  </ListView>
+</Column>
+    ''', context),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Chat UI'),
+      ),
+      body: _screens(context)[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'Conversations',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Groups',
+          ),
+        ],
+        selectedItemColor: Colors.teal,
+        unselectedItemColor: Colors.grey,
       ),
     );
   }

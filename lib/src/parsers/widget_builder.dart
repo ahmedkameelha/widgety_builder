@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -225,33 +226,102 @@ static Widget _buildText(Map<String, dynamic> properties, BuildContext context) 
   }
 
 
-  static Widget _buildContainer(Map<String, dynamic> properties, BuildContext context) {
-    // Wrap widget building in try-catch
-    try {
-      return Container(
-        key: properties['key'] != null ? Key(properties['key']) : null,
-        alignment: _parseAlignment(properties['alignment']),
-        padding: _parsePadding(properties['padding']),
-        color: _parseColor(properties['color']),
-        decoration: properties['decoration'] != null ? const BoxDecoration() : null, 
-        foregroundDecoration: properties['foregroundDecoration'] != null ? const BoxDecoration() : null, 
-        width: properties['width'] != null ? double.tryParse(properties['width'].toString()) : null,
-        height: properties['height'] != null ? double.tryParse(properties['height'].toString()) : null,
-        constraints: properties['constraints'] != null ? const BoxConstraints() : null, 
-        margin: _parsePadding(properties['margin']),
-        transform: properties['transform'] != null ? Matrix4.identity() : null, 
-        transformAlignment: _parseAlignment(properties['transformAlignment']),
-        clipBehavior: properties['clipBehavior'] != null ? Clip.values.firstWhere((e) => e.toString() == 'Clip.${properties['clipBehavior']}') : Clip.none,
-        child: properties['child'] != null
-            ? build(WidgetDescription.fromJson(properties['child']), context)
-            : null,
-      );
-    } catch (e) {
+  // static Widget _buildContainer(Map<String, dynamic> properties, BuildContext context) {
+  //   // Wrap widget building in try-catch
+  //   try {
+  //     return Container(
+  //       key: properties['key'] != null ? Key(properties['key']) : null,
+  //       alignment: _parseAlignment(properties['alignment']),
+  //       padding: _parsePadding(properties['padding']),
+  //       color: _parseColor(properties['color']),
+  //       decoration: properties['borderRadius'] != null
+  //             ? BoxDecoration(
+  //                 color: _parseColor(properties['color']),
+  //                 borderRadius: BorderRadius.circular(
+  //                   double.tryParse(properties['borderRadius'].toString()) ?? 0.0,
+  //                 ),
+  //               )
+  //             : null,
+  //       foregroundDecoration: properties['foregroundDecoration'] != null ? const BoxDecoration() : null, 
+  //       width: properties['width'] != null ? double.tryParse(properties['width'].toString()) : null,
+  //       height: properties['height'] != null ? double.tryParse(properties['height'].toString()) : null,
+  //       constraints: properties['constraints'] != null ? const BoxConstraints() : null, 
+  //       margin: _parsePadding(properties['margin']),
+  //       transform: properties['transform'] != null ? Matrix4.identity() : null, 
+  //       transformAlignment: _parseAlignment(properties['transformAlignment']),
+  //       clipBehavior: properties['clipBehavior'] != null ? Clip.values.firstWhere((e) => e.toString() == 'Clip.${properties['clipBehavior']}') : Clip.none,
+  //       child: properties['child'] != null
+  //           ? build(WidgetDescription.fromJson(properties['child']), context)
+  //           : null,
+  //     );
+  //   } catch (e) {
       
-      print('Error building Container widget: $e');
-      return const SizedBox.shrink(); 
+  //     print('Error building Container widget: $e');
+  //     return const SizedBox.shrink(); 
+  //   }
+  // }
+
+
+
+
+
+
+
+  
+    static Widget _buildContainer(Map<String, dynamic> properties, BuildContext context) {
+      // Wrap widget building in try-catch
+      try {
+        Color? color = _parseColor(properties['color']);
+        BoxDecoration? decoration;
+        
+        if (properties['decoration'] != null) {
+          Map<String, dynamic> decorationProps = 
+              Map<String, dynamic>.from(properties['decoration'] is String 
+                  ? json.decode(properties['decoration']) 
+                  : properties['decoration']);
+          
+          double? borderRadius = double.tryParse(decorationProps['borderRadius']?.toString() ?? '');
+          Color? decorationColor = _parseColor(decorationProps['color']);
+          
+          decoration = BoxDecoration(
+            color: decorationColor ?? color,
+            borderRadius: borderRadius != null ? BorderRadius.circular(borderRadius) : null,
+          );
+          
+          // If decoration is specified, we use its color instead of the container's color property
+          color = null;
+        }
+
+        return Container(
+          key: properties['key'] != null ? Key(properties['key']) : null,
+          alignment: _parseAlignment(properties['alignment']),
+          padding: _parsePadding(properties['padding']),
+          color: color,
+          decoration: decoration,
+          foregroundDecoration: properties['foregroundDecoration'] != null ? const BoxDecoration() : null, 
+          width: properties['width'] != null ? double.tryParse(properties['width'].toString()) : null,
+          height: properties['height'] != null ? double.tryParse(properties['height'].toString()) : null,
+          constraints: properties['constraints'] != null ? const BoxConstraints() : null, 
+          margin: _parsePadding(properties['margin']),
+          transform: properties['transform'] != null ? Matrix4.identity() : null, 
+          transformAlignment: _parseAlignment(properties['transformAlignment']),
+          clipBehavior: properties['clipBehavior'] != null ? Clip.values.firstWhere((e) => e.toString() == 'Clip.${properties['clipBehavior']}') : Clip.none,
+          child: properties['child'] != null
+              ? build(WidgetDescription.fromJson(properties['child']), context)
+              : null,
+        );
+      } catch (e) {
+        print('Error building Container widget: $e');
+        return const SizedBox.shrink(); 
+      }
     }
-  }
+
+
+
+   
+ 
+
+
 
 
     static Widget _buildSingleChildScrollView(Map<String, dynamic> properties, BuildContext context) {
@@ -335,6 +405,12 @@ static Widget _buildText(Map<String, dynamic> properties, BuildContext context) 
             return const SizedBox.shrink(); // Fallback if the ListView fails to build
         }
     }
+
+
+
+
+
+
 
     static Widget _buildGridView(Map<String, dynamic> properties, BuildContext context) {
         try {
@@ -1370,15 +1446,6 @@ Container(
 
 
 
-
-
-
-  
-
-
-
-
-
     static Widget _buildTextButton(Map<String, dynamic> properties, BuildContext context) {
       try {
         // Validate properties
@@ -1440,6 +1507,17 @@ Container(
         return const SizedBox.shrink();
       }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     static Widget _buildOutlinedButton(Map<String, dynamic> properties, BuildContext context) {
       try {
@@ -1903,31 +1981,52 @@ Container(
 
 
 
-static Widget _buildChild(
-      Map<String, dynamic> childProperties, BuildContext context) {
-    if (childProperties.isEmpty) {
-      return const SizedBox.shrink(); // Return an empty widget if properties are null
-    }
-
-    final String type = childProperties['type'];
-
-    switch (type) {
-      case 'Icon':
-        return _buildIcon(childProperties, context);
-      case 'Text':
-        return Text(
-          childProperties['text'] ?? '',
-          style: TextStyle(
-            color: _parseColor(childProperties['color']) ?? Colors.black,
-            fontSize:
-                double.tryParse(childProperties['fontSize']?.toString() ?? '16') ??
-                    16,
-          ),
-        );
-      default:
-        return const Icon(Icons.error); // Return an error icon for unsupported child types
-    }
+static Widget _buildChild(Map<String, dynamic> childProperties, BuildContext context) {
+  if (childProperties.isEmpty) {
+    return const SizedBox.shrink(); // Return an empty widget if properties are null
   }
+
+  final String type = childProperties['type'];
+
+  switch (type) {
+    case 'Icon':
+      return _buildIcon(childProperties, context);
+    case 'Text':
+      return _buildText(childProperties, context);
+    case 'Padding':
+      return _buildPadding(childProperties, context);
+    case 'Center':
+      return _buildCenter(childProperties, context);
+    case 'Container':
+      return _buildContainer(childProperties, context);
+    case 'Column':
+      return _buildColumn(childProperties, context);
+    case 'Row':
+      return _buildRow(childProperties, context);
+    case 'Stack':
+      return _buildStack(childProperties, context);
+    case 'Positioned':
+      return _buildPositioned(childProperties, context);
+    case 'GridView':
+      return _buildGridView(childProperties, context);
+    case 'SingleChildScrollView':
+      return _buildSingleChildScrollView(childProperties, context);
+    case 'Scaffold':
+      return _buildScaffold(childProperties, context);
+    case 'AppBar':
+      return _buildAppBar(childProperties, context);
+    default:
+      return const Icon(Icons.error); // Return an error icon for unsupported child types
+  }
+}
+
+
+
+
+
+
+
+
 
 
   // Mapping string to WidgetAction enum
@@ -3522,15 +3621,35 @@ EdgeInsets _parseEdgeInsets(String edgeInsetsString) {
 }
 
 
-  static EdgeInsets? _parsePadding(String? paddingString) {
-    if (paddingString == null) return EdgeInsets.zero;
-    final parts = paddingString.split(',').map(double.parse).toList();
-    if (parts.length == 4) {
-      return EdgeInsets.fromLTRB(parts[0], parts[1], parts[2], parts[3]);
+
+static EdgeInsetsGeometry? _parsePadding(dynamic padding) {
+      if (padding == null) return null;
+      if (padding is String) {
+        List<String> values = padding.split(',');
+        if (values.length == 4) {
+          return EdgeInsets.fromLTRB(
+            double.parse(values[0]),
+            double.parse(values[1]),
+            double.parse(values[2]),
+            double.parse(values[3]),
+          );
+        } else if (values.length == 1) {
+          return EdgeInsets.all(double.parse(values[0]));
+        }
+      }
+      return null;
     }
-    // Default to zero padding in case of incorrect input
-    return EdgeInsets.zero;
-  }
+
+
+  // static EdgeInsets? _parsePadding(String? paddingString) {
+  //   if (paddingString == null) return EdgeInsets.zero;
+  //   final parts = paddingString.split(',').map(double.parse).toList();
+  //   if (parts.length == 4) {
+  //     return EdgeInsets.fromLTRB(parts[0], parts[1], parts[2], parts[3]);
+  //   }
+  //   // Default to zero padding in case of incorrect input
+  //   return EdgeInsets.zero;
+  // }
 
 static Alignment _parseAlignment(String? alignmentString) {
   switch (alignmentString?.toLowerCase()) {
