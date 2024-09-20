@@ -31,9 +31,14 @@ class _ChatHomePageState extends State<ChatHomePage> {
   int _selectedIndex = 0;
 
   static List<Widget> _screens(BuildContext context) => [
-    // Conversations List Screen - XML Input
-    DynamicWidgetBuilder.buildFromXml('''
+    // Home Screen - XML Input for top part + JSON Input for bottom part
+    Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: DynamicWidgetBuilder.buildFromXml('''
 <Column>
+ 
   <Container height="60" color="#008080" padding="8,8,8,8">
     <Center>
       <Text text="Conversations" fontSize="20" color="#FFFFFF" fontWeight="bold" />
@@ -47,162 +52,1023 @@ class _ChatHomePageState extends State<ChatHomePage> {
       <Text text="Search" fontSize="14" color="#000000" />
     </Row>
   </Container>
-
-
-
-
   
-  <Container height="550" padding="16,16,16,16" color="#008080">
-
-
-
-
-   <Column>
-
-
-     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
-  <Row>
-    <SizedBox width="10" />
-    <Icon icon="Icons.person" color="#FFFFFF" size="30" />
-    <SizedBox width="10" />
-    <SizedBox width="250" height="60">
-      <Column>
-        <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
-        <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
-      </Column>
-    </SizedBox>
-  </Row>
-</Container>
-
-
-     
-
-     <Container height="10">
-       <Divider color="#FFFFFF" thickness="1" />
-     </Container>
-
-     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
-      <Row>
-      <SizedBox width="10" />
-        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
-        <SizedBox width="10" />
-        <SizedBox width="250" height="60">
-          
-            <Column>
-              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
-              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
-            </Column>
-            
-        </SizedBox>
-      </Row>
-     </Container>
-
-
-      <Container height="10">
-       <Divider color="#FFFFFF" thickness="1" />
-     </Container>
-
-     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
-      <Row>
-      <SizedBox width="10" />
-        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
-        <SizedBox width="10" />
-        <SizedBox width="250" height="60">
-          
-            <Column>
-              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
-              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
-            </Column>
-            
-        </SizedBox>
-      </Row>
-     </Container>
-
-      <Container height="10">
-       <Divider color="#FFFFFF" thickness="1" />
-     </Container>
-
-     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
-      <Row>
-      <SizedBox width="10" />
-        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
-        <SizedBox width="10" />
-        <SizedBox width="250" height="60">
-          
-            <Column>
-              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
-              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
-            </Column>
-            
-        </SizedBox>
-      </Row>
-     </Container>
-
-      <Container height="10">
-       <Divider color="#FFFFFF" thickness="1" />
-     </Container>
-
-     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
-      <Row>
-      <SizedBox width="10" />
-        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
-        <SizedBox width="10" />
-        <SizedBox width="250" height="60">
-          
-            <Column>
-              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
-              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
-            </Column>
-            
-        </SizedBox>
-      </Row>
-     </Container>
-      <Container height="10">
-       <Divider color="#FFA500" thickness="1" />
-     </Container>
-
-
-     <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
-      <Row>
-      <SizedBox width="10" />
-        <Icon icon="Icons.person" color="#FFFFFF" size="30" />
-        <SizedBox width="10" />
-        <SizedBox width="250" height="60">
-          
-            <Column>
-              <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
-              <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
-            </Column>
-            
-        </SizedBox>
-      </Row>
-     </Container>
-      <Container height="10">
-       <Divider color="#FFFFFF" thickness="1" />
-     </Container>
-
-
-
-
-   </Column>
-
-     
-
-
-
-    
-
-  
-   
-
-
-
-
-  </Container>
 </Column>
-    ''', context),
+          ''', context),
+        ),
+        Expanded(
+          flex: 4,
+          child: DynamicWidgetBuilder.buildFromJson('''
+{
+  "type": "Column",
+  "properties": {
+    "children": [
+      {
+        "type": "Expanded",
+        "properties": {
+          "child": {
+            "type": "ListView",
+            "properties": {
+              "padding": "5,8,5,8",
+              "children": [
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
 
-    // Main Conversation Screen - XML Input
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+               
+
+                 {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#607D8B",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Center",
+                      "properties": {
+                        "child": {
+                          "type": "Text",
+                          "properties": {
+                            "text": "Settings",
+                            "fontSize": 18,
+                            "color": "#FFFFFF"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+
+                
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+          ''', context),
+        ),
+      ],
+    ),
+
+
+
+        // Main Conversation Screen - XML Input
     DynamicWidgetBuilder.buildFromXml('''
 <Column>
 
@@ -210,7 +1076,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
   <Container height="60" color="#20B2AA" padding="16,16,16,16">
    
     <Center>
-      <Text text="Chat with John" fontSize="20" color="#FFFFFF" fontWeight="bold" />
+      <Text text="Chatting with Kipii" fontSize="20" color="#FFFFFF" fontWeight="bold" />
     </Center>
   </Container>
 
@@ -220,59 +1086,58 @@ class _ChatHomePageState extends State<ChatHomePage> {
      </Container>
 
 
-  <Container height="600" color="#343131" padding="16,16,16,16" >
+      // Start of Selection
+      <Container height="600" color="#808080" padding="16,16,16,16" >
   <Column>
-
-
-      <Container height="50" padding="8,8,8,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
-    <Row>
-      <Icon icon="Icons.search" color="#000000" size="24" />
-      <SizedBox width="10" />
-      <Text text="Search" fontSize="14" color="#000000" />
-    </Row>
-  </Container>
   
 
   
-    <Row>
-
-    <Container decoration='{"borderRadius": 20, "color": "#FFFFFF", "border": {"color": "#FFFFFF", "width": 2}}'>
-         <Icon icon="Icons.person" color="#000000" size="20" />
-        </Container>
-
-      
-      <Container height="55" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#E0FFFF", "border": {"color": "#FFA500", "width": 2}}'>
-        
-      </Container>
-    </Row>
-  
+     
 <Container padding="290,10,10,10" decoration='{"borderRadius": 20}'>
          <Icon icon="Icons.person" color="#FFFFFF" size="20" />
         </Container>
         
 
-   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#e2ed98", "border": {"color": "#FFA500", "width": 2}}'>
-    
+    <Container height="60" padding="0,8,50,8" margin="160,5,5,5" decoration='{"borderRadius": {"topLeft": 20, "bottomLeft": 20, "bottomRight": 20}, "color": "transparent", "border": {"color": "#FFA500", "width": 2}}'>
+       <Text text="Hello Kipii" fontSize="15" color="#FFFFFF" fontWeight="normal"  margin="50,0,0,0" />
   </Container>
 
-  <Container padding="10,10,10,10" decoration='{"borderRadius": 20}'>
+  <Container padding="10,10,290,10" decoration='{"borderRadius": 20}'>
          <Icon icon="Icons.person" color="#FFFFFF" size="20" />
         </Container>
 
-   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#E0FFFF", "border": {"color": "#FFA500", "width": 2}}'>
+   <Container height="60" padding="0,8,50,8" margin="5,5,100,5" decoration='{"borderRadius": {"topRight": 20, "bottomLeft": 20, "bottomRight": 20}, "color": "transparent", "border": {"color": "#FFFFFF", "width": 2}}'>
+   <Text text="Hello, whats up?" fontSize="15" color="#FFFFFF" fontWeight="normal" />
     
   </Container>
 
-   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#e2ed98", "border": {"color": "#FFA500", "width": 2}}'>
-    
+  <Container padding="310,10,10,10" decoration='{"borderRadius": 20}'>
+         <Icon icon="Icons.person" color="#FFFFFF" size="20" />
+        </Container>
+
+   <Container height="60" padding="0,8,50,8" margin="100,5,5,5" decoration='{"borderRadius": {"topLeft": 20, "bottomLeft": 20, "bottomRight": 20}, "color": "transparent", "border": {"color": "#FFA500", "width": 2}}'>
+       <Text text="What is the progress?" fontSize="15" color="#FFFFFF" fontWeight="normal"  margin="50,0,0,0" />
   </Container>
 
-   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#E0FFFF", "border": {"color": "#FFA500", "width": 2}}'>
-    
+  <Container padding="10,10,290,10" decoration='{"borderRadius": 20}'>
+         <Icon icon="Icons.person" color="#FFFFFF" size="20" />
+        </Container>
+
+
+
+   <Container height="60" padding="10,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": {"topRight": 20, "bottomLeft": 20, "bottomRight": 20}, "color": "transparent", "border": {"color": "#FFFFFF", "width": 2}}'>
+       <Text text="Still working on the project testing and debugging" fontSize="15" color="#FFFFFF" fontWeight="normal" textAlign="left"  />
   </Container>
 
-   <Container height="70" padding="250,8,50,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#e2ed98", "border": {"color": "#FFA500", "width": 2}}'>
-    
+
+  <Container padding="290,10,10,10" decoration='{"borderRadius": 20}'>
+         <Icon icon="Icons.person" color="#FFFFFF" size="20" />
+        </Container>
+
+
+
+   <Container height="60" padding="10,8,50,8" margin="75,5,5,5" decoration='{"borderRadius": {"topLeft": 20, "bottomLeft": 20, "bottomRight": 20}, "color": "transparent", "border": {"color": "#FFA500", "width": 2}}'>
+   <Text text="When is the estimate time you will be done with the project?" fontSize="15" color="#FFFFFF" fontWeight="normal" />
   </Container>
 
 
@@ -318,150 +1183,1043 @@ class _ChatHomePageState extends State<ChatHomePage> {
 </Column>
     ''', context),
 
-Divider(),
-    // Groups Screen - XML Input
-    DynamicWidgetBuilder.buildFromXml('''
+    // Conversations List Screen - XML Input
+   Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: DynamicWidgetBuilder.buildFromXml('''
 <Column>
-  <Container>
-    <properties>
-      <padding>16,16,16,16</padding>
-      <color>#2E8B57</color>
-    </properties>
-    <child>
-      <Center>
-        <child>
-          <Text>
-            <properties>
-              <text>Groups</text>
-              <fontSize>20</fontSize>
-              <color>#FFFFFF</color>
-              <fontWeight>bold</fontWeight>
-            </properties>
-          </Text>
-        </child>
-      </Center>
-    </child>
+ 
+  <Container height="60" color="#008080" padding="8,8,8,8">
+    <Center>
+      <Text text="Groups" fontSize="20" color="#FFFFFF" fontWeight="bold" />
+    </Center>
   </Container>
   
-  <ListView>
-    <properties>
-      <padding>0,0,0,0</padding>
-      <scrollDirection>vertical</scrollDirection>
-      <shrinkWrap>true</shrinkWrap>
-      <height>400</height>
-    </properties>
-    <children>
-      <Row>
-        <properties>
-          <padding>16,16,16,16</padding>
-          <mainAxisAlignment>spaceBetween</mainAxisAlignment>
-        </properties>
-        <children>
-          <Row>
-            <children>
-              <Icon>
-                <properties>
-                  <icon>Icons.group</icon>
-                  <size>40</size>
-                  <color>#000000</color>
-                </properties>
-              </Icon>
-              <SizedBox>
-                <properties>
-                  <width>10</width>
-                </properties>
-              </SizedBox>
-              <Column>
-                <properties>
-                  <crossAxisAlignment>start</crossAxisAlignment>
-                </properties>
-                <children>
-                  <Text>
-                    <properties>
-                      <text>Flutter Devs</text>
-                      <fontSize>16</fontSize>
-                      <color>#000000</color>
-                      <fontWeight>bold</fontWeight>
-                    </properties>
-                  </Text>
-                  <Text>
-                    <properties>
-                      <text>Join us to discuss Flutter.</text>
-                      <fontSize>14</fontSize>
-                      <color>#555555</color>
-                    </properties>
-                  </Text>
-                </children>
-              </Column>
-            </children>
-          </Row>
-          <Icon>
-            <properties>
-              <icon>Icons.arrow_forward</icon>
-              <color>#888888</color>
-              <size>24</size>
-            </properties>
-          </Icon>
-        </children>
-      </Row>
-      
-      <Row>
-        <properties>
-          <padding>16,16,16,16</padding>
-          <mainAxisAlignment>spaceBetween</mainAxisAlignment>
-        </properties>
-        <children>
-          <Row>
-            <children>
-              <Icon>
-                <properties>
-                  <icon>Icons.group</icon>
-                  <size>40</size>
-                  <color>#000000</color>
-                </properties>
-              </Icon>
-              <SizedBox>
-                <properties>
-                  <width>10</width>
-                </properties>
-              </SizedBox>
-              <Column>
-                <properties>
-                  <crossAxisAlignment>start</crossAxisAlignment>
-                </properties>
-                <children>
-                  <Text>
-                    <properties>
-                      <text>Study Group</text>
-                      <fontSize>16</fontSize>
-                      <color>#000000</color>
-                      <fontWeight>bold</fontWeight>
-                    </properties>
-                  </Text>
-                  <Text>
-                    <properties>
-                      <text>Let's prepare for exams together.</text>
-                      <fontSize>14</fontSize>
-                      <color>#555555</color>
-                    </properties>
-                  </Text>
-                </children>
-              </Column>
-            </children>
-          </Row>
-          <Icon>
-            <properties>
-              <icon>Icons.arrow_forward</icon>
-              <color>#888888</color>
-              <size>24</size>
-            </properties>
-          </Icon>
-        </children>
-      </Row>
-    </children>
-  </ListView>
+   <Container height="50" padding="8,8,8,8" margin="5,5,5,5" decoration='{"borderRadius": 20, "color": "#c7d1cb"}'>
+    <Row>
+      <Icon icon="Icons.search" color="#000000" size="24" />
+      <SizedBox width="10" />
+      <Text text="Search Groups" fontSize="14" color="#000000" />
+    </Row>
+  </Container>
+  
 </Column>
-    ''', context),
+          ''', context),
+        ),
+        Expanded(
+          flex: 4,
+          child: DynamicWidgetBuilder.buildFromJson('''
+{
+  "type": "Column",
+  "properties": {
+    "children": [
+      {
+        "type": "Expanded",
+        "properties": {
+          "child": {
+            "type": "ListView",
+            "properties": {
+              "padding": "5,8,5,8",
+              "children": [
+                    {
+                      "type": "Container",
+                      "properties": {
+                        "height": 80,
+                        "margin": "0,0,0,16",
+                        "decoration": {
+                          "color": "#16a085",
+                          "borderRadius": 10
+                        },
+                        "child": {
+                          "type": "Row",
+                          "properties": {
+                            "children": [
+                              {
+                                "type": "Expanded",
+                                "properties": {
+                                  "flex": 1,
+                                  "child": {
+                                    "type": "Icon",
+                                    "properties": {
+                                      "icon": "Icons.group",
+                                      "color": "#FFFFFF",
+                                      "size": 30
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "type": "RotatedBox",
+                                "properties": {
+                                  "quarterTurns": 2,
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "height": 30,
+                                      "width": 1,
+                                      "color": "#FFFFFF"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "type": "Expanded",
+                                "properties": {
+                                  "flex": 4,
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "10,0,10,0",
+                                      "child": {
+                                        "type": "Container",
+                                        "properties": {
+                                          "padding": "0,0,0,0",
+                                          "child": {
+                                            "type": "Column",
+                                            "properties": {
+                                              "mainAxisAlignment": "spaceEvenly",
+                                              "crossAxisAlignment": "start",
+                                              "children": [
+                                                {
+                                                  "type": "Text",
+                                                  "properties": {
+                                                    "margin": "50,0,40,0",
+                                                    "textAlign": "left",
+                                                    "text": "Customer Support Group",
+                                                    "fontSize": 16,
+                                                    "fontWeight": "bold",
+                                                    "color": "#FFFFFF",
+                                                    "overflow": "ellipsis"
+                                                  }
+                                                },
+                                                {
+                                                  "type": "Text",
+                                                  "properties": {
+                                                    "text": "This is a text message placeholder",
+                                                    "fontSize": 17,
+                                                    "color": "#FFFFFF",
+                                                    "overflow": "ellipsis",
+                                                    "maxLines": 1
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+
+                {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#16a085",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Row",
+                      "properties": {
+                        "children": [
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 1,
+                              "child": {
+                                "type": "Icon",
+                                "properties": {
+                                  "icon": "Icons.person",
+                                  "color": "#FFFFFF",
+                                  "size": 30
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "RotatedBox",
+                            "properties": {
+                              "quarterTurns": 2,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "height": 30,
+                                  "width": 1,
+                                  "color": "#FFFFFF"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "type": "Expanded",
+                            "properties": {
+                              "flex": 4,
+                              "child": {
+                                "type": "Container",
+                                "properties": {
+                                  "padding": "10,0,10,0",
+                                  "child": {
+                                    "type": "Container",
+                                    "properties": {
+                                      "padding": "0,0,0,0",
+                                      "child": {
+                                        "type": "Column",
+                                        "properties": {
+                                          "mainAxisAlignment": "spaceEvenly",
+                                          "crossAxisAlignment": "start",
+                                          "children": [
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "Japheth Kipii",
+                                                "fontSize": 16,
+                                                "fontWeight": "bold",
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis"
+                                              }
+                                            },
+                                            {
+                                              "type": "Text",
+                                              "properties": {
+                                                "text": "This is a text message placeholder",
+                                                "fontSize": 17,
+                                                "color": "#FFFFFF",
+                                                "overflow": "ellipsis",
+                                                "maxLines": 1
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+
+
+               
+
+                 {
+                  "type": "Container",
+                  "properties": {
+                    "height": 60,
+                    "margin": "0,0,0,16",
+                    "decoration": {
+                      "color": "#607D8B",
+                      "borderRadius": 10
+                    },
+                    "child": {
+                      "type": "Center",
+                      "properties": {
+                        "child": {
+                          "type": "Text",
+                          "properties": {
+                            "text": "Settings",
+                            "fontSize": 18,
+                            "color": "#FFFFFF"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+
+                
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+          ''', context),
+        ),
+      ],
+    ),
+
   ];
 
   void _onItemTapped(int index) {
@@ -492,7 +2250,7 @@ Divider(),
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
             label: 'Groups',
-          ),
+          )
         ],
         selectedItemColor: Colors.teal,
         unselectedItemColor: Colors.grey,

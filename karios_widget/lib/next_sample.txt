@@ -589,3 +589,90 @@
     </child>
   </Container>
 </Column>
+
+
+
+
+
+
+
+
+<ListView scrollDirection="vertical" reverse="false" primary="false" shrinkWrap="true" padding="0,0,0,0">
+      <children>
+        <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+        <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+          <Row>
+            <SizedBox width="10" />
+            <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+            <SizedBox width="10" />
+            <SizedBox width="250" height="60">
+              <Column>
+                <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+                <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+              </Column>
+            </SizedBox>
+          </Row>
+        </Container>
+
+        <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+         <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+        <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+          <Row>
+            <SizedBox width="10" />
+            <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+            <SizedBox width="10" />
+            <SizedBox width="250" height="60">
+              <Column>
+                <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+                <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+              </Column>
+            </SizedBox>
+          </Row>
+        </Container>
+
+         <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+        <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+          <Row>
+            <SizedBox width="10" />
+            <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+            <SizedBox width="10" />
+            <SizedBox width="250" height="60">
+              <Column>
+                <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+                <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+              </Column>
+            </SizedBox>
+          </Row>
+        </Container>
+
+         <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+        <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+          <Row>
+            <SizedBox width="10" />
+            <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+            <SizedBox width="10" />
+            <SizedBox width="250" height="60">
+              <Column>
+                <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+                <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+              </Column>
+            </SizedBox>
+          </Row>
+        </Container>
+      </children>
+    </ListView>

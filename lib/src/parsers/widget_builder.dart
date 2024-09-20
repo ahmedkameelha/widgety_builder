@@ -169,6 +169,8 @@ class WidgetBuilder {
           return _buildCard(description.properties, context);
         case 'RaisedButton': 
           return _buildElevatedButton(description.properties, context);
+        case 'RotatedBox': 
+          return _buildRotatedBox(description.properties, context);
         case 'FlatButton': 
           return _buildTextButton(description.properties, context);
         case 'OutlineButton': 
@@ -267,8 +269,10 @@ static Widget _buildText(Map<String, dynamic> properties, BuildContext context) 
 
 
 
-  
-    static Widget _buildContainer(Map<String, dynamic> properties, BuildContext context) {
+
+
+
+  static Widget _buildContainer(Map<String, dynamic> properties, BuildContext context) {
       // Wrap widget building in try-catch
       try {
         Color? color = _parseColor(properties['color']);
@@ -280,13 +284,43 @@ static Widget _buildText(Map<String, dynamic> properties, BuildContext context) 
                   ? json.decode(properties['decoration']) 
                   : properties['decoration']);
           
-          double? borderRadius = double.tryParse(decorationProps['borderRadius']?.toString() ?? '');
+          BorderRadius? borderRadiusValue;
+          if (decorationProps['borderRadius'] is Map) {
+            Map<String, dynamic> borderRadiusMap = Map<String, dynamic>.from(decorationProps['borderRadius']);
+            borderRadiusValue = BorderRadius.only(
+              topLeft: borderRadiusMap.containsKey('topLeft') 
+                  ? Radius.circular(double.tryParse(borderRadiusMap['topLeft'].toString()) ?? 0.0) 
+                  : Radius.zero,
+              topRight: borderRadiusMap.containsKey('topRight') 
+                  ? Radius.circular(double.tryParse(borderRadiusMap['topRight'].toString()) ?? 0.0) 
+                  : Radius.zero,
+              bottomLeft: borderRadiusMap.containsKey('bottomLeft') 
+                  ? Radius.circular(double.tryParse(borderRadiusMap['bottomLeft'].toString()) ?? 0.0) 
+                  : Radius.zero,
+              bottomRight: borderRadiusMap.containsKey('bottomRight') 
+                  ? Radius.circular(double.tryParse(borderRadiusMap['bottomRight'].toString()) ?? 0.0) 
+                  : Radius.zero,
+            );
+          } else {
+            double? borderRadius = double.tryParse(decorationProps['borderRadius']?.toString() ?? '');
+            borderRadiusValue = borderRadius != null 
+                ? BorderRadius.circular(borderRadius) 
+                : null;
+          }
+
           Color? decorationColor = _parseColor(decorationProps['color']);
           
           decoration = BoxDecoration(
             color: decorationColor ?? color,
-            borderRadius: borderRadius != null ? BorderRadius.circular(borderRadius) : null,
-          );
+            borderRadius: borderRadiusValue,
+                // Start of Selection
+                border: decorationProps['border'] != null 
+                    ? Border.all(
+                        color: _parseColor(decorationProps['border']['color']) ?? Colors.black,
+                        width: double.tryParse(decorationProps['border']['width'].toString()) ?? 1.0,
+                      )
+                    : null,
+              );
           
           // If decoration is specified, we use its color instead of the container's color property
           color = null;
@@ -315,6 +349,63 @@ static Widget _buildText(Map<String, dynamic> properties, BuildContext context) 
         return const SizedBox.shrink(); 
       }
     }
+
+
+
+
+
+
+
+
+
+  
+    // static Widget _buildContainer(Map<String, dynamic> properties, BuildContext context) {
+    //   // Wrap widget building in try-catch
+    //   try {
+    //     Color? color = _parseColor(properties['color']);
+    //     BoxDecoration? decoration;
+        
+    //     if (properties['decoration'] != null) {
+    //       Map<String, dynamic> decorationProps = 
+    //           Map<String, dynamic>.from(properties['decoration'] is String 
+    //               ? json.decode(properties['decoration']) 
+    //               : properties['decoration']);
+          
+    //       double? borderRadius = double.tryParse(decorationProps['borderRadius']?.toString() ?? '');
+    //       Color? decorationColor = _parseColor(decorationProps['color']);
+          
+    //       decoration = BoxDecoration(
+    //         color: decorationColor ?? color,
+    //         borderRadius: borderRadius != null ? BorderRadius.circular(borderRadius) : null,
+    //       );
+          
+    //       // If decoration is specified, we use its color instead of the container's color property
+    //       color = null;
+    //     }
+
+    //     return Container(
+    //       key: properties['key'] != null ? Key(properties['key']) : null,
+    //       alignment: _parseAlignment(properties['alignment']),
+    //       padding: _parsePadding(properties['padding']),
+    //       color: color,
+    //       decoration: decoration,
+    //       foregroundDecoration: properties['foregroundDecoration'] != null ? const BoxDecoration() : null, 
+    //       width: properties['width'] != null ? double.tryParse(properties['width'].toString()) : null,
+    //       height: properties['height'] != null ? double.tryParse(properties['height'].toString()) : null,
+    //       constraints: properties['constraints'] != null ? const BoxConstraints() : null, 
+    //       margin: _parsePadding(properties['margin']),
+    //       transform: properties['transform'] != null ? Matrix4.identity() : null, 
+    //       transformAlignment: _parseAlignment(properties['transformAlignment']),
+    //       clipBehavior: properties['clipBehavior'] != null ? Clip.values.firstWhere((e) => e.toString() == 'Clip.${properties['clipBehavior']}') : Clip.none,
+    //       child: properties['child'] != null
+    //           ? build(WidgetDescription.fromJson(properties['child']), context)
+    //           : null,
+    //     );
+    //   } catch (e) {
+    //     print('Error building Container widget: $e');
+    //     return const SizedBox.shrink(); 
+    //   }
+    // }
 
 
 
@@ -363,48 +454,372 @@ static Widget _buildText(Map<String, dynamic> properties, BuildContext context) 
     }
 
 
+   
+   
+
+//    static Widget _buildListView(Map<String, dynamic> properties, BuildContext context) {
+//   try {
+//     // Parse optional properties for ListView
+//     Axis scrollDirection = _parseScrollDirection(properties['scrollDirection']);
+//     bool reverse = properties['reverse'] ?? false;
+//     bool primary = properties['primary'] ?? false;
+//     bool shrinkWrap = properties['shrinkWrap'] ?? true;
+//     double? itemExtent = properties['itemExtent'] != null ? double.tryParse(properties['itemExtent'].toString()) : null;
+//     EdgeInsetsGeometry? padding = _parsePadding(properties['padding']);
+//     ScrollPhysics? physics = _parseScrollPhysics(properties['physics']);
+
+//     // List of supported widget types to prevent unsupported types like 'properties'
+//     const List<String> supportedWidgetTypes = [
+//       'Container',
+//       'Row',
+//       'Column',
+//       'Text',
+//       'SizedBox',
+//       'Icon',
+//       'Divider',
+//       'ListTile',
+//       'Card',
+//       'Padding',
+//       'Center',
+//       'Align',
+//       'Expanded',
+//       'Flexible',
+//       'InkWell',
+//       'GestureDetector',
+//       'Image',
+//       'CircleAvatar',
+//       'Checkbox',
+//       'Radio',
+//       'Switch',
+//       'TextField',
+//       'ElevatedButton',
+//       'TextButton',
+//       'OutlinedButton',
+//       'IconButton',
+//       'Wrap',
+//       'Stack',
+//       'Positioned',
+//       'AspectRatio',
+//       'ConstrainedBox',
+//       'Opacity',
+//       'Visibility',
+//       'Placeholder',
+//       'Spacer',
+//     ];
+
+//     // Helper function to validate widget descriptions
+//     Widget _safeBuild(Map<String, dynamic> widgetData) {
+//       try {
+//         if (widgetData['type'] == null) {
+//           throw Exception("Missing 'type' in widget description.");
+//         }
+//         if (!supportedWidgetTypes.contains(widgetData['type'])) {
+//           throw Exception("Unsupported widget type: ${widgetData['type']}");
+//         }
+//         return build(WidgetDescription.fromJson(widgetData), context);
+//       } catch (e) {
+//         print('Error building child widget: $e');
+//         return const SizedBox.shrink(); // Fallback for invalid widgets
+//       }
+//     }
+
+//     // Check if children are provided and is a list
+//     if (properties['children'] != null && properties['children'] is List) {
+//       List<Widget> children = [];
+//       for (var child in properties['children']) {
+//         if (child is Map<String, dynamic>) {
+//           children.add(_safeBuild(child));
+//         } else {
+//           print('Invalid child format: Expected Map<String, dynamic>, got ${child.runtimeType}');
+//           children.add(const SizedBox.shrink());
+//         }
+//       }
+//       return ListView(
+//         scrollDirection: scrollDirection,
+//         reverse: reverse,
+//         primary: primary,
+//         shrinkWrap: shrinkWrap,
+//         itemExtent: itemExtent,
+//         padding: padding,
+//         physics: physics,
+//         children: children,
+//       );
+//     }
+//     // Optionally handle ListView.builder if 'itemBuilder' is provided
+//     else if (properties['itemBuilder'] != null && properties['itemCount'] != null) {
+//       var itemBuilderData = properties['itemBuilder'];
+//       int itemCount = properties['itemCount'];
+
+//       if (itemBuilderData is List && itemBuilderData.length >= itemCount) {
+//         return ListView.builder(
+//           scrollDirection: scrollDirection,
+//           reverse: reverse,
+//           primary: primary,
+//           shrinkWrap: shrinkWrap,
+//           itemExtent: itemExtent,
+//           padding: padding,
+//           physics: physics,
+//           itemCount: itemCount,
+//           itemBuilder: (context, index) {
+//             var itemData = itemBuilderData[index];
+//             if (itemData is Map<String, dynamic>) {
+//               return _safeBuild(itemData);
+//             } else {
+//               print('Invalid itemBuilder format at index $index: Expected Map<String, dynamic>, got ${itemData.runtimeType}');
+//               return const SizedBox.shrink();
+//             }
+//           },
+//         );
+//       } else {
+//         print('Invalid itemBuilder or itemCount: Ensure itemBuilder is a List with enough elements.');
+//         return ListView(
+//           scrollDirection: scrollDirection,
+//           reverse: reverse,
+//           primary: primary,
+//           shrinkWrap: shrinkWrap,
+//           itemExtent: itemExtent,
+//           padding: padding,
+//           physics: physics,
+//           children: [],
+//         );
+//       }
+//     } else {
+//       print('Neither "children" nor "itemBuilder" with "itemCount" provided for ListView.');
+//       return ListView(
+//         scrollDirection: scrollDirection,
+//         reverse: reverse,
+//         primary: primary,
+//         shrinkWrap: shrinkWrap,
+//         itemExtent: itemExtent,
+//         padding: padding,
+//         physics: physics,
+//         children: [],
+//       );
+//     }
+//   } catch (e) {
+//     print('Error building ListView: $e');
+//     return const SizedBox.shrink(); 
+//   }
+// }
 
 
 
-    static Widget _buildListView(Map<String, dynamic> properties, BuildContext context) {
-        try {
-            // Parse optional properties for ListView
-            Axis scrollDirection = _parseScrollDirection(properties['scrollDirection']);
-            bool reverse = properties['reverse'] ?? false;
-            bool primary = properties['primary'] ?? true;
-            bool shrinkWrap = properties['shrinkWrap'] ?? false;
-            double? itemExtent = properties['itemExtent'] != null ? double.tryParse(properties['itemExtent'].toString()) : null;
+static Widget _buildListView(Map<String, dynamic> properties, BuildContext context) {
+  try {
+    // Parse optional properties for ListView
+    Axis scrollDirection = _parseScrollDirection(properties['scrollDirection']);
+    bool reverse = properties['reverse'] ?? false;
+    bool primary = properties['primary'] ?? false;
+    bool shrinkWrap = properties['shrinkWrap'] ?? true;
+    double? itemExtent = properties['itemExtent'] != null ? double.tryParse(properties['itemExtent'].toString()) : null;
+    EdgeInsetsGeometry? padding = _parsePadding(properties['padding']);
+    ScrollPhysics? physics = _parseScrollPhysics(properties['physics']);
 
-            // Check if children are provided for ListView.builder or ListView
-            if (properties['children'] != null) {
-                return ListView.builder(
-                    scrollDirection: scrollDirection,
-                    reverse: reverse,
-                    shrinkWrap: shrinkWrap,
-                    itemCount: properties['itemCount'],
-                    padding: _parsePadding(properties['padding']),
-                    physics: _parseScrollPhysics(properties['physics']),
-                    itemBuilder: (context, index) {
-                        return index < properties['children'].length
-                            ? build(WidgetDescription.fromJson(properties['children'][index]), context)
-                            : const SizedBox.shrink();
-                    },
-                );
-            } else {
-                return ListView(
-                    scrollDirection: scrollDirection,
-                    reverse: reverse,
-                    primary: primary,
-                    shrinkWrap: shrinkWrap,
-                    itemExtent: itemExtent,
-                    children: _buildChildren(properties['children'], context),
-                );
-            }
-        } catch (e) {
-            print('Error building ListView: $e');
-            return const SizedBox.shrink(); // Fallback if the ListView fails to build
+    // List of supported widget types
+    const List<String> supportedWidgetTypes = [
+      'Container', 'Row', 'Column', 'Text', 'SizedBox', 'Icon', 'Divider',
+      'ListTile', 'Card', 'Padding', 'Center', 'Align', 'Expanded', 'Flexible',
+      'InkWell', 'GestureDetector', 'Image', 'CircleAvatar', 'Checkbox', 'Radio',
+      'Switch', 'TextField', 'ElevatedButton', 'TextButton', 'OutlinedButton',
+      'IconButton', 'Wrap', 'Stack', 'Positioned', 'AspectRatio', 'ConstrainedBox',
+      'Opacity', 'Visibility', 'Placeholder', 'Spacer',
+    ];
+
+    // Helper function to validate and build widget descriptions
+    Widget _safeBuild(dynamic widgetData) {
+      if (widgetData is! Map<String, dynamic>) {
+        print('Invalid widget data: Expected Map<String, dynamic>, got ${widgetData.runtimeType}');
+        return const SizedBox.shrink();
+      }
+      try {
+        String? type = widgetData['type'];
+        if (type == null || !supportedWidgetTypes.contains(type)) {
+          throw Exception("Invalid or unsupported widget type: $type");
         }
+        return build(WidgetDescription.fromJson(widgetData), context);
+      } catch (e) {
+        print('Error building child widget: $e');
+        return const SizedBox.shrink();
+      }
     }
+
+    // Build ListView with children
+    if (properties['children'] is List) {
+      List<Widget> children = (properties['children'] as List)
+          .map((child) => _safeBuild(child))
+          .toList();
+      
+      return ListView(
+        scrollDirection: scrollDirection,
+        reverse: reverse,
+        primary: primary,
+        shrinkWrap: shrinkWrap,
+        itemExtent: itemExtent,
+        padding: padding,
+        physics: physics,
+        children: children,
+      );
+    }
+    // Build ListView.builder
+    else if (properties['itemBuilder'] is List && properties['itemCount'] is int) {
+      List itemBuilderData = properties['itemBuilder'] as List;
+      int itemCount = properties['itemCount'] as int;
+
+      return ListView.builder(
+        scrollDirection: scrollDirection,
+        reverse: reverse,
+        primary: primary,
+        shrinkWrap: shrinkWrap,
+        itemExtent: itemExtent,
+        padding: padding,
+        physics: physics,
+        itemCount: itemCount,
+        itemBuilder: (context, index) {
+          if (index < itemBuilderData.length) {
+            return _safeBuild(itemBuilderData[index]);
+          }
+          return const SizedBox.shrink();
+        },
+      );
+    }
+    // Fallback to empty ListView
+    else {
+      print('Invalid or missing "children" or "itemBuilder" with "itemCount" for ListView.');
+      return ListView();
+    }
+  } catch (e) {
+    print('Error building ListView: $e');
+    return const SizedBox.shrink();
+  }
+}
+    
+
+
+
+
+
+
+
+
+
+    // static Widget _buildListView(Map<String, dynamic> properties, BuildContext context) {
+    //     try {
+    //         // Parse optional properties for ListView
+    //         Axis scrollDirection = _parseScrollDirection(properties['scrollDirection']);
+    //         bool reverse = properties['reverse'] ?? false;
+    //         bool primary = properties['primary'] ?? false;
+    //         bool shrinkWrap = properties['shrinkWrap'] ?? true;
+    //         double? itemExtent = properties['itemExtent'] != null ? double.tryParse(properties['itemExtent'].toString()) : null;
+    //         EdgeInsetsGeometry? padding = _parsePadding(properties['padding']);
+    //         ScrollPhysics? physics = _parseScrollPhysics(properties['physics']);
+
+    //         // List of supported widget types to prevent unsupported types like 'properties'
+    //         const List<String> supportedWidgetTypes = [
+    //             'Container',
+    //             'Row',
+    //             'Column',
+    //             'Text',
+    //             'SizedBox',
+    //             'Icon',
+    //             'Divider',
+    //             // Add other supported widget types here
+    //         ];
+
+    //         // Helper function to validate widget descriptions
+    //         Widget _safeBuild(Map<String, dynamic> widgetData) {
+    //             try {
+    //                 if (widgetData['type'] == null) {
+    //                     throw Exception("Missing 'type' in widget description.");
+    //                 }
+    //                 if (!supportedWidgetTypes.contains(widgetData['type'])) {
+    //                     throw Exception("Unsupported widget type: ${widgetData['type']}");
+    //                 }
+    //                 return build(WidgetDescription.fromJson(widgetData), context);
+    //             } catch (e) {
+    //                 print('Error building child widget: $e');
+    //                 return const SizedBox.shrink(); // Fallback for invalid widgets
+    //             }
+    //         }
+
+    //         // Check if children are provided and is a list
+    //         if (properties['children'] != null && properties['children'] is List) {
+    //             List<Widget> children = [];
+    //             for (var child in properties['children']) {
+    //                 if (child is Map<String, dynamic>) {
+    //                     children.add(_safeBuild(child));
+    //                 } else {
+    //                     print('Invalid child format: Expected Map<String, dynamic>, got ${child.runtimeType}');
+    //                     children.add(const SizedBox.shrink());
+    //                 }
+    //             }
+    //             return ListView(
+    //                 scrollDirection: scrollDirection,
+    //                 reverse: reverse,
+    //                 primary: primary,
+    //                 shrinkWrap: shrinkWrap,
+    //                 itemExtent: itemExtent,
+    //                 padding: padding,
+    //                 physics: physics,
+    //                 children: children,
+    //             );
+    //         }
+    //         // Optionally handle ListView.builder if 'itemBuilder' is provided
+    //         else if (properties['itemBuilder'] != null && properties['itemCount'] != null) {
+    //             var itemBuilderData = properties['itemBuilder'];
+    //             int itemCount = properties['itemCount'];
+                
+    //             if (itemBuilderData is List && itemBuilderData.length >= itemCount) {
+    //                 return ListView.builder(
+    //                     scrollDirection: scrollDirection,
+    //                     reverse: reverse,
+    //                     primary: primary,
+    //                     shrinkWrap: shrinkWrap,
+    //                     itemExtent: itemExtent,
+    //                     padding: padding,
+    //                     physics: physics,
+    //                     itemCount: itemCount,
+    //                     itemBuilder: (context, index) {
+    //                         var itemData = itemBuilderData[index];
+    //                         if (itemData is Map<String, dynamic>) {
+    //                             return _safeBuild(itemData);
+    //                         } else {
+    //                             print('Invalid itemBuilder format at index $index: Expected Map<String, dynamic>, got ${itemData.runtimeType}');
+    //                             return const SizedBox.shrink();
+    //                         }
+    //                     },
+    //                 );
+    //             } else {
+    //                 print('Invalid itemBuilder or itemCount: Ensure itemBuilder is a List with enough elements.');
+    //                 return ListView(
+    //                     scrollDirection: scrollDirection,
+    //                     reverse: reverse,
+    //                     primary: primary,
+    //                     shrinkWrap: shrinkWrap,
+    //                     itemExtent: itemExtent,
+    //                     padding: padding,
+    //                     physics: physics,
+    //                     children: [],
+    //                 );
+    //             }
+    //         }
+    //         else {
+    //             print('Neither "children" nor "itemBuilder" with "itemCount" provided for ListView.');
+    //             return ListView(
+    //                 scrollDirection: scrollDirection,
+    //                 reverse: reverse,
+    //                 primary: primary,
+    //                 shrinkWrap: shrinkWrap,
+    //                 itemExtent: itemExtent,
+    //                 padding: padding,
+    //                 physics: physics,
+    //                 children: [],
+    //             );
+    //         }
+    //     } catch (e) {
+    //         print('Error building ListView: $e');
+    //         return const SizedBox.shrink(); // Fallback if the ListView fails to build
+    //     }
+    // }
 
 
 
@@ -618,7 +1033,7 @@ static Widget _buildText(Map<String, dynamic> properties, BuildContext context) 
                     return const ScrollPhysics();
             }
         } else if (physics is ScrollPhysics) {
-            return physics; // Return the provided ScrollPhysics instance directly
+            return physics;
         }
         // Return default ScrollPhysics if the input is not recognized
         return const ScrollPhysics();
@@ -1511,14 +1926,6 @@ Container(
 
 
 
-
-
-
-
-
-
-
-
     static Widget _buildOutlinedButton(Map<String, dynamic> properties, BuildContext context) {
       try {
         // Validate properties
@@ -1758,6 +2165,9 @@ Container(
       return Icons.settings;
     case 'Icons.person':
       return Icons.person;
+
+    case 'Icons.bot':
+      return Icons.person;  
     case 'Icons.notifications':
       return Icons.notifications;
     case 'Icons.search':
@@ -2785,24 +3195,52 @@ static Widget _buildPositioned(Map<String, dynamic> properties, BuildContext con
     }
   }
 
+
+
   static Widget _buildRotatedBox(Map<String, dynamic> properties, BuildContext context) {
-    try {
-      return RotatedBox(
-        quarterTurns:
-            int.tryParse(properties['quarterTurns']?.toString() ?? '0') ?? 0,
-        child: properties['children'] != null
-            ? Column(children: _buildChildren(properties['children'], context))
-            : null,
-      );
-    } catch (e) {
-      // Return a placeholder in case of an error
-      print('Error building RotatedBox widget: $e');
-      return const RotatedBox(
-        quarterTurns: 0,
-        child: SizedBox.shrink(), // Fallback if the RotatedBox fails to build
-      );
+  try {
+    // Parse the 'quarterTurns' property
+    int quarterTurns = properties['quarterTurns'] ?? 0;
+
+    // Parse the 'child' property
+    Widget? child;
+    if (properties['child'] != null) {
+      child = build(WidgetDescription.fromJson(properties['child']), context);
     }
+
+    return RotatedBox(
+      quarterTurns: quarterTurns,
+      child: child ?? const SizedBox.shrink(),
+    );
+  } catch (e) {
+    print('Error building RotatedBox: $e');
+    return const SizedBox.shrink(); // Fallback if the RotatedBox fails to build
   }
+}
+
+
+
+
+
+
+  // static Widget _buildRotatedBox(Map<String, dynamic> properties, BuildContext context) {
+  //   try {
+  //     return RotatedBox(
+  //       quarterTurns:
+  //           int.tryParse(properties['quarterTurns']?.toString() ?? '0') ?? 0,
+  //       child: properties['children'] != null
+  //           ? Column(children: _buildChildren(properties['children'], context))
+  //           : null,
+  //     );
+  //   } catch (e) {
+  //     // Return a placeholder in case of an error
+  //     print('Error building RotatedBox widget: $e');
+  //     return const RotatedBox(
+  //       quarterTurns: 0,
+  //       child: SizedBox.shrink(), // Fallback if the RotatedBox fails to build
+  //     );
+  //   }
+  // }
 
   static Widget _buildConstrainedBox(Map<String, dynamic> properties, BuildContext context) {
     try {
