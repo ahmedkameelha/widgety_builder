@@ -1,0 +1,678 @@
+    // Start of Selection
+    import 'package:flutter/material.dart';
+    import 'package:dynamic_widget_builder/dynamic_widget_builder.dart';
+    
+    void main() {
+      runApp(const MyApp());
+    }
+    
+    class MyApp extends StatelessWidget {
+      const MyApp({Key? key}) : super(key: key);
+    
+      @override
+      Widget build(BuildContext context) {
+        return MaterialApp(
+          title: 'Chat UI',
+          theme: ThemeData(
+            primarySwatch: Colors.teal,
+          ),
+          home: Scaffold(
+            appBar: AppBar(
+              title: const Text('Chat UI'),
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+    
+                  // Conversations List Screen - XML Input
+                  DynamicWidgetBuilder.buildFromXml('''
+                    <Column>
+    
+                      <!-- Header Section -->
+                      <Container padding="16,16,16,16" color="#008080" borderRadius="8" height="100">
+                        <Center>
+                          <Text text="Conversations" fontSize="20" color="#FFFFFF" fontWeight="bold" />
+                        </Center>
+                      </Container>
+    
+                      <!-- Search Bar -->
+                      <Container padding="8,8,8,8" margin="10,10,10,10" borderRadius="20" color="#E0FFFF">
+                        <Row>
+                          <Icon icon="Icons.search" color="#000000" size="24"/>
+                          <SizedBox width="10" />
+                          <Text text="Search" fontSize="16" color="#000000" />
+                        </Row>
+                      </Container>
+
+                      <Container padding="16,16,16,16" color="#008080" borderRadius="8" height="450">
+    
+    // Start of Selection
+    <ListView padding="0,0,0,0" scrollDirection="vertical" shrinkWrap="true">
+      <!-- Conversation Item 1 -->
+      <Container>
+        <SingleChildScrollView scrollDirection="horizontal">
+          <Row padding="16,16,16,16" mainAxisAlignment="spaceBetween">
+            <Expanded>
+              <Row>
+                <Icon icon="Icons.person" size="40" color="#000000"/>
+                <SizedBox width="10"/>
+                <Expanded>
+                  <Column crossAxisAlignment="start">
+                    <Text text="John Doe" fontSize="16" color="#000000" fontWeight="bold" />
+                    <Text text="Hey, are we meeting tomorrow?" fontSize="14" color="#555555" />
+                  </Column>
+                </Expanded>
+              </Row>
+            </Expanded>
+            <Text text="12:45 PM" fontSize="12" color="#888888" />
+          </Row>
+        </SingleChildScrollView>
+      </Container>
+  
+      <!-- Conversation Item 2 -->
+      <Container>
+        <SingleChildScrollView scrollDirection="horizontal">
+          <Row padding="16,16,16,16" mainAxisAlignment="spaceBetween">
+            <Expanded>
+              <Row>
+                <Icon icon="Icons.person" size="40" color="#000000"/>
+                <SizedBox width="10"/>
+                <Expanded>
+                  <Column crossAxisAlignment="start">
+                    <Text text="Jane Smith" fontSize="16" color="#000000" fontWeight="bold" />
+                    <Text text="Let's catch up later!" fontSize="14" color="#555555" />
+                  </Column>
+                </Expanded>
+              </Row>
+            </Expanded>
+            <Text text="11:30 AM" fontSize="12" color="#888888" />
+          </Row>
+        </SingleChildScrollView>
+      </Container>
+  
+      <!-- Add more conversation items as needed -->
+    </ListView>
+
+  </Container>  
+    
+                    </Column>
+                  ''', context),
+    
+                  const Divider(),
+    
+                  // Main Conversation Screen - JSON Input
+                  DynamicWidgetBuilder.buildFromJson('''
+                    {
+                      "type": "Column",
+                      "children": [
+                        {
+                          "type": "Container",
+                          "properties": {
+                            "padding": "16,16,16,16",
+                            "color": "#20B2AA",
+                            "borderRadius": "8"
+                          },
+                          "child": {
+                            "type": "Center",
+                            "children": [
+                              {
+                                "type": "Text",
+                                "properties": {
+                                  "text": "Chat with John",
+                                  "fontSize": 20,
+                                  "color": "#FFFFFF",
+                                  "fontWeight": "bold"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "ListView",
+                          "properties": {
+                            "padding": "16,16,16,16",
+                            "scrollDirection": "vertical",
+                            "shrinkWrap": true,
+                            "height": 400
+                          },
+                          "children": [
+                            {
+                              "type": "Row",
+                              "properties": {
+                                "padding": "16,16,16,16",
+                                "mainAxisAlignment": "end"
+                              },
+                              "children": [
+                                {
+                                  "type": "Container",
+                                  "properties": {
+                                    "padding": "10,10,10,10",
+                                    "color": "#ADD8E6",
+                                    "borderRadius": "15"
+                                  },
+                                  "child": {
+                                    "type": "Text",
+                                    "properties": {
+                                      "text": "Hi there!",
+                                      "fontSize": 16,
+                                      "color": "#000000"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Row",
+                              "properties": {
+                                "padding": "16,16,16,16",
+                                "mainAxisAlignment": "start"
+                              },
+                              "children": [
+                                {
+                                  "type": "Container",
+                                  "properties": {
+                                    "padding": "10,10,10,10",
+                                    "color": "#90EE90",
+                                    "borderRadius": "15"
+                                  },
+                                  "child": {
+                                    "type": "Text",
+                                    "properties": {
+                                      "text": "Hello! How can I help you?",
+                                      "fontSize": 16,
+                                      "color": "#000000"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                            // Add more messages here
+                          ]
+                        },
+                        {
+                          "type": "Container",
+                          "properties": {
+                            "padding": "8,8,8,8",
+                            "color": "#F0F8FF"
+                          },
+                          "children": [
+                            {
+                              "type": "Row",
+                              "children": [
+                                {
+                                  "type": "TextField",
+                                  "properties": {
+                                    "decoration": {
+                                      "hintText": "Type a message",
+                                      "border": "OutlineInputBorder"
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "IconButton",
+                                  "properties": {
+                                    "icon": "Icons.send",
+                                    "color": "#20B2AA",
+                                    "onPressed": "function() { print('Send button pressed'); }"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ''', context),
+    
+                  const Divider(),
+    
+                  // Groups Screen - XML Input
+                  DynamicWidgetBuilder.buildFromXml('''
+                    <Column>
+    
+                      <!-- Header Section -->
+                      <Container padding="16,16,16,16" color="#2E8B57" borderRadius="8">
+                        <Center>
+                          <Text text="Groups" fontSize="20" color="#FFFFFF" fontWeight="bold" />
+                        </Center>
+                      </Container>
+    
+                      <!-- Groups List -->
+                      <ListView padding="0,0,0,0" scrollDirection="vertical" shrinkWrap="true" height="400">
+                        <!-- Group Item 1 -->
+                        <Row padding="16,16,16,16" mainAxisAlignment="spaceBetween">
+                          <Row>
+                            <Icon icon="Icons.group" size="40" color="#000000"/>
+                            <SizedBox width="10"/>
+                            <Column crossAxisAlignment="start" children="[
+                              Text(text: \"Flutter Devs\", fontSize: 16, color: \"#000000\", fontWeight: \"bold\"),
+                              Text(text: \"Join us to discuss Flutter.\", fontSize: 14, color: \"#555555\")
+                            ]"/>
+                          </Row>
+                          <Icon icon="Icons.arrow_forward" color="#888888" size="24"/>
+                        </Row>
+    
+                        <!-- Group Item 2 -->
+                        <Row padding="16,16,16,16" mainAxisAlignment="spaceBetween">
+                          <Row>
+                            <Icon icon="Icons.group" size="40" color="#000000"/>
+                            <SizedBox width="10"/>
+                            <Column crossAxisAlignment="start" children="[
+                              Text(text: \"Study Group\", fontSize: 16, color: \"#000000\", fontWeight: \"bold\"),
+                              Text(text: \"Let's prepare for exams together.\", fontSize: 14, color: \"#555555\")
+                            ]"/>
+                          </Row>
+                          <Icon icon="Icons.arrow_forward" color="#888888" size="24"/>
+                        </Row>
+    
+                        <!-- Add more group items as needed -->
+    
+                      </ListView>
+    
+                    </Column>
+                  ''', context),
+    
+                  const Divider(),
+    
+                  // Additional Chat UI Components (Buttons, FABs, etc.)
+                  // Example: FloatingActionButton to create a new conversation
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        print('New Conversation Button Pressed');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF20B2AA),
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.add, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text(
+                            'New Conversation',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+    
+                  const Divider(),
+    
+                  // JSON Input for Additional Components
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Additional Actions',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  DynamicWidgetBuilder.buildFromJson('''
+    
+    {
+      "type": "Row",
+      "properties": {
+        "mainAxisAlignment": "spaceAround",
+        "padding": "16,16,16,16"
+      },
+      "children": [
+        {
+          "type": "ElevatedButton",
+          "properties": {
+            "onPressed": "function() { print('Settings Pressed'); }",
+            "backgroundColor": "#FF5733",
+            "elevation": 4,
+            "shape": "RoundedRectangleBorder",
+            "borderRadius": "12",
+            "padding": "12,12,12,12"
+          },
+          "child": {
+            "type": "Text",
+            "properties": {
+              "text": "Settings",
+              "color": "#FFFFFF",
+              "fontSize": 16
+            }
+          }
+        },
+        {
+          "type": "ElevatedButton",
+          "properties": {
+            "onPressed": "function() { print('Profile Pressed'); }",
+            "backgroundColor": "#33A1FF",
+            "elevation": 4,
+            "shape": "RoundedRectangleBorder",
+            "borderRadius": "12",
+            "padding": "12,12,12,12"
+          },
+          "child": {
+            "type": "Text",
+            "properties": {
+              "text": "Profile",
+              "color": "#FFFFFF",
+              "fontSize": 16
+            }
+          }
+        }
+      ]
+    }
+    
+                  ''', context)
+    
+                ] // Assuming jsonData is defined elsewhere
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<Column>
+  <Container>
+    <properties>
+      <padding>16,16,16,16</padding>
+      <color>#008080</color>
+      <height>100</height>
+    </properties>
+    <child>
+      <Center>
+        <child>
+          <Text>
+            <properties>
+              <text>Conversations</text>
+              <fontSize>20</fontSize>
+              <color>#FFFFFF</color>
+              <fontWeight>bold</fontWeight>
+            </properties>
+          </Text>
+        </child>
+      </Center>
+    </child>
+  </Container>
+  
+  <Container>
+    <properties>
+      <padding>8,8,8,8</padding>
+      <margin>10,10,10,10</margin>
+      <color>#E0FFFF</color>
+    </properties>
+    <child>
+      <Row>
+        <children>
+          <Icon>
+            <properties>
+              <icon>Icons.search</icon>
+              <color>#000000</color>
+              <size>24</size>
+            </properties>
+          </Icon>
+          <SizedBox>
+            <properties>
+              <width>10</width>
+            </properties>
+          </SizedBox>
+          <Text>
+            <properties>
+              <text>Search</text>
+              <fontSize>16</fontSize>
+              <color>#000000</color>
+            </properties>
+          </Text>
+        </children>
+      </Row>
+    </child>
+  </Container>
+  
+  <Container>
+    <properties>
+      <padding>16,16,16,16</padding>
+      <color>#008080</color>
+      <height>450</height>
+    </properties>
+    <child>
+      <ListView>
+        <properties>
+          <padding>0,0,0,0</padding>
+          <scrollDirection>vertical</scrollDirection>
+          <shrinkWrap>true</shrinkWrap>
+        </properties>
+        <children>
+          <Row>
+            <properties>
+              <padding>16,16,16,16</padding>
+              <mainAxisAlignment>spaceBetween</mainAxisAlignment>
+            </properties>
+            <children>
+              <Row>
+                <children>
+                  <Icon>
+                    <properties>
+                      <icon>Icons.person</icon>
+                      <size>40</size>
+                      <color>#000000</color>
+                    </properties>
+                  </Icon>
+                  <SizedBox>
+                    <properties>
+                      <width>10</width>
+                    </properties>
+                  </SizedBox>
+                  <Column>
+                    <properties>
+                      <crossAxisAlignment>start</crossAxisAlignment>
+                    </properties>
+                    <children>
+                      <Text>
+                        <properties>
+                          <text>John Doe</text>
+                          <fontSize>16</fontSize>
+                          <color>#000000</color>
+                          <fontWeight>bold</fontWeight>
+                        </properties>
+                      </Text>
+                      <Text>
+                        <properties>
+                          <text>Hey, are we meeting tomorrow?</text>
+                          <fontSize>14</fontSize>
+                          <color>#555555</color>
+                        </properties>
+                      </Text>
+                    </children>
+                  </Column>
+                </children>
+              </Row>
+              <Text>
+                <properties>
+                  <text>12:45 PM</text>
+                  <fontSize>12</fontSize>
+                  <color>#888888</color>
+                </properties>
+              </Text>
+            </children>
+          </Row>
+          
+          <Row>
+            <properties>
+              <padding>16,16,16,16</padding>
+              <mainAxisAlignment>spaceBetween</mainAxisAlignment>
+            </properties>
+            <children>
+              <Row>
+                <children>
+                  <Icon>
+                    <properties>
+                      <icon>Icons.person</icon>
+                      <size>40</size>
+                      <color>#000000</color>
+                    </properties>
+                  </Icon>
+                  <SizedBox>
+                    <properties>
+                      <width>10</width>
+                    </properties>
+                  </SizedBox>
+                  <Column>
+                    <properties>
+                      <crossAxisAlignment>start</crossAxisAlignment>
+                    </properties>
+                    <children>
+                      <Text>
+                        <properties>
+                          <text>Jane Smith</text>
+                          <fontSize>16</fontSize>
+                          <color>#000000</color>
+                          <fontWeight>bold</fontWeight>
+                        </properties>
+                      </Text>
+                      <Text>
+                        <properties>
+                          <text>Let's catch up later!</text>
+                          <fontSize>14</fontSize>
+                          <color>#555555</color>
+                        </properties>
+                      </Text>
+                    </children>
+                  </Column>
+                </children>
+              </Row>
+              <Text>
+                <properties>
+                  <text>11:30 AM</text>
+                  <fontSize>12</fontSize>
+                  <color>#888888</color>
+                </properties>
+              </Text>
+            </children>
+          </Row>
+        </children>
+      </ListView>
+    </child>
+  </Container>
+</Column>
+
+
+
+
+
+
+
+
+<ListView scrollDirection="vertical" reverse="false" primary="false" shrinkWrap="true" padding="0,0,0,0">
+      <children>
+        <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+        <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+          <Row>
+            <SizedBox width="10" />
+            <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+            <SizedBox width="10" />
+            <SizedBox width="250" height="60">
+              <Column>
+                <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+                <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+              </Column>
+            </SizedBox>
+          </Row>
+        </Container>
+
+        <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+         <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+        <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+          <Row>
+            <SizedBox width="10" />
+            <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+            <SizedBox width="10" />
+            <SizedBox width="250" height="60">
+              <Column>
+                <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+                <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+              </Column>
+            </SizedBox>
+          </Row>
+        </Container>
+
+         <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+        <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+          <Row>
+            <SizedBox width="10" />
+            <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+            <SizedBox width="10" />
+            <SizedBox width="250" height="60">
+              <Column>
+                <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+                <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+              </Column>
+            </SizedBox>
+          </Row>
+        </Container>
+
+         <Container height="10">
+          <Divider color="#FFFFFF" thickness="1" />
+        </Container>
+
+        <Container height="65" decoration='{"borderRadius": 20, "color": "#FFA500"}'>
+          <Row>
+            <SizedBox width="10" />
+            <Icon icon="Icons.person" color="#FFFFFF" size="30" />
+            <SizedBox width="10" />
+            <SizedBox width="250" height="60">
+              <Column>
+                <Text text="Japheth Kipii" fontSize="16" color="#FFFFFF" fontWeight="bold" textAlign="left"/>
+                <Text text="This is a text message placeholder" fontSize="14" color="#FFFFFF"/>
+              </Column>
+            </SizedBox>
+          </Row>
+        </Container>
+      </children>
+    </ListView>

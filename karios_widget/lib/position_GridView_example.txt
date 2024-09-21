@@ -345,3 +345,172 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "type": "SingleChildScrollView",
+  "properties": {
+    "child": {
+      "type": "Column",
+      "properties": {
+        "children": [
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Home",
+              "backgroundColor": "#FFEB3B",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Home button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.home",
+                  "color": "#000000",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Star",
+              "backgroundColor": "#FF5722",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Star button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.star",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Favorite",
+              "backgroundColor": "#4CAF50",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Favorite button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.favorite",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Settings",
+              "backgroundColor": "#2196F3",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Settings button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.settings",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          },
+          {
+            "type": "TextButton",
+            "properties": {
+              "text": "Info",
+              "backgroundColor": "#9C27B0",
+              "padding": "8,8,8,8",
+              "onPressed": "function() { print('Info button pressed'); }",
+              "icon": {
+                "type": "Icon",
+                "properties": {
+                  "icon": "Icons.info",
+                  "color": "#FFFFFF",
+                  "size": 24
+                }
+              }
+            }
+          }
+        
+        ]
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<Container padding="16,16,16,16" height="220" color="#808080">
+
+                          <!-- FloatingActionButton example -->
+    <FloatingActionButton onPressed="showSnackBar(context: context, message: 'FloatingActionButton pressed!')" backgroundColor="#FFFF4081" icon="Icons.add" />
+
+    <!-- TextButton example -->
+    <TextButton onPressed="showAlert(context: context, title: 'TextButton', message: 'You pressed the TextButton')" text="Click Me" textColor="#0000FF" fontSize="16" />
+
+    <!-- IconButton example -->
+    <IconButton onPressed="shareContent(text: 'Check out this awesome app!')" icon="Icons.share" color="#00FF00" size="24" />
+
+    <!-- ElevatedButton example -->
+    <ElevatedButton onPressed="navigate(context: context, route: '/details')" text="Go to Details" backgroundColor="#FF9800" textColor="#FFFFFF" fontSize="18" borderRadius="8" elevation="4" />
+
+    <!-- OutlinedButton example -->
+    <OutlinedButton onPressed="logMessage(message: 'OutlinedButton pressed!')" text="Press Me" textColor="#000000" fontSize="16" borderRadius="8" />
+
+    <!-- IconButton example -->
+    <IconButton onPressed="showSnackBar(context: context, message: 'IconButton pressed!')" icon="Icons.add" color="#FFFFFF" size="24" />
+
+      <!-- TextButton example -->
+
+   </Container> 
+                 

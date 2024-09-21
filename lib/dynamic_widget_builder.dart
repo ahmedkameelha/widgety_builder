@@ -4,20 +4,20 @@ import 'src/parsers/xml_parser.dart';
 import 'package:dynamic_widget_builder/src/parsers/widget_builder.dart' as wd;
 
 class DynamicWidgetBuilder {
-  static Widget buildFromJson(String jsonString) {
+  static Widget buildFromJson(String jsonString, BuildContext context) {
     try {
       final widgetDescription = JsonParser.parse(jsonString);
-      return wd.WidgetBuilder.build(widgetDescription);
+      return wd.WidgetBuilder.build(widgetDescription, context);
     } catch (e) {
       print('Error building widget from JSON: $e');
       return Text('Failed to build widget from JSON');
     }
   }
 
-  static Widget buildFromXml(String xmlString) {
+  static Widget buildFromXml(String xmlString, BuildContext context) {
     try {
       final widgetDescription = XmlParser.parse(xmlString);
-      return wd.WidgetBuilder.build(widgetDescription);
+      return wd.WidgetBuilder.build(widgetDescription, context);
     } catch (e) {
       print('Error building widget from XML: $e');
       return Text('Failed to build widget from XML');
