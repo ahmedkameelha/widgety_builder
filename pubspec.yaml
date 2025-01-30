@@ -1,7 +1,7 @@
 name: dynamic_widget_builder
 description: A Flutter package to dynamically build widgets from JSON descriptions.
 version: 0.0.1
-homepage: https://github.com/your_username/dynamic_widget_builder # Replace with your repository URL
+homepage: https://github.com/ahmedkameelha/widgety_builder.git # Replace with your repository URL
 
 environment:
   sdk: '>=3.4.4 <4.0.0'
