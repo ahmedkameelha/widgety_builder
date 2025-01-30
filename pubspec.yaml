@@ -23,6 +23,7 @@ dependencies:
   
 dependency_overrides:
   image_picker: ^0.8.7+4
+  flutter_cache_manager: ^3.4.1
   
 dev_dependencies:
   flutter_test:
